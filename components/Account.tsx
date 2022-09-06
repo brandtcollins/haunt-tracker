@@ -108,10 +108,13 @@ const Account: FunctionComponent<AccountProps> = ({ session }) => {
         justifyItems="center"
         m="4"
       >
-        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" mr="4" />
-        <Text fontSize="2xl" as="b">
-          {username}
-        </Text>
+        <Avatar name={username} src="" mr="4" />
+        <Flex direction={`column`}>
+          <Text fontSize="2xl" as="b">
+            {username}
+          </Text>
+          <Text fontSize="sm">Logout</Text>
+        </Flex>
         {/* <div>
           <label htmlFor="email">Email</label>
           <input id="email" type="text" value={session.user.email} disabled />
