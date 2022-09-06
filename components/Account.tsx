@@ -8,9 +8,9 @@ interface AccountProps {
 
 const Account: FunctionComponent<AccountProps> = ({ session }) => {
   const [loading, setLoading] = useState(true);
-  const [username, setUsername] = useState(null);
-  const [website, setWebsite] = useState(null);
-  const [avatar_url, setAvatarUrl] = useState(null);
+  const [username, setUsername] = useState<string | null>(null);
+  const [website, setWebsite] = useState<string | null>(null);
+  const [avatar_url, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
     getProfile();
@@ -54,13 +54,25 @@ const Account: FunctionComponent<AccountProps> = ({ session }) => {
         setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
-      alert(error.message);
+      if (error instanceof Error) {
+        alert(error.message);
+      }
     } finally {
       setLoading(false);
     }
   }
 
-  async function updateProfile({ username, website, avatar_url }) {
+  interface iUpdateProfile {
+    username: string | null;
+    website: string | null;
+    avatar_url: string | null;
+  }
+
+  const updateProfile = async ({
+    username,
+    website,
+    avatar_url,
+  }: iUpdateProfile) => {
     try {
       setLoading(true);
       const user = await getCurrentUser();
@@ -79,11 +91,13 @@ const Account: FunctionComponent<AccountProps> = ({ session }) => {
         throw error;
       }
     } catch (error) {
-      alert(error.message);
+      if (error instanceof Error) {
+        alert(error.message);
+      }
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="form-widget">
