@@ -3,6 +3,9 @@ import { supabase } from "../utils/supabaseClient";
 import Auth from "../components/Auth";
 import Account from "../components/Account";
 import { AuthSession } from "@supabase/supabase-js";
+import CheckIn from "../components/Checkin";
+import CheckInModal from "../components/CheckInModal";
+import { Box, Flex } from "@chakra-ui/react";
 
 interface HomeProps {}
 
@@ -48,7 +51,17 @@ const Home: FunctionComponent<HomeProps> = () => {
       {!session ? (
         <Auth />
       ) : (
-        <Account key={session.user.id} session={session} />
+        <Flex>
+          <Box p="2" w="100%">
+            <Flex background="gray.100" direction="column">
+              <CheckInModal />
+              Feed
+            </Flex>
+          </Box>
+          <Box p="2">
+            <Account key={session.user.id} session={session} />
+          </Box>
+        </Flex>
       )}
     </div>
   );

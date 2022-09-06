@@ -18,7 +18,9 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>Check In</Button>
+      <Button colorScheme="blue" onClick={onOpen}>
+        Check In
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

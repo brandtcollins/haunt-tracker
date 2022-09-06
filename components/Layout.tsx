@@ -1,4 +1,5 @@
 import { Box } from "@chakra-ui/layout";
+import { Flex } from "@chakra-ui/react";
 import { FunctionComponent } from "react";
 
 interface LayoutProps {
@@ -7,9 +8,11 @@ interface LayoutProps {
 
 const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
   return (
-    <Box maxW="2xl" w="100%" p={4}>
-      {children}
-    </Box>
+    <Flex alignItems="center" justifyContent="center">
+      <Box maxW="2xl" w="100%" p={4}>
+        {children}
+      </Box>
+    </Flex>
   );
 };
 
