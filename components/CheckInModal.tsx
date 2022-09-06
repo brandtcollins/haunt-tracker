@@ -3,6 +3,7 @@ import {
   Modal,
   ModalCloseButton,
   ModalContent,
+  ModalFooter,
   ModalHeader,
   ModalOverlay,
   useDisclosure,
@@ -14,6 +15,7 @@ interface CheckInModalProps {}
 
 const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <>
       <Button onClick={onOpen}>Check In</Button>
@@ -24,6 +26,11 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
           <ModalHeader>House check in</ModalHeader>
           <ModalCloseButton />
           <CheckIn />
+          <ModalFooter>
+            <Button colorScheme="blue" onClick={onClose}>
+              Submit
+            </Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>
