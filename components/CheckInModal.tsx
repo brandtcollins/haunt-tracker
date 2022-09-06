@@ -13,9 +13,8 @@ import {
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { FunctionComponent, useEffect, useState } from "react";
-import { iHauntedHouse } from "../ts/Interfaces";
+import { iCheckIn, iHauntedHouse } from "../ts/Interfaces";
 import { supabase } from "../utils/supabaseClient";
-import CheckIn from "./Checkin";
 import StarSlider from "./StarSlider";
 
 interface CheckInModalProps {}
@@ -40,6 +39,18 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
     getHauntedHouses
   );
 
+  const postCheckin = async () => {
+    let checkInData = {
+      haunted_house_id: selectedHouseObject?.haunted_house_id,
+      rating: 5,
+      user_id: "6164a614-5f1d-48bf-b2f8-8ff38126439b",
+    };
+    const { data, error } = await supabase
+      .from("check-ins")
+      .upsert([checkInData]);
+    console.log(data);
+  };
+
   useEffect(() => {
     setSelectedHouseObject(
       hauntedHouseList?.find(
@@ -47,6 +58,7 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
       )
     );
   }, [selectedHouse]);
+
   return (
     <>
       <Button colorScheme="blue" onClick={onOpen}>
@@ -58,7 +70,7 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
         <ModalContent>
           <ModalHeader>House check in</ModalHeader>
           <ModalCloseButton />
-          <Box maxW="2xl" w="100%" p={4}>
+          <Box maxW="2xl" w="100%" p="4">
             <Image
               src={
                 selectedHouseObject
@@ -86,7 +98,7 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
             <StarSlider />
           </Box>
           <ModalFooter>
-            <Button colorScheme="blue" onClick={onClose}>
+            <Button colorScheme="blue" onClick={postCheckin}>
               Submit
             </Button>
           </ModalFooter>
