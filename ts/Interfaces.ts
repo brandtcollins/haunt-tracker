@@ -4,4 +4,5 @@ export interface iHauntedHouse {
   name: string;
   description: string;
   location: null | string;
+  image: string;
 }

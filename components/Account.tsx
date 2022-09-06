@@ -1,5 +1,6 @@
 import { useState, useEffect, FunctionComponent } from "react";
 import { supabase } from "../utils/supabaseClient";
+import CheckInModal from "./CheckInModal";
 
 interface AccountProps {
   session: any;
@@ -86,6 +87,8 @@ const Account: FunctionComponent<AccountProps> = ({ session }) => {
 
   return (
     <div className="form-widget">
+      <CheckInModal />
+
       <div>
         <label htmlFor="email">Email</label>
         <input id="email" type="text" value={session.user.email} disabled />
