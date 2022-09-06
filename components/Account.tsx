@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Avatar, Flex, Text } from "@chakra-ui/react";
 import { useState, useEffect, FunctionComponent } from "react";
 import { supabase } from "../utils/supabaseClient";
 import CheckInModal from "./CheckInModal";
@@ -101,9 +101,18 @@ const Account: FunctionComponent<AccountProps> = ({ session }) => {
   };
 
   return (
-    <Flex background="gray.100">
-      <div className="form-widget">
-        <div>
+    <Flex direction={`column`} background="gray.100" p="2" minH={`200px`}>
+      <Flex
+        className="form-widget"
+        alignItems="center"
+        justifyItems="center"
+        m="4"
+      >
+        <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" mr="4" />
+        <Text fontSize="2xl" as="b">
+          {username}
+        </Text>
+        {/* <div>
           <label htmlFor="email">Email</label>
           <input id="email" type="text" value={session.user.email} disabled />
         </div>
@@ -143,8 +152,8 @@ const Account: FunctionComponent<AccountProps> = ({ session }) => {
           >
             Sign Out
           </button>
-        </div>
-      </div>
+        </div> */}
+      </Flex>
     </Flex>
   );
 };

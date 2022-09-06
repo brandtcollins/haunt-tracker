@@ -58,7 +58,7 @@ const Home: FunctionComponent<HomeProps> = () => {
               Feed
             </Flex>
           </Box>
-          <Box p="2">
+          <Box p="2" w="100%" maxW="325px">
             <Account key={session.user.id} session={session} />
           </Box>
         </Flex>

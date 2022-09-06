@@ -9,7 +9,7 @@ interface LayoutProps {
 const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
   return (
     <Flex alignItems="center" justifyContent="center">
-      <Box maxW="2xl" w="100%" p={4}>
+      <Box maxW="1100px" w="100%" p={4}>
         {children}
       </Box>
     </Flex>
