@@ -1,4 +1,5 @@
 import { Box } from "@chakra-ui/react";
+import { useQuery } from "@tanstack/react-query";
 import { FunctionComponent, useEffect, useState } from "react";
 import { iCheckIn } from "../ts/Interfaces";
 import { supabase } from "../utils/supabaseClient";
@@ -37,7 +38,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
       }
 
       if (data) {
-        setCheckIns(data);
+        return data;
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -45,10 +46,11 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
       }
     }
   }
+  const { data: checkInArray } = useQuery(["check-ins"], getCheckins);
 
   useEffect(() => {
-    console.log(checkIns);
-  }, [checkIns]);
+    setCheckIns(checkInArray);
+  }, [checkInArray]);
 
   useEffect(() => {
     getCheckins();

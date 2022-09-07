@@ -11,7 +11,12 @@ import {
   Select,
   useDisclosure,
 } from "@chakra-ui/react";
-import { QueryClient, useQuery } from "@tanstack/react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { FunctionComponent, useEffect, useState } from "react";
 import { iCheckIn, iHauntedHouse } from "../ts/Interfaces";
 import { supabase } from "../utils/supabaseClient";
@@ -29,6 +34,7 @@ const getHauntedHouses = async () => {
 };
 
 const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
+  const queryClient = useQueryClient();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentUser, setCurrentUser] = useState<any>();
   const [selectedHouse, setSelectedHouse] = useState<string>("");
@@ -51,7 +57,15 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
     const { data, error } = await supabase
       .from("check-ins")
       .upsert([checkInData]);
+    if (error) {
+      throw error;
+    }
+    return data;
   };
+
+  const mutation = useMutation(postCheckin, {
+    onSuccess: () => queryClient.invalidateQueries("check-ins"),
+  });
 
   async function getCurrentUser() {
     const {
@@ -121,7 +135,7 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
             <StarSlider onChange={setSliderValue} value={sliderValue} />
           </Box>
           <ModalFooter>
-            <Button colorScheme="blue" onClick={postCheckin}>
+            <Button colorScheme="blue" onClick={() => mutation.mutate()}>
               Submit
             </Button>
           </ModalFooter>
