@@ -1,7 +1,6 @@
 import { Avatar, Flex, Text } from "@chakra-ui/react";
 import { useState, useEffect, FunctionComponent } from "react";
 import { supabase } from "../utils/supabaseClient";
-import CheckInModal from "./CheckInModal";
 
 interface AccountProps {
   session: any;
@@ -113,7 +112,9 @@ const Account: FunctionComponent<AccountProps> = ({ session }) => {
           <Text fontSize="2xl" as="b">
             {username}
           </Text>
-          <Text fontSize="sm">Logout</Text>
+          <Text fontSize="sm" onClick={() => supabase.auth.signOut()}>
+            Logout
+          </Text>
         </Flex>
         {/* <div>
           <label htmlFor="email">Email</label>
