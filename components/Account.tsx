@@ -100,7 +100,7 @@ const Account: FunctionComponent<AccountProps> = ({ session }) => {
   };
 
   return (
-    <Flex direction={`column`} background="gray.100" p="2" minH={`200px`}>
+    <Flex direction={`column`} background="white" p="2" minH={`200px`}>
       <Flex
         className="form-widget"
         alignItems="center"
