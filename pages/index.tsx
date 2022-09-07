@@ -6,6 +6,7 @@ import { AuthSession } from "@supabase/supabase-js";
 import CheckIn from "../components/Checkin";
 import CheckInModal from "../components/CheckInModal";
 import { Box, Flex } from "@chakra-ui/react";
+import CheckinFeed from "../components/CheckinFeed";
 
 interface HomeProps {}
 
@@ -55,7 +56,7 @@ const Home: FunctionComponent<HomeProps> = () => {
           <Box p="2" w="100%">
             <Flex background="gray.100" direction="column">
               <CheckInModal />
-              Feed
+              <CheckinFeed />
             </Flex>
           </Box>
           <Box p="2" w="100%" maxW="325px">

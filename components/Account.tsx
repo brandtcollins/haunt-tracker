@@ -42,7 +42,7 @@ const Account: FunctionComponent<AccountProps> = ({ session }) => {
       let { data, error, status } = await supabase
         .from("profiles")
         .select(`username, website, avatar_url`)
-        .eq("id", user.id)
+        .eq("user_id", user.id)
         .single();
 
       if (error && status !== 406) {
@@ -52,7 +52,7 @@ const Account: FunctionComponent<AccountProps> = ({ session }) => {
       if (data) {
         setUsername(data.username);
         setWebsite(data.website);
-        setAvatarUrl(data.avatar_url);
+        data.avatar_url && setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
       if (error instanceof Error) {

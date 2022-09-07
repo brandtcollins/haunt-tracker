@@ -9,15 +9,20 @@ import {
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
 import React, { FunctionComponent } from "react";
 
-interface StarSliderProps {}
+interface StarSliderProps {
+  onChange: any;
+  value: number;
+}
 
-const StarSlider: FunctionComponent<StarSliderProps> = () => {
-  const [sliderValue, setSliderValue] = React.useState(5);
+const StarSlider: FunctionComponent<StarSliderProps> = ({
+  onChange,
+  value,
+}) => {
   const [showTooltip, setShowTooltip] = React.useState(false);
   return (
     <>
       <p>
-        <b>How do you rate this run?</b> {sliderValue / 2} out of 5
+        <b>How do you rate this run?</b> {value / 2} out of 5
       </p>
       <Slider
         id="slider"
@@ -26,7 +31,7 @@ const StarSlider: FunctionComponent<StarSliderProps> = () => {
         max={10}
         step={1}
         colorScheme="teal"
-        onChange={(v) => setSliderValue(v)}
+        onChange={(v) => onChange(v)}
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
       >
@@ -39,7 +44,7 @@ const StarSlider: FunctionComponent<StarSliderProps> = () => {
           color="white"
           placement="top"
           isOpen={showTooltip}
-          label={`${sliderValue / 2}`}
+          label={`${value / 2}`}
         >
           <SliderThumb />
         </Tooltip>

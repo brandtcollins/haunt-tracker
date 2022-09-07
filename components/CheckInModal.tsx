@@ -11,7 +11,7 @@ import {
   Select,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, useQuery } from "@tanstack/react-query";
 import { FunctionComponent, useEffect, useState } from "react";
 import { iCheckIn, iHauntedHouse } from "../ts/Interfaces";
 import { supabase } from "../utils/supabaseClient";
@@ -30,7 +30,9 @@ const getHauntedHouses = async () => {
 
 const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [currentUser, setCurrentUser] = useState<any>();
   const [selectedHouse, setSelectedHouse] = useState<string>("");
+  const [sliderValue, setSliderValue] = useState<number>(5);
   const [selectedHouseObject, setSelectedHouseObject] =
     useState<iHauntedHouse>();
 
@@ -42,14 +44,30 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
   const postCheckin = async () => {
     let checkInData = {
       haunted_house_id: selectedHouseObject?.haunted_house_id,
-      rating: 5,
-      user_id: "6164a614-5f1d-48bf-b2f8-8ff38126439b",
+      rating: sliderValue,
+      user_id: currentUser,
     };
     const { data, error } = await supabase
       .from("check-ins")
       .upsert([checkInData]);
-    console.log(data);
   };
+
+  async function getCurrentUser() {
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
+
+    if (error) {
+      throw error;
+    }
+
+    if (!session?.user) {
+      throw new Error("User not logged in");
+    }
+
+    setCurrentUser(session.user.id);
+  }
 
   useEffect(() => {
     setSelectedHouseObject(
@@ -58,6 +76,10 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
       )
     );
   }, [selectedHouse]);
+
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
 
   return (
     <>
@@ -95,7 +117,7 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
                 </option>
               ))}
             </Select>
-            <StarSlider />
+            <StarSlider onChange={setSliderValue} value={sliderValue} />
           </Box>
           <ModalFooter>
             <Button colorScheme="blue" onClick={postCheckin}>
