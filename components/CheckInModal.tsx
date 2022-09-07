@@ -46,6 +46,7 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
       haunted_house_id: selectedHouseObject?.haunted_house_id,
       rating: sliderValue,
       user_id: currentUser,
+      haunted_house_name: selectedHouseObject?.name,
     };
     const { data, error } = await supabase
       .from("check-ins")

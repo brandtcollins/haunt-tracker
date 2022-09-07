@@ -13,4 +13,5 @@ export interface iCheckIn {
   haunted_house_id: string;
   rating: number;
   user_id: string;
+  haunted_house_name: string;
 }

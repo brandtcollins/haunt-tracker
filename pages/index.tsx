@@ -54,7 +54,7 @@ const Home: FunctionComponent<HomeProps> = () => {
       ) : (
         <Flex>
           <Box p="2" w="100%">
-            <Flex background="gray.100" direction="column">
+            <Flex direction="column">
               <CheckInModal />
               <CheckinFeed />
             </Flex>
