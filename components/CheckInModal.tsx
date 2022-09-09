@@ -19,19 +19,12 @@ import {
 } from "@tanstack/react-query";
 import { FunctionComponent, useEffect, useState } from "react";
 import { iCheckIn, iHauntedHouse } from "../ts/Interfaces";
+import { getHauntedHouses } from "../utils/HelperFunctions";
 import { supabase } from "../utils/supabaseClient";
 import StarSlider from "./StarSlider";
 
 interface CheckInModalProps {}
 interface CheckInProps {}
-
-const getHauntedHouses = async () => {
-  const { data, error } = await supabase.from("haunted-houses").select();
-  if (error) {
-    throw error;
-  }
-  return data;
-};
 
 const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
   const queryClient = useQueryClient();
