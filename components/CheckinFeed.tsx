@@ -1,7 +1,8 @@
 import { Avatar, Box, Flex, Text, Image, Grid, Spacer } from "@chakra-ui/react";
 import { User } from "@supabase/supabase-js";
-import { useQuery } from "@tanstack/react-query";
 import { FunctionComponent, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useHauntedHouses } from "../ts/hooks/useHauntedHouses";
 import { iCheckIn, iHauntedHouse } from "../ts/Interfaces";
 import { getHauntedHouses } from "../utils/HelperFunctions";
 import { supabase } from "../utils/supabaseClient";
@@ -15,10 +16,12 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
   const [username, setUsername] = useState<string | null>(null);
   const [website, setWebsite] = useState<string | null>(null);
   const [avatar_url, setAvatarUrl] = useState<string | null>(null);
-  const { data: hauntedHouseList } = useQuery<iHauntedHouse[]>(
-    ["haunted-houses"],
-    getHauntedHouses
-  );
+  // const { data: hauntedHouseList } = useQuery<iHauntedHouse[]>(
+  //   ["haunted-houses"],
+  //   getHauntedHouses
+  // );
+
+  const { data: hauntedHouseList } = useHauntedHouses();
 
   async function getCurrentUser() {
     const {
@@ -117,7 +120,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
                 borderRadius="10px"
                 h="300px"
                 bgImage={`/images/${checkedInHouse?.image}`}
-                bgSize="cover"
+                bgSize="contain"
               >
                 <Flex direction="column" h="full">
                   <Spacer />
@@ -142,12 +145,6 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
                   </Flex>
                 </Flex>
               </Box>
-              {/* <Box>
-                <Image
-                  src={`/images/${checkedInHouse?.image}`}
-                  alt="Dan Abramov"
-                />
-              </Box> */}
             </Flex>
           );
         })

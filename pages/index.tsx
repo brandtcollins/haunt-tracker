@@ -34,7 +34,7 @@ const Home: FunctionComponent<HomeProps> = () => {
 
     getInitialSession();
 
-    const { subscription } = supabase.auth.onAuthStateChange(
+    const supabaseAuth: any = supabase.auth.onAuthStateChange(
       (_event, session) => {
         setSession(session);
       }
@@ -43,7 +43,7 @@ const Home: FunctionComponent<HomeProps> = () => {
     return () => {
       mounted = false;
 
-      subscription?.unsubscribe();
+      supabaseAuth.subscription?.unsubscribe();
     };
   }, []);
 
