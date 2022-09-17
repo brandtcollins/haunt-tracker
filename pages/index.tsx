@@ -46,7 +46,11 @@ const Home: FunctionComponent<HomeProps> = () => {
     };
   }, []);
 
-  return <Layout>fasdfasdf</Layout>;
+  return (
+    <Layout>
+      <CheckinFeed />
+    </Layout>
+  );
 
   // return (
   //   <div>

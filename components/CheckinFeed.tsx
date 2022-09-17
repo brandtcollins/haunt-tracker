@@ -97,35 +97,15 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Recent Activity</h2>
-      {checkIns
-        ?.map((checkIn) => {
-          const checkedInHouse: iHauntedHouse | undefined =
-            hauntedHouseList?.find(
-              (house) => house.haunted_house_id === checkIn.haunted_house_id
-            );
-          console.log(checkedInHouse);
-          return (
-            <div>
-              <div>
-                <div>
-                  <div>
-                    {/* <Avatar name={username} src="" mr="4" /> */}
-                    <div>
-                      <h2>
-                        {username} just ran{" "}
-                        <h2>{checkIn.haunted_house_name}</h2> and gave the run a{" "}
-                        <h2>{checkIn.rating / 2} out of 5</h2>.
-                      </h2>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })
-        .reverse()}
+    <div className="overflow-hidden rounded-md bg-white shadow">
+      <ul role="list" className="divide-y divide-gray-200">
+        {checkIns?.map((checkIn) => (
+          <li key={checkIn.checkin_id} className="px-6 py-4">
+            {username} just ran <h2>{checkIn.haunted_house_name}</h2> and gave
+            the run a <h2>{checkIn.rating / 2} out of 5</h2>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

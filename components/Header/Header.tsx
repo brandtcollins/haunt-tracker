@@ -1,8 +1,8 @@
-import { FunctionComponent } from "react";
 import { Fragment, FunctionComponent } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { classNames } from "../../utils/HelperFunctions";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import Avatar from "../Elements/Avatar";
 
 interface HeaderProps {}
 
@@ -23,8 +23,6 @@ const userNavigation = [
 const user = {
   name: "Tom Cook",
   email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 
 const Header: FunctionComponent<HeaderProps> = () => {
@@ -78,11 +76,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
                       <div>
                         <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                           <span className="sr-only">Open user menu</span>
-                          <img
-                            className="h-8 w-8 rounded-full"
-                            src={user.imageUrl}
-                            alt=""
-                          />
+                          <Avatar />
                         </Menu.Button>
                       </div>
                       <Transition
