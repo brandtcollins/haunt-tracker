@@ -47,6 +47,10 @@ const Home: FunctionComponent<HomeProps> = () => {
     };
   }, []);
 
+  if (!session) {
+    return <Auth />;
+  }
+
   return (
     <Layout>
       <CheckInModal open={modalIsOpen} setOpen={setModalIsOpen} />

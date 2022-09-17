@@ -14,4 +14,7 @@ export interface iCheckIn {
   rating: number;
   user_id: string;
   haunted_house_name: string;
+  note?: string;
+  estimated_wait_time?: number;
+  actual_wait_time?: number;
 }

@@ -5,6 +5,7 @@ import { useHauntedHouses } from "../ts/hooks/useHauntedHouses";
 import { iCheckIn, iHauntedHouse } from "../ts/Interfaces";
 import { getHauntedHouses } from "../utils/HelperFunctions";
 import { supabase } from "../utils/supabaseClient";
+import Image from "next/image";
 
 interface CheckinFeedProps {}
 
@@ -97,15 +98,51 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
   }, []);
 
   return (
-    <div className="overflow-hidden rounded-md bg-white shadow">
-      <ul role="list" className="divide-y divide-gray-200">
-        {checkIns?.map((checkIn) => (
-          <li key={checkIn.checkin_id} className="px-6 py-4">
-            {username} just ran <h2>{checkIn.haunted_house_name}</h2> and gave
-            the run a <h2>{checkIn.rating / 2} out of 5</h2>
-          </li>
-        ))}
-      </ul>
+    <div>
+      {checkIns?.map((checkIn) => {
+        const bgImage = checkIn.haunted_house_name.replace(/\s/g, "");
+        const checkedInHouse: iHauntedHouse | undefined =
+          hauntedHouseList?.find(
+            (house) => house.haunted_house_id === checkIn.haunted_house_id
+          );
+        return (
+          <div
+            key={checkIn.checkin_id}
+            className="relative flex flex-col overflow-hidden rounded-md bg-white shadow my-4 max-w-2xl"
+          >
+            <div className="relative w-full h-64 max-h-64 bg-slate-400">
+              <Image
+                src={`/images/${checkedInHouse?.image}`}
+                alt="Picture of the haunted house artwork"
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
+            <div className="p-4 py-8 z-50 w-fill bg-white">
+              <div className="">
+                <p className="text-lg">
+                  <span className="font-bold">{username}</span> just ran
+                  <span className="font-bold">
+                    {" "}
+                    {checkIn.haunted_house_name}{" "}
+                  </span>
+                  and gave the run a
+                  <span className="font-bold">
+                    {" "}
+                    {checkIn.rating / 2} out of 5
+                  </span>
+                </p>
+              </div>
+              <div className="flex">
+                <p className="pr-4">
+                  Estimated Wait Time: {checkIn.estimated_wait_time}
+                </p>
+                <p>Actual Wait Time: {checkIn.actual_wait_time}</p>
+              </div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 };
