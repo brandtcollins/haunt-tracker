@@ -3,7 +3,7 @@ import { supabase } from "../utils/supabaseClient";
 import Auth from "../components/Auth";
 import Account from "../components/Account";
 import { AuthSession } from "@supabase/supabase-js";
-import CheckInModal from "../components/CheckInModal";
+import CheckInModal from "../components/Elements/CheckInModal";
 import CheckinFeed from "../components/CheckinFeed";
 import Layout from "../components/Layout/Layout";
 
@@ -12,6 +12,7 @@ interface HomeProps {}
 const Home: FunctionComponent<HomeProps> = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [session, setSession] = useState<AuthSession | null>(null);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(true);
 
   useEffect(() => {
     let mounted = true;
@@ -48,6 +49,7 @@ const Home: FunctionComponent<HomeProps> = () => {
 
   return (
     <Layout>
+      <CheckInModal open={modalIsOpen} setOpen={setModalIsOpen} />
       <CheckinFeed />
     </Layout>
   );
