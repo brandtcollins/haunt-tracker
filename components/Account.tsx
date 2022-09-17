@@ -1,4 +1,3 @@
-import { Avatar, Flex, Text } from "@chakra-ui/react";
 import { useState, useEffect, FunctionComponent } from "react";
 import { supabase } from "../utils/supabaseClient";
 
@@ -100,22 +99,13 @@ const Account: FunctionComponent<AccountProps> = ({ session }) => {
   };
 
   return (
-    <Flex direction={`column`} background="white" p="2" minH={`200px`}>
-      <Flex
-        className="form-widget"
-        alignItems="center"
-        justifyItems="center"
-        m="4"
-      >
-        <Avatar name={username} src="" mr="4" />
-        <Flex direction={`column`}>
-          <Text fontSize="2xl" as="b">
-            {username}
-          </Text>
-          <Text fontSize="sm" onClick={() => supabase.auth.signOut()}>
-            Logout
-          </Text>
-        </Flex>
+    <div>
+      <div>
+        {/* <Avatar name={username} src="" mr="4" /> */}
+        <div>
+          <h2>{username}</h2>
+          <h2 onClick={() => supabase.auth.signOut()}>Logout</h2>
+        </div>
         {/* <div>
           <label htmlFor="email">Email</label>
           <input id="email" type="text" value={session.user.email} disabled />
@@ -157,8 +147,8 @@ const Account: FunctionComponent<AccountProps> = ({ session }) => {
             Sign Out
           </button>
         </div> */}
-      </Flex>
-    </Flex>
+      </div>
+    </div>
   );
 };
 

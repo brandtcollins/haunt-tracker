@@ -3,10 +3,9 @@ import { supabase } from "../utils/supabaseClient";
 import Auth from "../components/Auth";
 import Account from "../components/Account";
 import { AuthSession } from "@supabase/supabase-js";
-import CheckIn from "../components/Checkin";
 import CheckInModal from "../components/CheckInModal";
-import { Box, Flex } from "@chakra-ui/react";
 import CheckinFeed from "../components/CheckinFeed";
+import Layout from "../components/Layout/Layout";
 
 interface HomeProps {}
 
@@ -47,25 +46,27 @@ const Home: FunctionComponent<HomeProps> = () => {
     };
   }, []);
 
-  return (
-    <div className="container" style={{ padding: "50px 0 100px 0" }}>
-      {!session ? (
-        <Auth />
-      ) : (
-        <Flex>
-          <Box p="2" w="100%">
-            <Flex direction="column">
-              <CheckInModal />
-              <CheckinFeed />
-            </Flex>
-          </Box>
-          <Box p="2" w="100%" maxW="325px">
-            <Account key={session.user.id} session={session} />
-          </Box>
-        </Flex>
-      )}
-    </div>
-  );
+  return <Layout>fasdfasdf</Layout>;
+
+  // return (
+  //   <div>
+  //     {!session ? (
+  //       <Auth />
+  //     ) : (
+  //       <div>
+  //         <div>
+  //           <div>
+  //             <CheckInModal />
+  //             <CheckinFeed />
+  //           </div>
+  //         </div>
+  //         <div>
+  //           <Account key={session.user.id} session={session} />
+  //         </div>
+  //       </div>
+  //     )}
+  //   </div>
+  // );
 };
 
 export default Home;

@@ -1,4 +1,3 @@
-import { Avatar, Box, Flex, Text, Image, Grid, Spacer } from "@chakra-ui/react";
 import { User } from "@supabase/supabase-js";
 import { FunctionComponent, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -16,11 +15,6 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
   const [username, setUsername] = useState<string | null>(null);
   const [website, setWebsite] = useState<string | null>(null);
   const [avatar_url, setAvatarUrl] = useState<string | null>(null);
-  // const { data: hauntedHouseList } = useQuery<iHauntedHouse[]>(
-  //   ["haunted-houses"],
-  //   getHauntedHouses
-  // );
-
   const { data: hauntedHouseList } = useHauntedHouses();
 
   async function getCurrentUser() {
@@ -103,10 +97,8 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
   }, []);
 
   return (
-    <Box mt="4" pt="4">
-      <Text fontSize="2xl" as="b" p="2">
-        Recent Activity
-      </Text>
+    <div>
+      <h2>Recent Activity</h2>
       {checkIns
         ?.map((checkIn) => {
           const checkedInHouse: iHauntedHouse | undefined =
@@ -115,41 +107,26 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
             );
           console.log(checkedInHouse);
           return (
-            <Flex justifyItems="center" direction="column" mt="4">
-              <Box
-                borderRadius="10px"
-                h="300px"
-                bgImage={`/images/${checkedInHouse?.image}`}
-                bgSize="contain"
-              >
-                <Flex direction="column" h="full">
-                  <Spacer />
-                  <Flex
-                    alignItems="center"
-                    bgColor="white"
-                    m="4"
-                    borderRadius="10px"
-                    pl="4"
-                  >
-                    <Avatar name={username} src="" mr="4" />
-                    <Box mt="2" mb="2" p="2">
-                      <Text>
+            <div>
+              <div>
+                <div>
+                  <div>
+                    {/* <Avatar name={username} src="" mr="4" /> */}
+                    <div>
+                      <h2>
                         {username} just ran{" "}
-                        <Text fontSize="xl" as="b">
-                          {checkIn.haunted_house_name}
-                        </Text>{" "}
-                        and gave the run a{" "}
-                        <Text as="b">{checkIn.rating / 2} out of 5</Text>.
-                      </Text>
-                    </Box>
-                  </Flex>
-                </Flex>
-              </Box>
-            </Flex>
+                        <h2>{checkIn.haunted_house_name}</h2> and gave the run a{" "}
+                        <h2>{checkIn.rating / 2} out of 5</h2>.
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           );
         })
         .reverse()}
-    </Box>
+    </div>
   );
 };
 

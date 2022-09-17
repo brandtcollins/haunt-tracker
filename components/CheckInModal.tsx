@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Modal,
   ModalCloseButton,
   ModalContent,
@@ -91,9 +90,9 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
 
   return (
     <>
-      <Button colorScheme="blue" onClick={onOpen}>
+      <button className="font-bold" onClick={onOpen}>
         Check In
-      </Button>
+      </button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -128,9 +127,7 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = () => {
             <StarSlider onChange={setSliderValue} value={sliderValue} />
           </Box>
           <ModalFooter>
-            <Button colorScheme="blue" onClick={() => mutation.mutate()}>
-              Submit
-            </Button>
+            <button onClick={() => mutation.mutate()}>Submit</button>
           </ModalFooter>
         </ModalContent>
       </Modal>

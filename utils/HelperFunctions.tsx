@@ -7,3 +7,7 @@ export const getHauntedHouses = async () => {
   }
   return data;
 };
+
+export function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
