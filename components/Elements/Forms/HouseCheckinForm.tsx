@@ -32,7 +32,7 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = () => {
   };
 
   const mutation = useMutation(postCheckin, {
-    onSuccess: () => queryClient.invalidateQueries("check-ins"),
+    onSuccess: () => queryClient.invalidateQueries(["check-ins"]),
   });
 
   async function getCurrentUser() {
@@ -69,7 +69,6 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = () => {
     haunted_house_id: "",
     rating: undefined,
     user_id: currentUser,
-    haunted_house_name: "",
     note: "",
     estimated_wait_time: undefined,
     actual_wait_time: undefined,

@@ -144,11 +144,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
             <div className="border-t border-gray-700 pt-4 pb-3">
               <div className="flex items-center px-5">
                 <div className="flex-shrink-0">
-                  <img
-                    className="h-10 w-10 rounded-full"
-                    src={user.imageUrl}
-                    alt=""
-                  />
+                  <img className="h-10 w-10 rounded-full" alt="" />
                 </div>
                 <div className="ml-3">
                   <div className="text-base font-medium leading-none text-white">
