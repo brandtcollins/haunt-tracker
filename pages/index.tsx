@@ -52,31 +52,11 @@ const Home: FunctionComponent<HomeProps> = () => {
   }
 
   return (
-    <Layout>
+    <Layout title="Haunt Activity">
       <CheckInModal open={modalIsOpen} setOpen={setModalIsOpen} />
-      <CheckinFeed />
+      <CheckinFeed open={modalIsOpen} setOpen={setModalIsOpen} />
     </Layout>
   );
-
-  // return (
-  //   <div>
-  //     {!session ? (
-  //       <Auth />
-  //     ) : (
-  //       <div>
-  //         <div>
-  //           <div>
-  //             <CheckInModal />
-  //             <CheckinFeed />
-  //           </div>
-  //         </div>
-  //         <div>
-  //           <Account key={session.user.id} session={session} />
-  //         </div>
-  //       </div>
-  //     )}
-  //   </div>
-  // );
 };
 
 export default Home;

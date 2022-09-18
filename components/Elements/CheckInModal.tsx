@@ -152,11 +152,11 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = ({
                   <div className="mt-2 sm:mt-5">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg font-medium leading-6 text-white"
+                      className="text-2xl font-medium leading-6 text-white"
                     >
-                      Haunted House Checkin
+                      Haunt Check In
                     </Dialog.Title>
-                    <div className="mt-5">
+                    <div className="mt-8">
                       <HouseCheckinForm />
                     </div>
                   </div>

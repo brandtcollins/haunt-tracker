@@ -1,15 +1,28 @@
 import { User } from "@supabase/supabase-js";
-import { FunctionComponent, useEffect, useState } from "react";
+import {
+  Dispatch,
+  FunctionComponent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useHauntedHouses } from "../ts/hooks/useHauntedHouses";
 import { iCheckIn, iHauntedHouse } from "../ts/Interfaces";
 import { getHauntedHouses } from "../utils/HelperFunctions";
 import { supabase } from "../utils/supabaseClient";
 import Image from "next/image";
+import { ImStarFull } from "react-icons/im";
 
-interface CheckinFeedProps {}
+interface CheckinFeedProps {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}
 
-const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
+const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
+  open,
+  setOpen,
+}) => {
   const [checkIns, setCheckIns] = useState<iCheckIn[]>();
   const [user, setUser] = useState<User>();
   const [loading, setLoading] = useState(true);
@@ -99,6 +112,15 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
 
   return (
     <div>
+      <div>
+        <button
+          onClick={() => setOpen(true)}
+          type="button"
+          className="max-w-2xl inline-flex w-full justify-center rounded-md border border-transparent bg-emerald-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-emerald-700 sm:text-sm"
+        >
+          Check into a haunt
+        </button>
+      </div>
       {checkIns?.map((checkIn) => {
         const bgImage = checkIn.haunted_house_name.replace(/\s/g, "");
         const checkedInHouse: iHauntedHouse | undefined =
@@ -122,14 +144,17 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
               <div className="border-b-2 border-darkGray-100">
                 <div className="flex flex-col text-lg text-white">
                   <p className="">
-                    <span className="font-bold">{username}</span> just ran
-                    <span className="font-bold">
+                    <span className="font-bold text-emerald-500">
+                      {username}
+                    </span>{" "}
+                    just ran
+                    <span className="font-bold text-emerald-500">
                       {" "}
                       {checkIn.haunted_house_name}
                     </span>
                   </p>
                   <p>
-                    <span className="font-bold">
+                    <span className="font-bold text-emerald-500">
                       {" "}
                       {checkIn.rating / 2} out of 5
                     </span>
@@ -138,13 +163,13 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
                 <div className="flex text-white py-2">
                   <p className="pr-4">
                     Estimated Wait Time:{" "}
-                    <span className="font-bold">
+                    <span className="font-bold text-emerald-500">
                       {checkIn.estimated_wait_time}
                     </span>
                   </p>
                   <p>
                     Actual Wait Time:{" "}
-                    <span className="font-bold">
+                    <span className="font-bold text-emerald-500">
                       {checkIn.actual_wait_time}
                     </span>
                   </p>

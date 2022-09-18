@@ -24,9 +24,10 @@ const userNavigation = [
 
 interface LayoutProps {
   children: ReactNode;
+  title: string;
 }
 
-const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
+const Layout: FunctionComponent<LayoutProps> = ({ children, title }) => {
   return (
     <>
       {/*
@@ -43,7 +44,7 @@ const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
           <header className="py-10">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <h1 className="text-3xl font-bold tracking-tight text-white">
-                Activity
+                {title}
               </h1>
             </div>
           </header>
