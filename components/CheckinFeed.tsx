@@ -12,7 +12,7 @@ import { iCheckIn, iHauntedHouse } from "../ts/Interfaces";
 import { getHauntedHouses } from "../utils/HelperFunctions";
 import { supabase } from "../utils/supabaseClient";
 import Image from "next/image";
-import { ImStarFull } from "react-icons/im";
+import { CgBolt } from "react-icons/cg";
 
 interface CheckinFeedProps {
   open: boolean;
@@ -163,6 +163,12 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
                     </p>{" "}
                   </div>
                   <div className="flex text-white py-2">
+                    {checkIn.express && (
+                      <span className="inline-flex items-center rounded-full bg-emerald-500 pl-2 pr-4 py-0.5 text-sm font-medium text-white mr-4">
+                        <CgBolt className="text-white mr-1" />
+                        EXPRESS
+                      </span>
+                    )}
                     <p className="pr-4">
                       Estimated Wait Time:{" "}
                       <span className="font-bold text-emerald-500">
