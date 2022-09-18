@@ -16,4 +16,5 @@ export interface iCheckIn {
   note?: string;
   estimated_wait_time?: number | undefined;
   actual_wait_time?: number | undefined;
+  express?: boolean;
 }

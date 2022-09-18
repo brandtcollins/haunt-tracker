@@ -85,6 +85,7 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
     note: "",
     estimated_wait_time: undefined,
     actual_wait_time: undefined,
+    express: false,
   };
 
   const onSubmit = (values: iCheckIn, helpers: FormikHelpers<iCheckIn>) => {
@@ -205,6 +206,20 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
                   aria-describedby="email-error"
                 />
               </div>
+            </div>
+            <div className="py-2">
+              <label htmlFor="express" className="block font-medium">
+                <Field
+                  name="express"
+                  type="checkbox"
+                  id="express"
+                  placeholder="What was your estimated wait time?"
+                  aria-invalid="true"
+                  aria-describedby="email-error"
+                />
+                <span className="pl-2">Did you use express passes?</span>
+              </label>
+              <div className="relative mt-1 rounded-md shadow-sm"></div>
             </div>
             <div className=" pt-2 pb-10">
               <label htmlFor="note" className="block font-medium">
