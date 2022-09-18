@@ -12,7 +12,9 @@ interface HomeProps {}
 const Home: FunctionComponent<HomeProps> = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [session, setSession] = useState<AuthSession | null>(null);
-  const [modalIsOpen, setModalIsOpen] = useState<boolean>(true);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+
+  console.log(modalIsOpen);
 
   useEffect(() => {
     let mounted = true;

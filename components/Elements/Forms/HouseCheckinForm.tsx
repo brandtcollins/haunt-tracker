@@ -1,5 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { FunctionComponent, useEffect, useState } from "react";
+import {
+  Dispatch,
+  FunctionComponent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { iCheckIn, iHauntedHouse } from "../../../ts/Interfaces";
 import { getHauntedHouses } from "../../../utils/HelperFunctions";
 import { supabase } from "../../../utils/supabaseClient";
@@ -9,9 +15,13 @@ import * as Yup from "yup";
 //prettier-ignore
 import { Formik, Field, Form, FormikHelpers,useFormikContext, useFormik, FormikProps,FormikState } from "formik";
 
-interface HouseCheckinFormProps {}
+interface HouseCheckinFormProps {
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}
 
-const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = () => {
+const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
+  setOpen,
+}) => {
   //prettier-ignore
   const { data: hauntedHouseList } = useQuery<iHauntedHouse[]>(["haunted-houses"],getHauntedHouses);
   //prettier-ignore
@@ -32,7 +42,10 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = () => {
   };
 
   const mutation = useMutation(postCheckin, {
-    onSuccess: () => queryClient.invalidateQueries(["check-ins"]),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["check-ins"]);
+      setOpen(false);
+    },
   });
 
   async function getCurrentUser() {
