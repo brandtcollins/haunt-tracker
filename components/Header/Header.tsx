@@ -1,6 +1,6 @@
 import { Fragment, FunctionComponent } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { classNames } from "../../utils/HelperFunctions";
+import { classNames, signOut } from "../../utils/HelperFunctions";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Avatar from "../Elements/Avatar";
 
@@ -12,10 +12,16 @@ const navigation = [
   { name: "Link 2", href: "#", current: false },
 ];
 
-const userNavigation = [
+interface userNavigationProps {
+  name: string;
+  href: string;
+  onClick?: any;
+}
+
+const userNavigation: userNavigationProps[] = [
   { name: "Your Profile", href: "/profile" },
   { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: "Sign out", href: "#", onClick: signOut },
 ];
 
 const user = {
@@ -92,6 +98,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
                               {({ active }) => (
                                 <a
                                   href={item.href}
+                                  onClick={item.onClick}
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
                                     "block px-4 py-2 text-sm text-gray-700"

@@ -11,3 +11,7 @@ export const getHauntedHouses = async () => {
 export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
+
+export const signOut = async () => {
+  const { error } = await supabase.auth.signOut();
+};
