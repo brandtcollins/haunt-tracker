@@ -22,6 +22,7 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = () => {
       rating: sliderValue,
       user_id: currentUser,
       haunted_house_name: selectedHouseObject?.name,
+      notes: selectedHouseObject?.notes,
     };
     const { data, error } = await supabase
       .from("check-ins")
