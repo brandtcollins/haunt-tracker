@@ -5,7 +5,7 @@ export interface iHauntedHouse {
   description: string;
   location: null | string;
   image: string;
-  notes: string;
+  notes?: string;
 }
 
 export interface iCheckIn {
