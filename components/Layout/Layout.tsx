@@ -38,7 +38,7 @@ const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
               ```
             */}
       <div className="min-h-full">
-        <div className="bg-gray-800 pb-32">
+        <div className="bg-darkGray-500 pb-32">
           <Header />
           <header className="py-10">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -49,10 +49,10 @@ const Layout: FunctionComponent<LayoutProps> = ({ children }) => {
           </header>
         </div>
 
-        <main className="-mt-32">
+        <main className="-mt-32 bg-darkGray-500">
           <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
             {/* Replace with your content */}
-            <div className="rounded-lg bg-white px-5 py-6 shadow sm:px-6">
+            <div className="rounded-lg bg-darkGray-300 px-5 py-6 shadow sm:px-6">
               {children}
             </div>
             {/* /End replace */}

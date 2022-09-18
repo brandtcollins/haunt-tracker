@@ -27,7 +27,7 @@ const user = {
 
 const Header: FunctionComponent<HeaderProps> = () => {
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className="bg-darkGray-500">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -49,8 +49,8 @@ const Header: FunctionComponent<HeaderProps> = () => {
                           href={item.href}
                           className={classNames(
                             item.current
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                              ? "bg-darkGray-300 text-white"
+                              : "text-gray-300 hover:bg-darkGray-300 hover:text-white",
                             "px-3 py-2 rounded-md text-sm font-medium"
                           )}
                           aria-current={item.current ? "page" : undefined}

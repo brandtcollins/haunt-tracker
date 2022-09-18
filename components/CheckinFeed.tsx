@@ -108,7 +108,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
         return (
           <div
             key={checkIn.checkin_id}
-            className="relative flex flex-col overflow-hidden rounded-md bg-white shadow my-4 max-w-2xl"
+            className="border-2 border-darkGray-100 relative flex flex-col overflow-hidden rounded-md bg-white shadow my-4 max-w-2xl"
           >
             <div className="relative w-full h-64 max-h-64 bg-slate-400">
               <Image
@@ -118,26 +118,40 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
                 objectFit="cover"
               />
             </div>
-            <div className="p-4 py-8 z-50 w-fill bg-white">
-              <div className="">
-                <p className="text-lg">
-                  <span className="font-bold">{username}</span> just ran
-                  <span className="font-bold">
-                    {" "}
-                    {checkIn.haunted_house_name}{" "}
-                  </span>
-                  and gave the run a
-                  <span className="font-bold">
-                    {" "}
-                    {checkIn.rating / 2} out of 5
-                  </span>
-                </p>
-              </div>
-              <div className="flex">
-                <p className="pr-4">
-                  Estimated Wait Time: {checkIn.estimated_wait_time}
-                </p>
-                <p>Actual Wait Time: {checkIn.actual_wait_time}</p>
+            <div className="p-4 py-8 z-50 w-fill bg-darkGray-300">
+              <div className="border-b-2 border-darkGray-100">
+                <div className="flex flex-col text-lg text-white">
+                  <p className="">
+                    <span className="font-bold">{username}</span> just ran
+                    <span className="font-bold">
+                      {" "}
+                      {checkIn.haunted_house_name}
+                    </span>
+                  </p>
+                  <p>
+                    <span className="font-bold">
+                      {" "}
+                      {checkIn.rating / 2} out of 5
+                    </span>
+                  </p>{" "}
+                </div>
+                <div className="flex text-white py-2">
+                  <p className="pr-4">
+                    Estimated Wait Time:{" "}
+                    <span className="font-bold">
+                      {checkIn.estimated_wait_time}
+                    </span>
+                  </p>
+                  <p>
+                    Actual Wait Time:{" "}
+                    <span className="font-bold">
+                      {checkIn.actual_wait_time}
+                    </span>
+                  </p>
+                </div>
+                <div className="text-white pb-4">
+                  <p>{checkIn.note}</p>
+                </div>
               </div>
             </div>
           </div>

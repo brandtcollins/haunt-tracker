@@ -6,6 +6,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        "darkGray-500": "#0E1011",
+        "darkGray-300": "#212427",
+        "darkGray-100": "#323538",
+      },
       backgroundImage: {
         "TheWeeknd:AfterHoursNightmare":
           "url('../public/images/the-weeknd-after-hours.jpeg')",
