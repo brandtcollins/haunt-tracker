@@ -121,67 +121,69 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
           Check into a haunt
         </button>
       </div>
-      {checkIns?.map((checkIn) => {
-        const bgImage = checkIn.haunted_house_name.replace(/\s/g, "");
-        const checkedInHouse: iHauntedHouse | undefined =
-          hauntedHouseList?.find(
-            (house) => house.haunted_house_id === checkIn.haunted_house_id
-          );
-        return (
-          <div
-            key={checkIn.checkin_id}
-            className="border-2 border-darkGray-100 relative flex flex-col overflow-hidden rounded-md bg-white shadow my-4 max-w-2xl"
-          >
-            <div className="relative w-full h-64 max-h-64 bg-slate-400">
-              <Image
-                src={`/images/${checkedInHouse?.image}`}
-                alt="Picture of the haunted house artwork"
-                layout="fill"
-                objectFit="cover"
-              />
-            </div>
-            <div className="p-4 py-8 z-10 w-fill bg-darkGray-300">
-              <div className="border-b-2 border-darkGray-100">
-                <div className="flex flex-col text-lg text-white">
-                  <p className="">
-                    <span className="font-bold text-emerald-500">
-                      {username}
-                    </span>{" "}
-                    just ran
-                    <span className="font-bold text-emerald-500">
-                      {" "}
-                      {checkIn.haunted_house_name}
-                    </span>
-                  </p>
-                  <p>
-                    <span className="font-bold text-emerald-500">
-                      {" "}
-                      {checkIn.rating / 2} out of 5
-                    </span>
-                  </p>{" "}
-                </div>
-                <div className="flex text-white py-2">
-                  <p className="pr-4">
-                    Estimated Wait Time:{" "}
-                    <span className="font-bold text-emerald-500">
-                      {checkIn.estimated_wait_time}
-                    </span>
-                  </p>
-                  <p>
-                    Actual Wait Time:{" "}
-                    <span className="font-bold text-emerald-500">
-                      {checkIn.actual_wait_time}
-                    </span>
-                  </p>
-                </div>
-                <div className="text-white pb-4">
-                  <p>{checkIn.note}</p>
+      {checkIns
+        ?.slice(0)
+        .reverse()
+        .map((checkIn) => {
+          const checkedInHouse: iHauntedHouse | undefined =
+            hauntedHouseList?.find(
+              (house) => house.haunted_house_id === checkIn.haunted_house_id
+            );
+          return (
+            <div
+              key={checkIn.checkin_id}
+              className="border-2 border-darkGray-100 relative flex flex-col overflow-hidden rounded-md bg-white shadow my-4 max-w-2xl"
+            >
+              <div className="relative w-full h-64 max-h-64 bg-slate-400">
+                <Image
+                  src={`/images/${checkedInHouse?.image}`}
+                  alt="Picture of the haunted house artwork"
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+              <div className="p-4 py-8 z-10 w-fill bg-darkGray-300">
+                <div className="border-b-2 border-darkGray-100">
+                  <div className="flex flex-col text-lg text-white">
+                    <p className="">
+                      <span className="font-bold text-emerald-500">
+                        {username}
+                      </span>{" "}
+                      just ran
+                      <span className="font-bold text-emerald-500">
+                        {" "}
+                        {checkedInHouse?.name}
+                      </span>
+                    </p>
+                    <p>
+                      <span className="font-bold text-emerald-500">
+                        {" "}
+                        {checkIn.rating / 2} out of 5
+                      </span>
+                    </p>{" "}
+                  </div>
+                  <div className="flex text-white py-2">
+                    <p className="pr-4">
+                      Estimated Wait Time:{" "}
+                      <span className="font-bold text-emerald-500">
+                        {checkIn.estimated_wait_time}
+                      </span>
+                    </p>
+                    <p>
+                      Actual Wait Time:{" "}
+                      <span className="font-bold text-emerald-500">
+                        {checkIn.actual_wait_time}
+                      </span>
+                    </p>
+                  </div>
+                  <div className="text-white pb-4">
+                    <p>{checkIn.note}</p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
     </div>
   );
 };

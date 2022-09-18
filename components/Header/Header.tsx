@@ -8,8 +8,8 @@ interface HeaderProps {}
 
 const navigation = [
   { name: "Activity", href: "#", current: true },
-  { name: "Link", href: "#", current: false },
-  { name: "Link", href: "#", current: false },
+  { name: "Link 1", href: "#", current: false },
+  { name: "Link 2", href: "#", current: false },
 ];
 
 const userNavigation = [
