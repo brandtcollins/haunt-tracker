@@ -158,7 +158,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
                     <p>
                       <span className="font-bold text-emerald-500">
                         {" "}
-                        {checkIn.rating && checkIn.rating / 2} out of 5
+                        {checkIn.rating} out of 5
                       </span>
                     </p>{" "}
                   </div>
