@@ -1,35 +1,5 @@
-import {
-  Box,
-  Modal,
-  ModalCloseButton,
-  ModalContent,
-  Image,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Select,
-  useDisclosure,
-} from "@chakra-ui/react";
-import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
-import {
-  Dispatch,
-  Fragment,
-  FunctionComponent,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
-import { iCheckIn, iHauntedHouse } from "../../ts/Interfaces";
-import { getHauntedHouses } from "../../utils/HelperFunctions";
-import { supabase } from "../../utils/supabaseClient";
-import StarSlider from "../StarSlider";
+import { Dispatch, Fragment, FunctionComponent, SetStateAction } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/24/outline";
 import HouseCheckinForm from "./Forms/HouseCheckinForm";
 
 interface CheckInModalProps {
@@ -153,7 +123,7 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = ({
 }) => {
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+      <Dialog as="div" className="relative z-30" onClose={setOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -163,10 +133,10 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-darkGray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-10 overflow-y-auto">
+        <div className="fixed inset-0 z-20 overflow-y-auto ">
           <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             <Transition.Child
               as={Fragment}
@@ -177,12 +147,12 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = ({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-4 sm:w-full sm:max-w-xl sm:p-6">
+              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-darkGray-300 px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-4 sm:w-full sm:max-w-xl sm:p-6">
                 <div>
                   <div className="mt-2 sm:mt-5">
                     <Dialog.Title
                       as="h3"
-                      className="text-lg font-medium leading-6 text-gray-900"
+                      className="text-lg font-medium leading-6 text-white"
                     >
                       Haunted House Checkin
                     </Dialog.Title>

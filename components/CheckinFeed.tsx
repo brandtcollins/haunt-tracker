@@ -118,7 +118,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = () => {
                 objectFit="cover"
               />
             </div>
-            <div className="p-4 py-8 z-50 w-fill bg-darkGray-300">
+            <div className="p-4 py-8 z-10 w-fill bg-darkGray-300">
               <div className="border-b-2 border-darkGray-100">
                 <div className="flex flex-col text-lg text-white">
                   <p className="">
