@@ -1,5 +1,5 @@
 import { useState, useEffect, FunctionComponent } from "react";
-import { supabase } from "../../utils/supabaseClient";
+import { supabase } from "../utils/supabaseClient";
 
 interface ProfileProps {
   session: any;

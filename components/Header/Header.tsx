@@ -6,11 +6,7 @@ import Avatar from "../Elements/Avatar";
 
 interface HeaderProps {}
 
-const navigation = [
-  { name: "Activity", href: "#", current: true },
-  { name: "Link 1", href: "#", current: false },
-  { name: "Link 2", href: "#", current: false },
-];
+const navigation = [{ name: "Activity", href: "#", current: true }];
 
 interface userNavigationProps {
   name: string;

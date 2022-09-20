@@ -26,6 +26,8 @@ export default function Auth() {
   });
 
   const handleLogin = async (values: any) => {
+    setErrorMessage(undefined);
+    setLoginMessage(undefined);
     try {
       setLoading(true);
       const { error } = await supabase.auth.signInWithOtp(values);
@@ -74,7 +76,7 @@ export default function Auth() {
               </div>
             )}
             <h3>{loginMessage && "Check your email for the login link!"}</h3>
-            <h3>{errorMessage && errorMessage}</h3>
+            <h3 className="mx-12">{errorMessage && errorMessage}</h3>
           </div>
         </div>
 
