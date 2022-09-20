@@ -55,11 +55,11 @@ const Home: FunctionComponent<HomeProps> = () => {
   return (
     <Layout title="Haunt Activity">
       <CheckInModal open={modalIsOpen} setOpen={setModalIsOpen} />
-      <div className="flex">
-        <div className="max-w-3xl w-4/5">
+      <div className="md:flex">
+        <div className="md:max-w-3xl md:w-4/5">
           <CheckinFeed open={modalIsOpen} setOpen={setModalIsOpen} />
         </div>
-        <div className="px-4">
+        <div className="px-4 hidden md:block">
           <ProfileStats />
         </div>
       </div>
