@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import { Button, Input } from "@chakra-ui/react";
+import SignIn from "./Elements/SignIn";
+import SignUp from "./Elements/SignUp";
 
 export default function Auth() {
   const [loading, setLoading] = useState(false);

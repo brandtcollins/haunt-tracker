@@ -116,7 +116,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
         <button
           onClick={() => setOpen(true)}
           type="button"
-          className="max-w-2xl inline-flex w-full justify-center rounded-md border border-transparent bg-emerald-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-emerald-700 sm:text-sm"
+          className=" inline-flex w-full justify-center rounded-md border border-transparent bg-emerald-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-emerald-700 sm:text-sm"
         >
           Check into a haunt
         </button>
@@ -132,7 +132,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
           return (
             <div
               key={checkIn.checkin_id}
-              className="border-2 border-darkGray-100 relative flex flex-col overflow-hidden rounded-md bg-white shadow my-4 max-w-2xl"
+              className="border-2 border-darkGray-100 relative flex flex-col overflow-hidden rounded-md my-4"
             >
               <div className="relative w-full h-64 max-h-64 bg-slate-400">
                 <Image

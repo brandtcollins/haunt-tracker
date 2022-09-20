@@ -14,8 +14,6 @@ const Home: FunctionComponent<HomeProps> = () => {
   const [session, setSession] = useState<AuthSession | null>(null);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
-  console.log(modalIsOpen);
-
   useEffect(() => {
     let mounted = true;
 
@@ -56,7 +54,12 @@ const Home: FunctionComponent<HomeProps> = () => {
   return (
     <Layout title="Haunt Activity">
       <CheckInModal open={modalIsOpen} setOpen={setModalIsOpen} />
-      <CheckinFeed open={modalIsOpen} setOpen={setModalIsOpen} />
+      <div className="flex">
+        <div className="max-w-3xl w-4/5">
+          <CheckinFeed open={modalIsOpen} setOpen={setModalIsOpen} />
+        </div>
+        <div className="px-4">Profile</div>
+      </div>
     </Layout>
   );
 };

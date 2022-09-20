@@ -30,6 +30,6 @@ module.exports = {
           "url('../public/images/dead-mans-pier-winters-wake.jpeg')",
       },
     },
-    plugins: [],
+    plugins: [require("@tailwindcss/forms")],
   },
 };
