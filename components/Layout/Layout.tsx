@@ -30,14 +30,6 @@ interface LayoutProps {
 const Layout: FunctionComponent<LayoutProps> = ({ children, title }) => {
   return (
     <>
-      {/*
-              This example requires updating your template:
-
-              ```
-              <html class="h-full bg-gray-100">
-              <body class="h-full">
-              ```
-            */}
       <div className="min-h-full">
         <div className="bg-darkGray-500 pb-32">
           <Header />
@@ -50,7 +42,7 @@ const Layout: FunctionComponent<LayoutProps> = ({ children, title }) => {
           </header>
         </div>
 
-        <main className="-mt-32 bg-darkGray-500">
+        <main className="-mt-32 bg-darkGray-500 min-h-screen">
           <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
             {/* Replace with your content */}
             <div className="rounded-lg bg-darkGray-300 px-5 py-6 shadow sm:px-6">

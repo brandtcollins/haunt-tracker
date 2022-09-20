@@ -1,12 +1,12 @@
-import { Fragment, FunctionComponent } from "react";
+import { Fragment, FunctionComponent, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { classNames, signOut } from "../../utils/HelperFunctions";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Avatar from "../Elements/Avatar";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 interface HeaderProps {}
-
-const navigation = [{ name: "Activity", href: "#", current: true }];
 
 interface userNavigationProps {
   name: string;
@@ -15,8 +15,7 @@ interface userNavigationProps {
 }
 
 const userNavigation: userNavigationProps[] = [
-  { name: "Your Profile", href: "/profile" },
-  { name: "Settings", href: "#" },
+  { name: "Your Profile", href: "/myaccount" },
   { name: "Sign out", href: "#", onClick: signOut },
 ];
 
@@ -26,6 +25,19 @@ const user = {
 };
 
 const Header: FunctionComponent<HeaderProps> = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log(router.pathname);
+  }, []);
+
+  const navigation = [
+    {
+      name: "Activity",
+      href: "/activity",
+      current: router.pathname === "/activity",
+    },
+  ];
   return (
     <Disclosure as="nav" className="bg-darkGray-500">
       {({ open }) => (
@@ -35,11 +47,13 @@ const Header: FunctionComponent<HeaderProps> = () => {
               <div className="flex h-16 items-center justify-between px-4 sm:px-0">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
-                    <img
-                      className="ml-8 h-8 w-8"
-                      src="/images/haunt-tracker.png"
-                      alt="Your Company"
-                    />
+                    <Link href="/" passHref>
+                      <img
+                        className="ml-8 h-8 w-8"
+                        src="/images/haunt-tracker.png"
+                        alt="Your Company"
+                      />
+                    </Link>
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4 sticky top-0">
@@ -63,13 +77,14 @@ const Header: FunctionComponent<HeaderProps> = () => {
                 </div>
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
-                    <button
+                    {/* Remove bell for future add */}
+                    {/* <button
                       type="button"
                       className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
                       <span className="sr-only">View notifications</span>
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
+                    </button> */}
 
                     {/* Profile dropdown */}
                     <Menu as="div" className="relative ml-3">
