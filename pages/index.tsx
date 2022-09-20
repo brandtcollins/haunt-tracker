@@ -6,6 +6,7 @@ import { AuthSession } from "@supabase/supabase-js";
 import CheckInModal from "../components/Elements/CheckInModal";
 import CheckinFeed from "../components/CheckinFeed";
 import Layout from "../components/Layout/Layout";
+import ProfileStats from "../components/Elements/ProfileStats";
 
 interface HomeProps {}
 
@@ -58,7 +59,9 @@ const Home: FunctionComponent<HomeProps> = () => {
         <div className="max-w-3xl w-4/5">
           <CheckinFeed open={modalIsOpen} setOpen={setModalIsOpen} />
         </div>
-        <div className="px-4">Profile</div>
+        <div className="px-4">
+          <ProfileStats />
+        </div>
       </div>
     </Layout>
   );
