@@ -130,7 +130,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
   return (
     <div>
       <div className="md:hidden h-24 w-full bottom-0 left-0 z-50 fixed flex justify-end items-center">
-        <div className="mr-12">
+        <div className={`${open && "hidden"} mr-12`}>
           <button
             onClick={() => setOpen(true)}
             type="button"
