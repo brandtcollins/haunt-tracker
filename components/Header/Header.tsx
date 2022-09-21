@@ -16,7 +16,7 @@ interface userNavigationProps {
 }
 
 const userNavigation: userNavigationProps[] = [
-  { name: "Your Profile", href: "/myaccount" },
+  // { name: "Your Profile", href: "/myaccount" },
   { name: "Sign out", href: "#", onClick: signOut },
 ];
 
@@ -158,6 +158,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
                                   onClick={item.onClick}
                                   className={classNames(
                                     active ? "bg-gray-100" : "",
+
                                     "block px-4 py-2 text-sm text-gray-700"
                                   )}
                                 >
