@@ -13,6 +13,7 @@ import { getHauntedHouses } from "../utils/HelperFunctions";
 import { supabase } from "../utils/supabaseClient";
 import Image from "next/image";
 import { CgBolt } from "react-icons/cg";
+import { VscAdd } from "react-icons/vsc";
 
 interface CheckinFeedProps {
   open: boolean;
@@ -123,7 +124,18 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
 
   return (
     <div>
-      <div>
+      <div className="md:hidden h-24 w-full bottom-0 left-0 z-50 fixed flex justify-end items-center">
+        <div className="mr-12">
+          <button
+            onClick={() => setOpen(true)}
+            type="button"
+            className="inline-flex w-full justify-center rounded-full border border-transparent bg-emerald-500 p-4 text-3xl font-medium text-white shadow-sm hover:bg-emerald-700 sm:text-sm"
+          >
+            <VscAdd />
+          </button>
+        </div>
+      </div>
+      <div className="hidden md:block">
         <button
           onClick={() => setOpen(true)}
           type="button"

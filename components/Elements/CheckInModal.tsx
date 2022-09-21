@@ -23,11 +23,11 @@ const CheckInModal: FunctionComponent<CheckInModalProps> = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-darkGray-500 bg-opacity-75 transition-opacity" />
+          <div className="fixed inset-0 bg-darkGray-500 bg-opacity-75 transition-opacity z-75" />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-20 overflow-y-auto ">
-          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+        <div className="fixed inset-0 z-100 overflow-y-auto ">
+          <div className="flex min-h-full items-center justify-center p-4 text-center sm:items-center sm:p-0">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
