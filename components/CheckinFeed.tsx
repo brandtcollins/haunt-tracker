@@ -103,7 +103,8 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
   const { data: checkInArray } = useQuery(["check-ins"], getCheckins);
 
   useEffect(() => {
-    setCheckIns(checkInArray);
+    // setCheckIns(checkInArray);
+    setCheckIns([]);
   }, [checkInArray]);
 
   useEffect(() => {
@@ -116,8 +117,13 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
       <p className="font-bold text-3xl text-center px-24 mb-8">
         Hey! It looks like you haven&apos;t ran a house, yet.
       </p>
-      <p className="text-center px-10">
-        Click the green button above and get started.
+      <p className="text-center px-10 hidden md:block">
+        Click the green button above to get started.
+      </p>
+      <p className="text-center px-10 md:hidden">
+        Click the green{" "}
+        <span className="text-emerald-500 font-bold text-lg">+</span> button
+        below to get started.
       </p>
     </div>
   );
