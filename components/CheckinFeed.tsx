@@ -201,7 +201,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
             </div>
           );
         })}
-      {checkIns?.length === 0 && emptyFeed}
+      {checkIns && checkIns.length <= 1 && emptyFeed}
     </div>
   );
 };
