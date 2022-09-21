@@ -134,7 +134,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
           <button
             onClick={() => setOpen(true)}
             type="button"
-            className="inline-flex w-full justify-center rounded-full border border-transparent bg-emerald-500 p-4 text-4xl font-medium text-white shadow-sm hover:bg-emerald-700 sm:text-sm"
+            className="inline-flex w-full justify-center rounded-full border border-transparent bg-emerald-500 p-4 text-4xl font-medium text-white shadow-sm hover:bg-emerald-700"
           >
             <VscAdd />
           </button>
