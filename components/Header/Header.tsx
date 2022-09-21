@@ -72,7 +72,6 @@ const Header: FunctionComponent<HeaderProps> = () => {
       }
 
       if (data) {
-        user.username = data.username;
         setUsername(data.username);
         setWebsite(data.website);
         data.avatar_url && setAvatarUrl(data.avatar_url);
