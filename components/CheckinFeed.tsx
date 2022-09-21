@@ -134,7 +134,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
           <button
             onClick={() => setOpen(true)}
             type="button"
-            className="inline-flex w-full justify-center rounded-full border border-transparent bg-emerald-500 p-4 text-3xl font-medium text-white shadow-sm hover:bg-emerald-700 sm:text-sm"
+            className="inline-flex w-full justify-center rounded-full border border-transparent bg-emerald-500 p-4 text-4xl font-medium text-white shadow-sm hover:bg-emerald-700 sm:text-sm"
           >
             <VscAdd />
           </button>
@@ -162,7 +162,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
               key={checkIn.checkin_id}
               className="border-2 border-darkGray-100 relative flex flex-col overflow-hidden rounded-md my-4"
             >
-              <div className="relative w-full h-64 max-h-64 bg-slate-400">
+              <div className="relative w-full h-64 max-h-64 bg-darkGray-100">
                 <Image
                   src={`/images/${checkedInHouse?.image}`}
                   alt="Picture of the haunted house artwork"
