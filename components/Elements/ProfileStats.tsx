@@ -94,14 +94,31 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
   }, []);
 
   return (
-    <div className="border-b-2 border-darkGray-100">
-      <div>
+    <div className="border-2 border-darkGray-100 rounded-lg p-4">
+      <div className="border-b-2 border-darkGray-100 pb-4 mb-4">
         <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-gray-500">
           <Avatar username={username} className="text-2xl" />
         </span>
         <span className="text-3xl text-white font-bold pl-4">{username}</span>
       </div>
-      <div className="text-white ">Total Checkins: {checkInArray?.length}</div>
+      <div className="grid grid-cols-4">
+        <div className="text-white bg-darkGray-100 col-span-2 text-center items-center border-r-2 border-b-2 border-darkGray-300">
+          <h3 className="text-3xl font-bold">{checkInArray?.length}</h3>
+          <h3 className="text-sm">TOTAL HAUNTS</h3>
+        </div>
+        <div className="text-white bg-darkGray-100 col-span-2 text-center items-center border-b-2 border-darkGray-300">
+          <h3 className="text-3xl font-bold">{checkInArray?.length}</h3>
+          <h3 className="text-sm">TOTAL RUNS</h3>
+        </div>
+        <div className="text-white bg-darkGray-100 col-span-2 text-center items-center border-r-2 border-darkGray-300">
+          <h3 className="text-3xl font-bold">{checkInArray?.length}</h3>
+          <h3 className="text-sm">AVG RATING</h3>
+        </div>
+        <div className="text-white bg-darkGray-100 col-span-2 text-center items-center">
+          <h3 className="text-3xl font-bold">{checkInArray?.length}</h3>
+          <h3 className="text-sm">TOTAL NIGHTS</h3>
+        </div>
+      </div>
     </div>
   );
 };
