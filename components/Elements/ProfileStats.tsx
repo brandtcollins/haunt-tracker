@@ -102,20 +102,20 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
         <span className="text-3xl text-white font-bold pl-4">{username}</span>
       </div>
       <div className="grid grid-cols-4">
-        <div className="text-white bg-darkGray-100 col-span-2 text-center items-center border-r-2 border-b-2 border-darkGray-300">
-          <h3 className="text-3xl font-bold">{checkInArray?.length}</h3>
+        <div className="text-white bg-darkGray-100 col-span-2 py-2 text-center items-center border-r-2 border-b-2 border-darkGray-300">
+          <h3 className="text-3xl text-darkGray-100 font-bold">X</h3>
           <h3 className="text-sm">TOTAL HAUNTS</h3>
         </div>
-        <div className="text-white bg-darkGray-100 col-span-2 text-center items-center border-b-2 border-darkGray-300">
+        <div className="text-white bg-darkGray-100 col-span-2 py-2 text-center items-center border-b-2 border-darkGray-300">
           <h3 className="text-3xl font-bold">{checkInArray?.length}</h3>
           <h3 className="text-sm">TOTAL RUNS</h3>
         </div>
-        <div className="text-white bg-darkGray-100 col-span-2 text-center items-center border-r-2 border-darkGray-300">
-          <h3 className="text-3xl font-bold">{checkInArray?.length}</h3>
+        <div className="text-white bg-darkGray-100 col-span-2 py-2 text-center items-center border-r-2 border-darkGray-300">
+          <h3 className="text-3xl text-darkGray-100 font-bold">X</h3>
           <h3 className="text-sm">AVG RATING</h3>
         </div>
-        <div className="text-white bg-darkGray-100 col-span-2 text-center items-center">
-          <h3 className="text-3xl font-bold">{checkInArray?.length}</h3>
+        <div className="text-white bg-darkGray-100 col-span-2 py-2 text-center items-center">
+          <h3 className="text-3xl text-darkGray-100 font-bold">X</h3>
           <h3 className="text-sm">TOTAL NIGHTS</h3>
         </div>
       </div>
