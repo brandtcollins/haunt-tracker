@@ -103,8 +103,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
   const { data: checkInArray } = useQuery(["check-ins"], getCheckins);
 
   useEffect(() => {
-    // setCheckIns(checkInArray);
-    setCheckIns([]);
+    setCheckIns(checkInArray);
   }, [checkInArray]);
 
   useEffect(() => {
