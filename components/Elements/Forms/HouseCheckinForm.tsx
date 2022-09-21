@@ -241,7 +241,7 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
               type="submit"
               className="inline-flex w-full justify-center rounded-md border border-transparent bg-emerald-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 sm:text-sm"
             >
-              Submit Project
+              Submit Run
             </button>
           </Form>
         )}
