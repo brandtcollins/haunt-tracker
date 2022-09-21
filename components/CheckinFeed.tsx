@@ -110,6 +110,17 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
     getProfile();
   }, []);
 
+  const emptyFeed = (
+    <div className="border-2 py-24 border-darkGray-100 relative flex flex-col overflow-hidden rounded-md my-4 text-white items-center">
+      <p className="font-bold text-3xl text-center px-24 mb-8">
+        Hey! It looks like you haven't ran a house, yet.
+      </p>
+      <p className="text-center px-10">
+        Click the green button above and get started.
+      </p>
+    </div>
+  );
+
   return (
     <div>
       <div>
@@ -190,6 +201,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
             </div>
           );
         })}
+      {checkIns?.length === 0 && emptyFeed}
     </div>
   );
 };
