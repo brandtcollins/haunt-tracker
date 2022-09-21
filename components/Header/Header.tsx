@@ -1,10 +1,11 @@
-import { Fragment, FunctionComponent, useEffect } from "react";
+import { Fragment, FunctionComponent, useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { classNames, signOut } from "../../utils/HelperFunctions";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Avatar from "../Elements/Avatar";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { supabase } from "../../utils/supabaseClient";
 
 interface HeaderProps {}
 
@@ -19,16 +20,15 @@ const userNavigation: userNavigationProps[] = [
   { name: "Sign out", href: "#", onClick: signOut },
 ];
 
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-};
-
 const Header: FunctionComponent<HeaderProps> = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [username, setUsername] = useState<string | null>(null);
+  const [website, setWebsite] = useState<string | null>(null);
+  const [avatar_url, setAvatarUrl] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log(router.pathname);
+    getProfile();
   }, []);
 
   const navigation = [
@@ -38,6 +38,53 @@ const Header: FunctionComponent<HeaderProps> = () => {
       current: router.pathname === "/activity",
     },
   ];
+
+  async function getCurrentUser() {
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
+
+    if (error) {
+      throw error;
+    }
+
+    if (!session?.user) {
+      throw new Error("User not logged in");
+    }
+
+    return session.user;
+  }
+
+  async function getProfile() {
+    try {
+      setLoading(true);
+      const user = await getCurrentUser();
+
+      let { data, error, status } = await supabase
+        .from("profiles")
+        .select(`username, website, avatar_url`)
+        .eq("user_id", user.id)
+        .single();
+
+      if (error && status !== 406) {
+        throw error;
+      }
+
+      if (data) {
+        user.username = data.username;
+        setUsername(data.username);
+        setWebsite(data.website);
+        data.avatar_url && setAvatarUrl(data.avatar_url);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
   return (
     <Disclosure as="nav" className="bg-darkGray-500">
       {({ open }) => (
@@ -91,7 +138,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
                       <div>
                         <Menu.Button className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                           <span className="sr-only">Open user menu</span>
-                          <Avatar />
+                          <Avatar username={username} />
                         </Menu.Button>
                       </div>
                       <Transition
@@ -127,7 +174,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
                 </div>
                 <div className="-mr-2 flex md:hidden">
                   {/* Mobile menu button */}
-                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-darkGray-300 p-2 text-emerald-500 hover:bg-darkGray-100">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -149,7 +196,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
                   href={item.href}
                   className={classNames(
                     item.current
-                      ? "bg-gray-900 text-white"
+                      ? "bg-darkgray-900 text-white"
                       : "text-gray-300 hover:bg-gray-700 hover:text-white",
                     "block px-3 py-2 rounded-md text-base font-medium"
                   )}
@@ -159,26 +206,19 @@ const Header: FunctionComponent<HeaderProps> = () => {
                 </Disclosure.Button>
               ))}
             </div>
-            <div className="border-t border-gray-700 pt-4 pb-3">
+            <div className="border-t border-darkGray-100 pt-4 pb-3">
               <div className="flex items-center px-5">
                 <div className="flex-shrink-0">
-                  <img className="h-10 w-10 rounded-full" alt="" />
+                  <Avatar username={username} />
                 </div>
                 <div className="ml-3">
                   <div className="text-base font-medium leading-none text-white">
-                    {user.name}
+                    {username}
                   </div>
                   <div className="text-sm font-medium leading-none text-gray-400">
-                    {user.email}
+                    {website}
                   </div>
                 </div>
-                <button
-                  type="button"
-                  className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
               </div>
               <div className="mt-3 space-y-1 px-2">
                 {userNavigation.map((item) => (

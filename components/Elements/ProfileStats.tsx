@@ -97,9 +97,7 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
     <div className="border-b-2 border-darkGray-100">
       <div>
         <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-gray-500">
-          <span className="text-xl font-medium leading-none text-white">
-            BC
-          </span>
+          <Avatar username={username} className="text-2xl" />
         </span>
         <span className="text-3xl text-white font-bold pl-4">{username}</span>
       </div>
