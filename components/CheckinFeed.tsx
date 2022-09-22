@@ -85,7 +85,8 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
       let { data, error, status } = await supabase
         .from("check-ins")
         .select("*")
-        .eq("user_id", user.id);
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: true });
 
       if (error && status !== 406) {
         throw error;
@@ -175,7 +176,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
                 />
               </div>
               <div className="p-4 py-8 z-10 w-fill bg-darkGray-300">
-                <div className="border-b-2 border-darkGray-100">
+                <div className="border-b-2 border-darkGray-100 ">
                   <div className="flex flex-col text-lg text-white">
                     <p className="">
                       <span className="font-bold text-emerald-500">
@@ -194,24 +195,34 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
                       </span>
                     </p>{" "}
                   </div>
-                  <div className="flex text-white py-2">
-                    {checkIn.express && (
-                      <span className="inline-flex items-center rounded-full bg-emerald-500 pl-2 pr-4 py-0.5 text-sm font-medium text-white mr-4">
-                        <CgBolt className="text-white mr-1" />
-                        EXPRESS
-                      </span>
-                    )}
+                  <div className="flex text-white py-2 items-center">
                     <p className="pr-4">
-                      Estimated Wait Time:{" "}
+                      <span className="hidden md:inline-block">
+                        Estimated Wait Time:
+                      </span>
+                      <span className="md:hidden">Est. Wait: </span>
                       <span className="font-bold text-emerald-500">
+                        {" "}
                         {checkIn.estimated_wait_time}
                       </span>
                     </p>
                     <p>
-                      Actual Wait Time:{" "}
-                      <span className="font-bold text-emerald-500">
-                        {checkIn.actual_wait_time}
+                      <span className="hidden md:inline-block">
+                        Actual Wait Time:
                       </span>
+                      <span className="md:hidden">Actual Wait: </span>{" "}
+                      {checkIn.express ? (
+                        <span className="inline-flex items-center rounded-full bg-emerald-500 px-2 py-0.5 text-md font-medium text-white mr-4">
+                          <CgBolt className="text-white" />
+                          <span className="px-1">
+                            {checkIn.actual_wait_time}
+                          </span>
+                        </span>
+                      ) : (
+                        <span className="font-bold text-emerald-500">
+                          {checkIn.actual_wait_time}
+                        </span>
+                      )}
                     </p>
                   </div>
                   <div className="text-white pb-4">
