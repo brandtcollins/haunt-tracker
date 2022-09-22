@@ -88,7 +88,10 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
     }
   }
 
-  const { data: checkInArray } = useQuery(["check-ins"], getCheckins);
+  const { data: checkInArray, isLoading: checkInsLoading } = useQuery(
+    ["check-ins"],
+    getCheckins
+  );
 
   useEffect(() => {
     const nightCount: string[] = [];
