@@ -162,6 +162,10 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
             hauntedHouseList?.find(
               (house) => house.haunted_house_id === checkIn.haunted_house_id
             );
+          let checkInDate;
+          if (checkIn.created_at) {
+            checkInDate = new Date(checkIn.created_at);
+          }
           return (
             <div
               key={checkIn.checkin_id}
@@ -188,29 +192,40 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
                         {checkedInHouse?.name}
                       </span>
                     </p>
+                    <p className="text-sm text-slate-500">
+                      {" "}
+                      {checkInDate?.toLocaleString("en-us", {
+                        weekday: "long",
+                      })}{" "}
+                      {checkInDate?.toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </p>
+                  </div>
+                  <div className="py-2">
                     <p>
                       <span className="font-bold text-emerald-500">
-                        {" "}
                         {checkIn.rating} out of 5
                       </span>
-                    </p>{" "}
+                    </p>
                   </div>
                   <div className="flex text-white py-2 items-center">
-                    <p className="pr-4">
+                    <p className="pr-4 text-center">
                       <span className="hidden md:inline-block">
                         Estimated Wait Time:
                       </span>
-                      <span className="md:hidden">Est. Wait: </span>
+                      <span className="md:hidden">Est. Wait </span>
                       <span className="font-bold text-emerald-500">
                         {" "}
                         {checkIn.estimated_wait_time}
                       </span>
                     </p>
-                    <p>
+                    <p className="text-center">
                       <span className="hidden md:inline-block">
                         Actual Wait Time:
                       </span>
-                      <span className="md:hidden">Actual Wait: </span>{" "}
+                      <span className="md:hidden">Actual Wait </span>{" "}
                       {checkIn.express ? (
                         <span className="inline-flex items-center rounded-full bg-emerald-500 px-2 py-0.5 text-md font-medium text-white mr-4">
                           <CgBolt className="text-white" />
