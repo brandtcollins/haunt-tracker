@@ -22,7 +22,7 @@ const UserSettings: FunctionComponent<UserSettingsProps> = ({ session }) => {
 
   useEffect(() => {
     getProfile();
-  }, [session, getProfile]);
+  }, [session]);
 
   async function getCurrentUser() {
     const {
