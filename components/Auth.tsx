@@ -6,6 +6,7 @@ import SignUp from "./Elements/SignUp";
 import * as Yup from "yup";
 import { Formik, Field, Form, FormikState } from "formik";
 import { iMagicLinkSignin } from "../ts/Interfaces";
+import Image from "next/image";
 
 export default function Auth() {
   const [loading, setLoading] = useState(false);
@@ -40,11 +41,13 @@ export default function Auth() {
   return (
     <>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8 bg-darkGray-500 h-screen">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <img
+        <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
+          <Image
             className="mx-auto h-12 w-auto"
             src="/images/haunt-tracker.png"
             alt="Your Company"
+            width="60"
+            height="60"
           />
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-white">
             Sign in to your account
