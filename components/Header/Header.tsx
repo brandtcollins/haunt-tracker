@@ -16,7 +16,7 @@ interface userNavigationProps {
 }
 
 const userNavigation: userNavigationProps[] = [
-  // { name: "Your Profile", href: "/myaccount" },
+  { name: "Your Profile", href: "/user/settings" },
   { name: "Sign out", href: "#", onClick: signOut },
 ];
 
@@ -35,6 +35,11 @@ const Header: FunctionComponent<HeaderProps> = () => {
     {
       name: "Activity",
       href: "/activity",
+      current: router.pathname === "/activity",
+    },
+    {
+      name: "Haunts",
+      href: "#",
       current: router.pathname === "/activity",
     },
   ];
