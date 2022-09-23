@@ -2,11 +2,7 @@ import * as Yup from "yup";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Formik, Field, Form, FormikState } from "formik";
 import { supabase } from "../../utils/supabaseClient";
-
-interface iNewUserSignup {
-  email: string;
-  password: string;
-}
+import { iNewUserSignup } from "../../ts/Interfaces";
 
 export default function SignIn() {
   const initialValues: iNewUserSignup = {

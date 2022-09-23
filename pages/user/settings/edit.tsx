@@ -6,6 +6,7 @@ import * as Yup from "yup";
 //prettier-ignore
 import { Formik, Field, Form, FormikHelpers,useFormikContext, useFormik, FormikProps,FormikState } from "formik";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { iUserSettings } from "../../../ts/Interfaces";
 
 interface MyAccountProps {
   session: any;
@@ -99,12 +100,6 @@ const MyAccount: FunctionComponent<MyAccountProps> = ({ session }) => {
       setLoading(false);
     }
   };
-
-  interface iUserSettings {
-    username: string | null;
-    website: string | null;
-    avatar_url: string | null;
-  }
 
   const initialValues: iUserSettings = {
     username: username ? username : "",

@@ -5,10 +5,7 @@ import SignIn from "./Elements/SignIn";
 import SignUp from "./Elements/SignUp";
 import * as Yup from "yup";
 import { Formik, Field, Form, FormikState } from "formik";
-
-interface iMagicLinkSignin {
-  email: string;
-}
+import { iMagicLinkSignin } from "../ts/Interfaces";
 
 export default function Auth() {
   const [loading, setLoading] = useState(false);

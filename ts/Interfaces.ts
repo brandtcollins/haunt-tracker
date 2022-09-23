@@ -18,3 +18,18 @@ export interface iCheckIn {
   actual_wait_time?: number | undefined;
   express?: boolean;
 }
+
+export interface iMagicLinkSignin {
+  email: string;
+}
+
+export interface iNewUserSignup {
+  email: string;
+  password: string;
+}
+
+export interface iUserSettings {
+  username: string | null;
+  website: string | null;
+  avatar_url: string | null;
+}
