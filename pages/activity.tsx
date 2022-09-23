@@ -1,7 +1,6 @@
 import { useState, useEffect, FunctionComponent } from "react";
 import { supabase } from "../utils/supabaseClient";
 import Auth from "../components/Auth";
-import Account from "../components/Account";
 import { AuthSession } from "@supabase/supabase-js";
 import CheckInModal from "../components/Elements/CheckInModal";
 import CheckinFeed from "../components/CheckinFeed";

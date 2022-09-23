@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Formik, Field, Form, FormikState } from "formik";
 import { supabase } from "../../utils/supabaseClient";
 import { iNewUserSignup } from "../../ts/Interfaces";
+import Image from "next/image";
 
 export default function SignIn() {
   const initialValues: iNewUserSignup = {
@@ -32,7 +33,7 @@ export default function SignIn() {
         {({ errors, touched, isSubmitting }: FormikState<iNewUserSignup>) => (
           <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8 bg-darkGray-500 h-screen">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
-              <img
+              <Image
                 className="mx-auto h-12 w-auto"
                 src="/images/haunt-tracker.png"
                 alt="Your Company"
