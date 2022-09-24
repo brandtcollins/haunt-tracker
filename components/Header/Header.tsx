@@ -29,7 +29,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
 
   useEffect(() => {
     getProfile();
-  }, [getProfile]);
+  }, []);
 
   const navigation = [
     {
