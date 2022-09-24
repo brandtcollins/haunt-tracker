@@ -2,6 +2,7 @@ import { CgBolt } from "react-icons/cg";
 import Image from "next/image";
 import { FunctionComponent } from "react";
 import { iCheckIn, iHauntedHouse } from "../../ts/Interfaces";
+import Link from "next/link";
 
 interface CheckInCardProps {
   checkIn: iCheckIn;
@@ -31,7 +32,7 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
           objectFit="cover"
         />
       </div>
-      <div className="p-4 py-8 z-10 w-fill bg-darkGray-300">
+      <div className="p-4 z-10 w-fill bg-darkGray-300">
         <div className="border-b-2 border-darkGray-100 ">
           <div className="flex flex-col text-lg text-white">
             <p className="">
@@ -89,6 +90,11 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
           <div className="text-white pb-4">
             <p>{checkIn.note}</p>
           </div>
+        </div>
+        <div className="pt-4">
+          <Link href={`/user/${username}/checkin/${checkIn.checkin_id}/edit`}>
+            Edit Checkin
+          </Link>
         </div>
       </div>
     </div>
