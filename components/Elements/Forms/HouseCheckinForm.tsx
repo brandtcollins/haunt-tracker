@@ -14,9 +14,11 @@ import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 import * as Yup from "yup";
 //prettier-ignore
 import { Formik, Field, Form, FormikHelpers,useFormikContext, useFormik, FormikProps,FormikState } from "formik";
+import { useRouter } from "next/router";
+import { User } from "discord.js";
 
 interface HouseCheckinFormProps {
-  setOpen: Dispatch<SetStateAction<boolean>>;
+  setOpen?: Dispatch<SetStateAction<boolean>>;
 }
 
 const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
@@ -32,6 +34,37 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
   const [selectedHouse, setSelectedHouse] = useState<string>("");
   const [runNotes, setRunNotes] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
+  const router = useRouter();
+  const { username, checkinID } = router.query;
+  const [user, setUser] = useState<User>();
+  const { data: singleCheckInArray, isLoading } = useQuery(
+    ["singleCheckin"],
+    getCheckins
+  );
+
+  async function getCheckins() {
+    try {
+      const user = await getCurrentUser();
+
+      let { data, error, status } = await supabase
+        .from("check-ins")
+        .select("*")
+        .eq("checkin_id", checkinID)
+        .order("created_at", { ascending: true });
+
+      if (error && status !== 406) {
+        throw error;
+      }
+
+      if (data) {
+        return data;
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    }
+  }
 
   const postCheckin = async (values: iCheckIn) => {
     const { data, error } = await supabase.from("check-ins").upsert([values]);
@@ -41,10 +74,22 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
     return data;
   };
 
-  const mutation = useMutation(postCheckin, {
+  const updateCheckin = async (values: iCheckIn) => {
+    const { data, error } = await supabase
+      .from("check-ins")
+      .update([values])
+      .match({ checkin_id: checkinID });
+    if (error) {
+      throw error;
+    }
+    return data;
+  };
+
+  const mutation = useMutation(checkinID ? updateCheckin : postCheckin, {
     onSuccess: () => {
-      queryClient.invalidateQueries(["check-ins"]);
-      setOpen(false);
+      router.push("/");
+      queryClient.refetchQueries(["check-ins"]);
+      queryClient.invalidateQueries(["singleCheckin"]);
     },
   });
 
@@ -79,13 +124,19 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
   }, []);
 
   const initialValues: iCheckIn = {
-    haunted_house_id: "",
-    rating: undefined,
+    haunted_house_id: singleCheckInArray
+      ? singleCheckInArray[0].haunted_house_id
+      : "",
+    rating: singleCheckInArray ? singleCheckInArray[0].rating : undefined,
     user_id: currentUser,
-    note: "",
-    estimated_wait_time: undefined,
-    actual_wait_time: undefined,
-    express: false,
+    note: singleCheckInArray ? singleCheckInArray[0].note : "",
+    estimated_wait_time: singleCheckInArray
+      ? singleCheckInArray[0].estimated_wait_time
+      : undefined,
+    actual_wait_time: singleCheckInArray
+      ? singleCheckInArray[0].actual_wait_time
+      : undefined,
+    express: singleCheckInArray ? singleCheckInArray[0].express : false,
   };
 
   const HouseCheckinSchema = Yup.object().shape({
@@ -98,7 +149,7 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
       .required("Please rate between 1 and 5."),
   });
 
-  if (loading) {
+  if (loading || isLoading) {
     return <p>Loading</p>;
   }
 
@@ -236,7 +287,7 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
               type="submit"
               className="inline-flex w-full justify-center rounded-md border border-transparent bg-emerald-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-emerald-600 sm:text-sm"
             >
-              Submit Run
+              {checkinID ? "Edit Checkin" : "Submit Run"}
             </button>
           </Form>
         )}
