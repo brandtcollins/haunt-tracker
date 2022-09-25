@@ -3,6 +3,8 @@ import Image from "next/image";
 import { FunctionComponent } from "react";
 import { iCheckIn, iHauntedHouse } from "../../ts/Interfaces";
 import Link from "next/link";
+import { supabase } from "../../utils/supabaseClient";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface CheckInCardProps {
   checkIn: iCheckIn;
@@ -15,10 +17,26 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
   username,
   checkedInHouse,
 }) => {
+  const queryClient = useQueryClient();
+
   let checkInDate;
+
   if (checkIn.created_at) {
     checkInDate = new Date(checkIn.created_at);
   }
+
+  const deleteCheckin = async (values: iCheckIn) => {
+    const { data, error } = await supabase
+      .from("check-ins")
+      .delete()
+      .match({ checkin_id: values.checkin_id });
+  };
+  const mutation = useMutation(deleteCheckin, {
+    onSuccess: () => {
+      queryClient.refetchQueries(["check-ins"]);
+    },
+  });
+
   return (
     <div
       key={checkIn.checkin_id}
@@ -91,13 +109,19 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
             <p>{checkIn.note}</p>
           </div>
         </div>
-        <div className="pt-4">
+        <div className="pt-4 flex justify-between">
           <Link
             href={`/user/${username}/checkin/${checkIn.checkin_id}/edit`}
             passHref
           >
             <a className="text-sm text-slate-500">Edit Checkin</a>
           </Link>
+          <p
+            className="text-sm text-slate-500"
+            onClick={() => mutation.mutate(checkIn)}
+          >
+            Delete Checkin
+          </p>
         </div>
       </div>
     </div>
