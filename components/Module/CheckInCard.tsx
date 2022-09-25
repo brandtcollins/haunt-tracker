@@ -92,8 +92,11 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
           </div>
         </div>
         <div className="pt-4">
-          <Link href={`/user/${username}/checkin/${checkIn.checkin_id}/edit`}>
-            Edit Checkin
+          <Link
+            href={`/user/${username}/checkin/${checkIn.checkin_id}/edit`}
+            passHref
+          >
+            <a className="text-sm text-slate-500">Edit Checkin</a>
           </Link>
         </div>
       </div>
