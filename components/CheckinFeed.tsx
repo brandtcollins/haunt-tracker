@@ -14,10 +14,7 @@ interface CheckinFeedProps {}
 const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({}) => {
   const [checkIns, setCheckIns] = useState<iCheckIn[]>();
   const [user, setUser] = useState<User>();
-  const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState<string | null>(null);
-  const [website, setWebsite] = useState<string | null>(null);
-  const [avatar_url, setAvatarUrl] = useState<string | null>(null);
   const { data: hauntedHouseList } = useHauntedHouses();
 
   async function getCurrentUser() {
@@ -39,7 +36,6 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({}) => {
 
   async function getProfile() {
     try {
-      setLoading(true);
       const user = await getCurrentUser();
 
       let { data, error, status } = await supabase
@@ -54,15 +50,12 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({}) => {
 
       if (data) {
         setUsername(data.username);
-        setWebsite(data.website);
-        data.avatar_url && setAvatarUrl(data.avatar_url);
       }
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);
       }
     } finally {
-      setLoading(false);
     }
   }
 
@@ -145,13 +138,14 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({}) => {
       {checkIns
         ?.slice(0)
         .reverse()
-        .map((checkIn) => {
+        .map((checkIn, index) => {
           const checkedInHouse: iHauntedHouse | undefined =
             hauntedHouseList?.find(
               (house) => house.haunted_house_id === checkIn.haunted_house_id
             );
           return (
             <CheckInCard
+              key={index}
               checkIn={checkIn}
               checkedInHouse={checkedInHouse}
               username={username}
