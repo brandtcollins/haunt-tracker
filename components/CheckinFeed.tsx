@@ -9,15 +9,9 @@ import { VscAdd } from "react-icons/vsc";
 import CheckInCard from "./Module/CheckInCard";
 import Link from "next/link";
 
-interface CheckinFeedProps {
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-}
+interface CheckinFeedProps {}
 
-const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
-  open,
-  setOpen,
-}) => {
+const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({}) => {
   const [checkIns, setCheckIns] = useState<iCheckIn[]>();
   const [user, setUser] = useState<User>();
   const [loading, setLoading] = useState(true);
@@ -125,9 +119,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
   return (
     <div>
       <div
-        className={`md:hidden h-24 w-full bottom-0 left-0 z-50 fixed flex justify-end items-center ${
-          open && "hidden"
-        }`}
+        className={`md:hidden h-24 w-full bottom-0 left-0 z-50 fixed flex justify-end items-center`}
       >
         <div className="mr-12">
           <Link href={`/user/${username}/checkin`}>
