@@ -7,6 +7,7 @@ import { iCheckIn, iHauntedHouse } from "../ts/Interfaces";
 import { supabase } from "../utils/supabaseClient";
 import { VscAdd } from "react-icons/vsc";
 import CheckInCard from "./Module/CheckInCard";
+import Link from "next/link";
 
 interface CheckinFeedProps {
   open: boolean;
@@ -129,23 +130,25 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
         }`}
       >
         <div className="mr-12">
-          <button
-            onClick={() => setOpen(true)}
-            type="button"
-            className="inline-flex w-full justify-center rounded-full border border-transparent bg-emerald-500 p-4 text-4xl font-medium text-white shadow-sm hover:bg-emerald-700"
-          >
-            <VscAdd />
-          </button>
+          <Link href={`/user/${username}/checkin`}>
+            <button
+              type="button"
+              className="inline-flex w-full justify-center rounded-full border border-transparent bg-emerald-500 p-4 text-4xl font-medium text-white shadow-sm hover:bg-emerald-700"
+            >
+              <VscAdd />
+            </button>
+          </Link>
         </div>
       </div>
       <div className="hidden md:block">
-        <button
-          onClick={() => setOpen(true)}
-          type="button"
-          className=" inline-flex w-full justify-center rounded-md border border-transparent bg-emerald-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-emerald-700 sm:text-sm"
-        >
-          Check into a haunt
-        </button>
+        <Link href={`/user/${username}/checkin`}>
+          <button
+            type="button"
+            className=" inline-flex w-full justify-center rounded-md border border-transparent bg-emerald-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-emerald-700 sm:text-sm"
+          >
+            Check into a haunt
+          </button>
+        </Link>
       </div>
       {checkIns
         ?.slice(0)
