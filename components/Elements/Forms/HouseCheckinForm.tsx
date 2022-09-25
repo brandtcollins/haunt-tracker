@@ -15,7 +15,7 @@ import * as Yup from "yup";
 //prettier-ignore
 import { Formik, Field, Form, FormikHelpers,useFormikContext, useFormik, FormikProps,FormikState } from "formik";
 import { useRouter } from "next/router";
-import { User } from "discord.js";
+import { User } from "@supabase/supabase-js";
 
 interface HouseCheckinFormProps {
   setOpen?: Dispatch<SetStateAction<boolean>>;
