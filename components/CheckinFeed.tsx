@@ -14,7 +14,7 @@ interface CheckinFeedProps {}
 const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({}) => {
   const [checkIns, setCheckIns] = useState<iCheckIn[]>();
   const { data: hauntedHouseList } = useHauntedHouses();
-  const { userId, username } = useUserContext();
+  const { userId, username, isLoading } = useUserContext();
 
   async function getCheckins() {
     try {
@@ -44,8 +44,10 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({}) => {
   }, [checkInArray]);
 
   useEffect(() => {
-    getCheckins();
-  }, []);
+    if (!isLoading) {
+      getCheckins();
+    }
+  }, [isLoading]);
 
   const emptyFeed = (
     <div className="border-2 py-24 border-darkGray-100 relative flex flex-col overflow-hidden rounded-md my-4 text-white items-center">

@@ -17,7 +17,7 @@ const UserSettings: FunctionComponent<UserSettingsProps> = ({ session }) => {
   const [loading, setLoading] = useState(true);
   const [formDisabled, setFormDisabled] = useState(true);
   const queryClient = useQueryClient();
-  const { userId, username, website, avatarUrl } = useUserContext();
+  const { userId, username, website, avatarUrl, isLoading } = useUserContext();
 
   const updateProfile = async ({
     username,
@@ -67,7 +67,7 @@ const UserSettings: FunctionComponent<UserSettingsProps> = ({ session }) => {
 
   return (
     <Layout title="User Settings">
-      {!loading && (
+      {!isLoading && (
         <Formik
           initialValues={initialValues}
           onSubmit={(values) => mutation.mutate(values)}
