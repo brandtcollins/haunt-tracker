@@ -4,6 +4,7 @@ import {
   FunctionComponent,
   SetStateAction,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { iCheckIn, iHauntedHouse } from "../../../ts/Interfaces";
@@ -13,7 +14,7 @@ import { ValueTarget } from "framer-motion";
 import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 import * as Yup from "yup";
 //prettier-ignore
-import { Formik, Field, Form, FormikHelpers,useFormikContext, useFormik, FormikProps,FormikState } from "formik";
+import { Formik, Field, Form, FormikHelpers,useFormikContext, useFormik, FormikProps,FormikState, useField } from "formik";
 import { useRouter } from "next/router";
 import { User } from "@supabase/supabase-js";
 
@@ -127,7 +128,7 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
     haunted_house_id: singleCheckInArray
       ? singleCheckInArray[0].haunted_house_id
       : "",
-    rating: singleCheckInArray ? singleCheckInArray[0].rating : undefined,
+    rating: singleCheckInArray ? singleCheckInArray[0].rating : 2.5,
     user_id: currentUser,
     note: singleCheckInArray ? singleCheckInArray[0].note : "",
     estimated_wait_time: singleCheckInArray
@@ -149,6 +150,8 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
       .required("Please rate between 1 and 5."),
   });
 
+  useEffect(() => {}, [sliderValue]);
+
   if (loading || isLoading) {
     return <p>Loading</p>;
   }
@@ -160,7 +163,7 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
         onSubmit={(values) => mutation.mutate(values)}
         validationSchema={HouseCheckinSchema}
       >
-        {({ errors, touched, isSubmitting }: FormikState<iCheckIn>) => (
+        {({ errors, values, touched, isSubmitting }: FormikState<iCheckIn>) => (
           <Form className="text-white">
             {isSubmitting && <p>Submitting</p>}
             <div>
@@ -190,12 +193,15 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
             </div>
             <div className="py-2">
               <label htmlFor="rating" className="block font-medium">
-                Run rating
+                Run rating: {values.rating}
               </label>
               <div className="relative mt-1 rounded-md shadow-sm">
                 <Field
                   name="rating"
-                  type="number"
+                  type="range"
+                  min="1"
+                  max="5"
+                  step="0.25"
                   id="rating"
                   placeholder="Give your run a rating between 1 and 5"
                   className="mt-1 h-12 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
