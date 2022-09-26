@@ -10,12 +10,9 @@ import { useUserContext } from "../../state/UserContext";
 interface ProfileStatsProps {}
 
 const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
-  const [checkIns, setCheckIns] = useState<iCheckIn[]>();
-  const [user, setUser] = useState<User>();
   const [totalNights, setTotalNights] = useState<number>(0);
   const [totalHaunts, setTotalHaunts] = useState<number>(0);
-  const { data: hauntedHouseList } = useHauntedHouses();
-  const { userId, username, website, avatarUrl } = useUserContext();
+  const { userId, username } = useUserContext();
 
   async function getCheckins() {
     try {
