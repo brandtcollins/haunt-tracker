@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { Formik, Field, Form, FormikHelpers,useFormikContext, useFormik, FormikProps,FormikState } from "formik";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { iUserSettings } from "../../../ts/Interfaces";
+import { useUserContext } from "../../../state/UserContext";
 
 interface UserSettingsProps {
   session: any;
@@ -14,61 +15,9 @@ interface UserSettingsProps {
 
 const UserSettings: FunctionComponent<UserSettingsProps> = ({ session }) => {
   const [loading, setLoading] = useState(true);
-  const [username, setUsername] = useState<string | null>(null);
-  const [website, setWebsite] = useState<string | null>(null);
-  const [avatar_url, setAvatarUrl] = useState<string | null>(null);
   const [formDisabled, setFormDisabled] = useState(true);
   const queryClient = useQueryClient();
-
-  useEffect(() => {
-    getProfile();
-  }, [session]);
-
-  async function getCurrentUser() {
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.getSession();
-
-    if (error) {
-      throw error;
-    }
-
-    if (!session?.user) {
-      throw new Error("User not logged in");
-    }
-
-    return session.user;
-  }
-
-  async function getProfile() {
-    try {
-      setLoading(true);
-      const user = await getCurrentUser();
-
-      let { data, error, status } = await supabase
-        .from("profiles")
-        .select(`username, website, avatar_url`)
-        .eq("user_id", user.id)
-        .single();
-
-      if (error && status !== 406) {
-        throw error;
-      }
-
-      if (data) {
-        setUsername(data.username);
-        setWebsite(data.website);
-        data.avatar_url && setAvatarUrl(data.avatar_url);
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      }
-    } finally {
-      setLoading(false);
-    }
-  }
+  const { userId, username, website, avatarUrl } = useUserContext();
 
   const updateProfile = async ({
     username,
@@ -77,10 +26,8 @@ const UserSettings: FunctionComponent<UserSettingsProps> = ({ session }) => {
   }: iUserSettings) => {
     try {
       setLoading(true);
-      const user = await getCurrentUser();
-
       const updates = {
-        user_id: user.id,
+        user_id: userId,
         username,
         website,
         avatar_url,
@@ -99,14 +46,13 @@ const UserSettings: FunctionComponent<UserSettingsProps> = ({ session }) => {
     } finally {
       setLoading(false);
       setFormDisabled(true);
-      getProfile();
     }
   };
 
   const initialValues: iUserSettings = {
     username: username ? username : "",
     website: website ? website : "",
-    avatar_url: avatar_url ? avatar_url : "",
+    avatar_url: avatarUrl ? avatarUrl : "",
   };
 
   const HouseCheckinSchema = Yup.object().shape({
