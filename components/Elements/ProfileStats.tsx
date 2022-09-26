@@ -5,74 +5,24 @@ import { iCheckIn } from "../../ts/Interfaces";
 import { supabase } from "../../utils/supabaseClient";
 import { User } from "@supabase/supabase-js";
 import Avatar from "./Avatar";
+import { useUserContext } from "../../state/UserContext";
 
 interface ProfileStatsProps {}
 
 const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
   const [checkIns, setCheckIns] = useState<iCheckIn[]>();
   const [user, setUser] = useState<User>();
-  const [loading, setLoading] = useState(true);
-  const [username, setUsername] = useState<string | null>(null);
-  const [website, setWebsite] = useState<string | null>(null);
-  const [avatar_url, setAvatarUrl] = useState<string | null>(null);
   const [totalNights, setTotalNights] = useState<number>(0);
   const [totalHaunts, setTotalHaunts] = useState<number>(0);
   const { data: hauntedHouseList } = useHauntedHouses();
-
-  async function getCurrentUser() {
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.getSession();
-
-    if (error) {
-      throw error;
-    }
-
-    if (!session?.user) {
-      throw new Error("User not logged in");
-    }
-    setUser(session?.user);
-    return session.user;
-  }
-
-  async function getProfile() {
-    try {
-      setLoading(true);
-      const user = await getCurrentUser();
-
-      let { data, error, status } = await supabase
-        .from("profiles")
-        .select(`username, website, avatar_url`)
-        .eq("user_id", user.id)
-        .single();
-
-      if (error && status !== 406) {
-        throw error;
-      }
-
-      if (data) {
-        setUsername(data.username);
-        setWebsite(data.website);
-        data.avatar_url && setAvatarUrl(data.avatar_url);
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      }
-    } finally {
-      setLoading(false);
-    }
-  }
+  const { userId, username, website, avatarUrl } = useUserContext();
 
   async function getCheckins() {
     try {
-      const user = await getCurrentUser();
-
       let { data, error, status } = await supabase
         .from("check-ins")
         .select("*")
-        .eq("user_id", user.id);
+        .eq("user_id", userId);
 
       if (error && status !== 406) {
         throw error;
@@ -116,7 +66,6 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
 
   useEffect(() => {
     getCheckins();
-    getProfile();
   }, []);
 
   return (

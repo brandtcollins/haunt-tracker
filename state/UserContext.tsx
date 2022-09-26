@@ -15,6 +15,7 @@ interface UserContextProps {
   avatarUrl: string | null;
   userId: string | null;
   isLoading: boolean;
+  user?: User;
 }
 
 interface UserProviderProps {
@@ -86,7 +87,7 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ username, website, avatarUrl, userId, isLoading }}
+      value={{ username, website, avatarUrl, userId, isLoading, user }}
     >
       {children}
     </UserContext.Provider>
