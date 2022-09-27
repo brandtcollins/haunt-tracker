@@ -28,7 +28,7 @@ export const UserContext = createContext<UserContextProps>(
 export const useUserContext = () => useContext(UserContext);
 
 const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
-  const [isLoading, setIsLoadin] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [user, setUser] = useState<User>();
   const [username, setUsername] = useState<string | null>("");
   const [avatarUrl, setAvatarUrl] = useState<string | null>("");
@@ -52,14 +52,16 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
     return session.user;
   }
 
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
+
   async function getProfile() {
     try {
-      const user = await getCurrentUser();
-
       let { data, error, status } = await supabase
         .from("profiles")
         .select(`username, website, avatar_url, user_id`)
-        .eq("user_id", user.id)
+        .eq("user_id", user?.id)
         .single();
 
       if (error && status !== 406) {
@@ -71,7 +73,7 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
         setWebsite(data.website);
         setAvatarUrl(data.avatar_url);
         setUserId(data.user_id);
-        setIsLoadin(false);
+        setIsLoading(false);
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -80,10 +82,13 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
     } finally {
     }
   }
+  useEffect(() => {
+    getCurrentUser();
+  }, []);
 
   useEffect(() => {
     getProfile();
-  }, []);
+  }, [user]);
 
   return (
     <UserContext.Provider

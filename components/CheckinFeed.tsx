@@ -1,5 +1,6 @@
 //prettier-ignore
-import {FunctionComponent,useEffect,useState,} from "react";
+import {Dispatch,FunctionComponent,SetStateAction,useEffect,useState,} from "react";
+import { User } from "@supabase/supabase-js";
 import { useQuery } from "@tanstack/react-query";
 import { useHauntedHouses } from "../ts/hooks/useHauntedHouses";
 import { iCheckIn, iHauntedHouse } from "../ts/Interfaces";
@@ -7,21 +8,65 @@ import { supabase } from "../utils/supabaseClient";
 import { VscAdd } from "react-icons/vsc";
 import CheckInCard from "./Module/CheckInCard";
 import Link from "next/link";
-import { useUserContext } from "../state/UserContext";
 
 interface CheckinFeedProps {}
 
 const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({}) => {
   const [checkIns, setCheckIns] = useState<iCheckIn[]>();
+  const [user, setUser] = useState<User>();
+  const [username, setUsername] = useState<string | null>(null);
   const { data: hauntedHouseList } = useHauntedHouses();
-  const { userId, username, isLoading } = useUserContext();
+
+  async function getCurrentUser() {
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
+
+    if (error) {
+      throw error;
+    }
+
+    if (!session?.user) {
+      throw new Error("User not logged in");
+    }
+    setUser(session?.user);
+    return session.user;
+  }
+
+  async function getProfile() {
+    try {
+      const user = await getCurrentUser();
+
+      let { data, error, status } = await supabase
+        .from("profiles")
+        .select(`username, website, avatar_url`)
+        .eq("user_id", user.id)
+        .single();
+
+      if (error && status !== 406) {
+        throw error;
+      }
+
+      if (data) {
+        setUsername(data.username);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
+    } finally {
+    }
+  }
 
   async function getCheckins() {
     try {
+      const user = await getCurrentUser();
+
       let { data, error, status } = await supabase
         .from("check-ins")
         .select("*")
-        .eq("user_id", userId)
+        .eq("user_id", user.id)
         .order("created_at", { ascending: true });
 
       if (error && status !== 406) {
@@ -44,10 +89,9 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({}) => {
   }, [checkInArray]);
 
   useEffect(() => {
-    if (!isLoading) {
-      getCheckins();
-    }
-  }, [isLoading]);
+    getCheckins();
+    getProfile();
+  }, []);
 
   const emptyFeed = (
     <div className="border-2 py-24 border-darkGray-100 relative flex flex-col overflow-hidden rounded-md my-4 text-white items-center">

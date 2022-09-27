@@ -4,7 +4,6 @@ import type { AppProps } from "next/app";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Layout from "../components/Layout";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import UserProvider from "../state/UserContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -17,10 +16,7 @@ const queryClient = new QueryClient({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <UserProvider>
-        <Component {...pageProps} />
-      </UserProvider>
-
+      <Component {...pageProps} />
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
