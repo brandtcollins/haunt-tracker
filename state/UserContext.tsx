@@ -52,8 +52,6 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
           setSession(session);
           setSessionLoaded(true);
         }
-
-        setIsLoading(false);
       }
     }
 

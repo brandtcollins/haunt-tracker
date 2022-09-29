@@ -87,7 +87,6 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
 
   useEffect(() => {
     getCheckins();
-    // getProfile();
   }, []);
 
   return (
