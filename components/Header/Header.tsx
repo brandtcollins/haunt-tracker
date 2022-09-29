@@ -6,6 +6,7 @@ import Avatar from "../Elements/Avatar";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { supabase } from "../../utils/supabaseClient";
+import { useUserContext } from "../../state/UserContext";
 
 interface HeaderProps {}
 
@@ -17,20 +18,13 @@ interface userNavigationProps {
 
 const Header: FunctionComponent<HeaderProps> = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const [username, setUsername] = useState<string | null>(null);
-  const [website, setWebsite] = useState<string | null>(null);
-  const [avatar_url, setAvatarUrl] = useState<string | null>(null);
+  const { username, website, avatarUrl } = useUserContext();
 
   const userNavigation: userNavigationProps[] = [
     { name: "My Activity", href: `/user/${username}/` },
     { name: "Profile Settings", href: "/user/settings" },
     { name: "Sign out", href: "#", onClick: signOut },
   ];
-
-  useEffect(() => {
-    getProfile();
-  }, []);
 
   const navigation = [
     {
@@ -45,51 +39,6 @@ const Header: FunctionComponent<HeaderProps> = () => {
     },
   ];
 
-  async function getCurrentUser() {
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.getSession();
-
-    if (error) {
-      throw error;
-    }
-
-    if (!session?.user) {
-      throw new Error("User not logged in");
-    }
-
-    return session.user;
-  }
-
-  async function getProfile() {
-    try {
-      setLoading(true);
-      const user = await getCurrentUser();
-
-      let { data, error, status } = await supabase
-        .from("profiles")
-        .select(`username, website, avatar_url`)
-        .eq("user_id", user.id)
-        .single();
-
-      if (error && status !== 406) {
-        throw error;
-      }
-
-      if (data) {
-        setUsername(data.username);
-        setWebsite(data.website);
-        data.avatar_url && setAvatarUrl(data.avatar_url);
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      }
-    } finally {
-      setLoading(false);
-    }
-  }
   return (
     <Disclosure as="nav" className="bg-darkGray-500">
       {({ open }) => (
