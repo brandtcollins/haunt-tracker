@@ -39,7 +39,7 @@ const DeleteCheckinModal: FunctionComponent<deleteModalProps> = ({
           </Dialog.Title>
           <div className="mt-2">
             <p className="text-sm text-white">
-              Are you sure you'd like to delete this check in?
+              Are you sure you&apos;d like to delete this check in?
             </p>
           </div>
         </div>
