@@ -5,6 +5,7 @@ import { iCheckIn, iHauntedHouse } from "../../ts/Interfaces";
 import Link from "next/link";
 import { useModalContext } from "../../state/ModalContext";
 import { DeleteCheckinModal } from "../Elements/Modal/ModalContent";
+import StarRating from "../Elements/StarRating/StarRating";
 
 interface CheckInCardProps {
   checkIn: iCheckIn;
@@ -20,6 +21,7 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
   const { setOpen, setModalPanel } = useModalContext();
 
   let checkInDate;
+  let checkInRatingNum = 3.5;
 
   if (checkIn.created_at) {
     checkInDate = new Date(checkIn.created_at);
@@ -66,11 +68,7 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
             </p>
           </div>
           <div className="py-2">
-            <p>
-              <span className="font-bold text-emerald-500">
-                {checkIn.rating} out of 5
-              </span>
-            </p>
+            <StarRating rating={checkIn.rating} />
           </div>
           <div className="flex text-white py-2 items-center">
             <p className="pr-4 text-center">
