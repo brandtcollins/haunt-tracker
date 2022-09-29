@@ -10,13 +10,13 @@ import {
 import { iCheckIn, iHauntedHouse } from "../../../ts/Interfaces";
 import { getHauntedHouses } from "../../../utils/HelperFunctions";
 import { supabase } from "../../../utils/supabaseClient";
-import { ValueTarget } from "framer-motion";
 import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 import * as Yup from "yup";
 //prettier-ignore
 import { Formik, Field, Form, FormikHelpers,useFormikContext, useFormik, FormikProps,FormikState, useField } from "formik";
 import { useRouter } from "next/router";
 import { User } from "@supabase/supabase-js";
+import LoadingCircle from "../LoadingCircle";
 
 interface HouseCheckinFormProps {
   setOpen?: Dispatch<SetStateAction<boolean>>;
@@ -34,19 +34,21 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
   const [currentUser, setCurrentUser] = useState<any>();
   const [selectedHouse, setSelectedHouse] = useState<string>("");
   const [runNotes, setRunNotes] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
   const { username, checkinID } = router.query;
   const [user, setUser] = useState<User>();
   const { data: singleCheckInArray, isLoading } = useQuery(
     ["singleCheckin"],
-    getCheckins
+    getCheckins,
+    { enabled: Boolean(checkinID) }
   );
+
+  useEffect(() => {
+    console.log(isLoading);
+  }, [isLoading]);
 
   async function getCheckins() {
     try {
-      const user = await getCurrentUser();
-
       let { data, error, status } = await supabase
         .from("check-ins")
         .select("*")
@@ -109,7 +111,6 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
     }
 
     setCurrentUser(session.user.id);
-    setLoading(false);
   }
 
   useEffect(() => {
@@ -152,10 +153,11 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
 
   useEffect(() => {}, [sliderValue]);
 
-  if (loading || isLoading) {
-    return <p>Loading</p>;
+  if (checkinID) {
+    if (isLoading) {
+      return <LoadingCircle />;
+    }
   }
-
   return (
     <>
       <Formik
