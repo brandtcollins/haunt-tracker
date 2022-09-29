@@ -33,12 +33,12 @@ const DeleteCheckinModal: FunctionComponent<deleteModalProps> = ({
         <div className="mt-3 text-center sm:mt-5">
           <Dialog.Title
             as="h3"
-            className="text-lg font-medium leading-6 text-gray-900"
+            className="text-2xl font-medium leading-6 text-white"
           >
             Delete check in
           </Dialog.Title>
           <div className="mt-2">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-white">
               Are you sure you'd like to delete this check in?
             </p>
           </div>
@@ -47,14 +47,14 @@ const DeleteCheckinModal: FunctionComponent<deleteModalProps> = ({
       <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
         <button
           type="button"
-          className="inline-flex w-full justify-center rounded-md border border-transparent bg-emerald-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 sm:col-start-2 sm:text-sm"
+          className="inline-flex w-full justify-center rounded-md bg-red-500 px-4 py-2 text-base font-medium focus:outline-none text-white shadow-sm hover:bg-red-700 sm:col-start-2 sm:text-sm"
           onClick={() => mutation.mutate(checkIn)}
         >
           Delete Checkin
         </button>
         <button
           type="button"
-          className="mt-3 inline-flex w-full justify-center rounded-md border border-emerald-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 sm:col-start-1 sm:mt-0 sm:text-sm"
+          className="mt-3 inline-flex w-full justify-center rounded-md border border-emerald-300 bg-emerald-500 px-4 py-2 text-base font-medium focus:outline-none text-white shadow-sm hover:bg-gray-50 sm:col-start-1 sm:mt-0 sm:text-sm"
           onClick={() => setOpen(false)}
         >
           Cancel
