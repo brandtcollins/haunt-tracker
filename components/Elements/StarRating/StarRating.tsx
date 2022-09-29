@@ -11,16 +11,16 @@ const StarRating: FunctionComponent<StarRatingProps> = ({ rating }) => {
       {[...Array(5)].map((item, index) => {
         let ratingIndex = index + 1;
         if (!rating) {
-          return <p>No rating given.</p>;
+          return <p key={index}>No rating given.</p>;
         }
         if (ratingIndex > rating) {
           if (ratingIndex > rating && index < rating) {
-            return <MdStarHalf className="text-yellow-500" />;
+            return <MdStarHalf key={index} className="text-yellow-500" />;
           }
-          return <MdStarOutline className="text-yellow-500" />;
+          return <MdStarOutline key={index} className="text-yellow-500" />;
         }
         if (ratingIndex < rating || ratingIndex === rating) {
-          return <MdStar className="text-yellow-500" />;
+          return <MdStar key={index} className="text-yellow-500" />;
         }
       })}
     </div>
