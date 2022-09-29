@@ -2,9 +2,10 @@ import * as React from "react";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import Layout from "../components/Layout";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import UserProvider from "../state/UserContext";
+import ModalProvider from "../state/ModalContext";
+import Modal from "../components/Elements/Modal/Modal";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,7 +19,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <UserProvider>
-        <Component {...pageProps} />
+        <ModalProvider>
+          <Modal />
+          <Component {...pageProps} />
+        </ModalProvider>
       </UserProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

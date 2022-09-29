@@ -1,10 +1,10 @@
 import { CgBolt } from "react-icons/cg";
 import Image from "next/image";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useRef } from "react";
 import { iCheckIn, iHauntedHouse } from "../../ts/Interfaces";
 import Link from "next/link";
-import { supabase } from "../../utils/supabaseClient";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useModalContext } from "../../state/ModalContext";
+import { DeleteCheckinModal } from "../Elements/Modal/ModalContent";
 
 interface CheckInCardProps {
   checkIn: iCheckIn;
@@ -17,7 +17,7 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
   username,
   checkedInHouse,
 }) => {
-  const queryClient = useQueryClient();
+  const { setOpen, setModalPanel } = useModalContext();
 
   let checkInDate;
 
@@ -25,17 +25,10 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
     checkInDate = new Date(checkIn.created_at);
   }
 
-  const deleteCheckin = async (values: iCheckIn) => {
-    const { data, error } = await supabase
-      .from("check-ins")
-      .delete()
-      .match({ checkin_id: values.checkin_id });
+  const handleDeleteCheckin = (checkIn: iCheckIn) => {
+    setOpen(true);
+    setModalPanel(<DeleteCheckinModal checkIn={checkIn} />);
   };
-  const mutation = useMutation(deleteCheckin, {
-    onSuccess: () => {
-      queryClient.refetchQueries(["check-ins"]);
-    },
-  });
 
   return (
     <div
@@ -118,7 +111,8 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
           </Link>
           <p
             className="text-sm text-slate-500"
-            onClick={() => mutation.mutate(checkIn)}
+            // onClick={() => mutation.mutate(checkIn)}
+            onClick={() => handleDeleteCheckin(checkIn)}
           >
             Delete Checkin
           </p>
