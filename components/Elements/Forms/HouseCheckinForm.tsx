@@ -43,10 +43,6 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
     { enabled: Boolean(checkinID) }
   );
 
-  useEffect(() => {
-    console.log(isLoading);
-  }, [isLoading]);
-
   async function getCheckins() {
     try {
       let { data, error, status } = await supabase
@@ -125,20 +121,43 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
     getCurrentUser();
   }, []);
 
+  // const initialValues: iCheckIn = {
+  //   haunted_house_id: singleCheckInArray
+  //     ? singleCheckInArray[0].haunted_house_id
+  //     : "",
+  //   rating: singleCheckInArray ? singleCheckInArray[0].rating : 2.5,
+  //   user_id: currentUser,
+  //   note: singleCheckInArray ? singleCheckInArray[0].note : "",
+  //   estimated_wait_time: singleCheckInArray
+  //     ? singleCheckInArray[0].estimated_wait_time
+  //     : undefined,
+  //   actual_wait_time: singleCheckInArray
+  //     ? singleCheckInArray[0].actual_wait_time
+  //     : undefined,
+  //   express: singleCheckInArray ? singleCheckInArray[0].express : false,
+  // };
+
   const initialValues: iCheckIn = {
-    haunted_house_id: singleCheckInArray
-      ? singleCheckInArray[0].haunted_house_id
-      : "",
-    rating: singleCheckInArray ? singleCheckInArray[0].rating : 2.5,
+    haunted_house_id: "",
+    rating: 2.5,
     user_id: currentUser,
-    note: singleCheckInArray ? singleCheckInArray[0].note : "",
-    estimated_wait_time: singleCheckInArray
-      ? singleCheckInArray[0].estimated_wait_time
-      : undefined,
-    actual_wait_time: singleCheckInArray
-      ? singleCheckInArray[0].actual_wait_time
-      : undefined,
-    express: singleCheckInArray ? singleCheckInArray[0].express : false,
+    note: "",
+    estimated_wait_time: undefined,
+    actual_wait_time: undefined,
+    express: false,
+  };
+
+  const initialValuesEdit: iCheckIn = {
+    haunted_house_id:
+      singleCheckInArray && singleCheckInArray[0].haunted_house_id,
+    rating: singleCheckInArray && singleCheckInArray[0].rating,
+    user_id: currentUser,
+    note: singleCheckInArray && singleCheckInArray[0].note,
+    estimated_wait_time:
+      singleCheckInArray && singleCheckInArray[0].estimated_wait_time,
+    actual_wait_time:
+      singleCheckInArray && singleCheckInArray[0].actual_wait_time,
+    express: singleCheckInArray && singleCheckInArray[0].express,
   };
 
   const HouseCheckinSchema = Yup.object().shape({
@@ -151,8 +170,6 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
       .required("Please rate between 1 and 5."),
   });
 
-  useEffect(() => {}, [sliderValue]);
-
   if (checkinID) {
     if (isLoading) {
       return <LoadingCircle />;
@@ -161,7 +178,8 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
   return (
     <>
       <Formik
-        initialValues={initialValues}
+        enableReinitialize
+        initialValues={checkinID ? initialValuesEdit : initialValues}
         onSubmit={(values) => mutation.mutate(values)}
         validationSchema={HouseCheckinSchema}
       >
