@@ -29,6 +29,7 @@ export const UserContext = createContext<UserContextProps>(
 export const useUserContext = () => useContext(UserContext);
 
 const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
+  const [sessionLoaded, setSessionLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [user, setUser] = useState<User>();
   const [username, setUsername] = useState<string | null>("");
@@ -49,6 +50,7 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
       if (mounted) {
         if (session) {
           setSession(session);
+          setSessionLoaded(true);
         }
 
         setIsLoading(false);
@@ -114,11 +116,15 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
     }
   }
   useEffect(() => {
-    getCurrentUser();
-  }, []);
+    if (sessionLoaded) {
+      getCurrentUser();
+    }
+  }, [session]);
 
   useEffect(() => {
-    getProfile();
+    if (sessionLoaded) {
+      getProfile();
+    }
   }, [user]);
 
   return (

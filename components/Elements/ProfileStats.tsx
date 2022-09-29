@@ -36,35 +36,6 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
     return session.user;
   }
 
-  // async function getProfile() {
-  //   try {
-  //     setLoading(true);
-  //     const user = await getCurrentUser();
-
-  //     let { data, error, status } = await supabase
-  //       .from("profiles")
-  //       .select(`username, website, avatar_url`)
-  //       .eq("user_id", user.id)
-  //       .single();
-
-  //     if (error && status !== 406) {
-  //       throw error;
-  //     }
-
-  //     if (data) {
-  //       setUsername(data.username);
-  //       setWebsite(data.website);
-  //       data.avatar_url && setAvatarUrl(data.avatar_url);
-  //     }
-  //   } catch (error) {
-  //     if (error instanceof Error) {
-  //       alert(error.message);
-  //     }
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }
-
   async function getCheckins() {
     try {
       const user = await getCurrentUser();
