@@ -1,10 +1,10 @@
 import { FunctionComponent } from "react";
 
-interface LoadingCirclProps {}
+interface LoadingCircleProps {}
 
-const LoadingCircl: FunctionComponent<LoadingCirclProps> = () => {
+const LoadingCircle: FunctionComponent<LoadingCircleProps> = () => {
   return (
-    <div>
+    <div className="flex justify-center">
       <div role="status">
         <svg
           className="inline mr-2 w-6 h-6 text-emerald-500 animate-spin dark:text-gray-600 fill-white"
@@ -26,4 +26,4 @@ const LoadingCircl: FunctionComponent<LoadingCirclProps> = () => {
   );
 };
 
-export default LoadingCircl;
+export default LoadingCircle;
