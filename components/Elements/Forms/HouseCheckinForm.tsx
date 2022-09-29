@@ -121,22 +121,6 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
     getCurrentUser();
   }, []);
 
-  // const initialValues: iCheckIn = {
-  //   haunted_house_id: singleCheckInArray
-  //     ? singleCheckInArray[0].haunted_house_id
-  //     : "",
-  //   rating: singleCheckInArray ? singleCheckInArray[0].rating : 2.5,
-  //   user_id: currentUser,
-  //   note: singleCheckInArray ? singleCheckInArray[0].note : "",
-  //   estimated_wait_time: singleCheckInArray
-  //     ? singleCheckInArray[0].estimated_wait_time
-  //     : undefined,
-  //   actual_wait_time: singleCheckInArray
-  //     ? singleCheckInArray[0].actual_wait_time
-  //     : undefined,
-  //   express: singleCheckInArray ? singleCheckInArray[0].express : false,
-  // };
-
   const initialValues: iCheckIn = {
     haunted_house_id: "",
     rating: 2.5,

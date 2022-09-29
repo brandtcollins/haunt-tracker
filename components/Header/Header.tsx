@@ -50,7 +50,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
                   <div className="flex-shrink-0">
                     <Link href="/" passHref>
                       <img
-                        className="ml-8 h-8 w-8"
+                        className="ml-8 h-8 w-8 hover:cursor-pointer"
                         src="/images/haunt-tracker.png"
                         alt="Your Company"
                       />

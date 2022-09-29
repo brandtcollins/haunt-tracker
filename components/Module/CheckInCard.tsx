@@ -108,7 +108,7 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
             <a className="text-sm text-slate-500">Edit Checkin</a>
           </Link>
           <p
-            className="text-sm text-slate-500"
+            className="text-sm text-slate-500 hover:cursor-pointer"
             // onClick={() => mutation.mutate(checkIn)}
             onClick={() => handleDeleteCheckin(checkIn)}
           >
