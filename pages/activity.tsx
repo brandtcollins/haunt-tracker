@@ -55,7 +55,7 @@ const Home: FunctionComponent<HomeProps> = () => {
         <div className="md:max-w-3xl md:w-4/5">
           <CheckinFeed />
         </div>
-        <div className="px-4 hidden md:block">
+        <div className="px-4 hidden md:block w-full max-w-md ">
           <ProfileStats />
         </div>
       </div>

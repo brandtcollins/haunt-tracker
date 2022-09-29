@@ -40,7 +40,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
     {
       name: "Haunts",
       href: "#",
-      current: router.pathname === "/activity",
+      current: router.pathname === "/haunts",
     },
   ];
 
