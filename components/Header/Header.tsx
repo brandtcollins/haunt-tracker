@@ -15,17 +15,18 @@ interface userNavigationProps {
   onClick?: any;
 }
 
-const userNavigation: userNavigationProps[] = [
-  { name: "Your Profile", href: "/user/settings" },
-  { name: "Sign out", href: "#", onClick: signOut },
-];
-
 const Header: FunctionComponent<HeaderProps> = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState<string | null>(null);
   const [website, setWebsite] = useState<string | null>(null);
   const [avatar_url, setAvatarUrl] = useState<string | null>(null);
+
+  const userNavigation: userNavigationProps[] = [
+    { name: "My Activity", href: `/user/${username}/` },
+    { name: "Profile Settings", href: "/user/settings" },
+    { name: "Sign out", href: "#", onClick: signOut },
+  ];
 
   useEffect(() => {
     getProfile();
@@ -109,19 +110,19 @@ const Header: FunctionComponent<HeaderProps> = () => {
                   <div className="hidden md:block">
                     <div className="ml-10 flex items-baseline space-x-4 sticky top-0">
                       {navigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className={classNames(
-                            item.current
-                              ? "bg-darkGray-300 text-white"
-                              : "text-gray-300 hover:bg-darkGray-300 hover:text-white",
-                            "px-3 py-2 rounded-md text-sm font-medium"
-                          )}
-                          aria-current={item.current ? "page" : undefined}
-                        >
-                          {item.name}
-                        </a>
+                        <Link key={item.name} href={item.href} passHref>
+                          <a
+                            className={classNames(
+                              item.current
+                                ? "bg-darkGray-300 text-white"
+                                : "text-gray-300 hover:bg-darkGray-300 hover:text-white",
+                              "px-3 py-2 rounded-md text-sm font-medium"
+                            )}
+                            aria-current={item.current ? "page" : undefined}
+                          >
+                            {item.name}
+                          </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -158,17 +159,18 @@ const Header: FunctionComponent<HeaderProps> = () => {
                           {userNavigation.map((item) => (
                             <Menu.Item key={item.name}>
                               {({ active }) => (
-                                <a
-                                  href={item.href}
-                                  onClick={item.onClick}
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
+                                <Link key={item.name} href={item.href} passHref>
+                                  <a
+                                    onClick={item.onClick}
+                                    className={classNames(
+                                      active ? "bg-gray-100" : "",
 
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                  )}
-                                >
-                                  {item.name}
-                                </a>
+                                      "block px-4 py-2 text-sm text-gray-700"
+                                    )}
+                                  >
+                                    {item.name}
+                                  </a>
+                                </Link>
                               )}
                             </Menu.Item>
                           ))}

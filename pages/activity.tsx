@@ -5,45 +5,12 @@ import { AuthSession } from "@supabase/supabase-js";
 import CheckinFeed from "../components/CheckinFeed";
 import Layout from "../components/Layout/Layout";
 import ProfileStats from "../components/Elements/ProfileStats";
+import { useUserContext } from "../state/UserContext";
 
 interface HomeProps {}
 
 const Home: FunctionComponent<HomeProps> = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [session, setSession] = useState<AuthSession | null>(null);
-
-  useEffect(() => {
-    let mounted = true;
-
-    async function getInitialSession() {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-
-      // only update the react state if the component is still mounted
-      if (mounted) {
-        if (session) {
-          setSession(session);
-        }
-
-        setIsLoading(false);
-      }
-    }
-
-    getInitialSession();
-
-    const supabaseAuth: any = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setSession(session);
-      }
-    );
-
-    return () => {
-      mounted = false;
-
-      supabaseAuth.subscription?.unsubscribe();
-    };
-  }, []);
+  const { session, isLoading } = useUserContext();
 
   if (!session) {
     return <Auth />;

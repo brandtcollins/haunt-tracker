@@ -1,4 +1,4 @@
-import { User } from "@supabase/supabase-js";
+import { AuthSession, Session, User } from "@supabase/supabase-js";
 import {
   createContext,
   FunctionComponent,
@@ -16,6 +16,7 @@ interface UserContextProps {
   userId: string | null;
   isLoading: boolean;
   user?: User;
+  session: Session | null;
 }
 
 interface UserProviderProps {
@@ -34,6 +35,40 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
   const [avatarUrl, setAvatarUrl] = useState<string | null>("");
   const [website, setWebsite] = useState<string | null>("");
   const [userId, setUserId] = useState<string | null>("");
+  const [session, setSession] = useState<AuthSession | null>(null);
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function getInitialSession() {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      // only update the react state if the component is still mounted
+      if (mounted) {
+        if (session) {
+          setSession(session);
+        }
+
+        setIsLoading(false);
+      }
+    }
+
+    getInitialSession();
+
+    const supabaseAuth: any = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setSession(session);
+      }
+    );
+
+    return () => {
+      mounted = false;
+
+      supabaseAuth.subscription?.unsubscribe();
+    };
+  }, []);
 
   async function getCurrentUser() {
     const {
@@ -51,10 +86,6 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
     setUser(session?.user);
     return session.user;
   }
-
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
 
   async function getProfile() {
     try {
@@ -92,7 +123,7 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ username, website, avatarUrl, userId, isLoading, user }}
+      value={{ username, website, avatarUrl, userId, isLoading, user, session }}
     >
       {children}
     </UserContext.Provider>
