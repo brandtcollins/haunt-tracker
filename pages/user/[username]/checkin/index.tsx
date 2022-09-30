@@ -6,7 +6,7 @@ interface CheckinProps {}
 
 const Checkin: FunctionComponent<CheckinProps> = () => {
   return (
-    <Layout title="Edit Checkin">
+    <Layout title="House Checkin">
       <HouseCheckinForm />
     </Layout>
   );
