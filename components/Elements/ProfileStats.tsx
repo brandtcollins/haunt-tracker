@@ -11,39 +11,17 @@ import LoadingCircle from "./LoadingCircle";
 interface ProfileStatsProps {}
 
 const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
-  const [checkIns, setCheckIns] = useState<iCheckIn[]>();
-  const [user, setUser] = useState<User>();
   const [totalNights, setTotalNights] = useState<number>(0);
   const [totalHaunts, setTotalHaunts] = useState<number>(0);
   const [ratingAvg, setRatingAvg] = useState<number>(0);
-  const { data: hauntedHouseList } = useHauntedHouses();
-  const { isLoading, website, username, avatarUrl } = useUserContext();
-
-  async function getCurrentUser() {
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.getSession();
-
-    if (error) {
-      throw error;
-    }
-
-    if (!session?.user) {
-      throw new Error("User not logged in");
-    }
-    setUser(session?.user);
-    return session.user;
-  }
+  const { website, username, avatarUrl, userId } = useUserContext();
 
   async function getCheckins() {
     try {
-      const user = await getCurrentUser();
-
       let { data, error, status } = await supabase
         .from("check-ins")
         .select("*")
-        .eq("user_id", user.id);
+        .eq("user_id", userId);
 
       if (error && status !== 406) {
         throw error;
@@ -89,12 +67,14 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
   }, [checkInArray]);
 
   useEffect(() => {
-    getCheckins();
-  }, []);
+    if (userId) {
+      getCheckins();
+    }
+  }, [userId]);
 
   return (
     <div className="border-2 border-darkGray-100 rounded-lg p-4">
-      {isLoading ? (
+      {checkInsLoading ? (
         <LoadingCircle />
       ) : (
         <>
