@@ -13,11 +13,14 @@ interface ProfileStatsProps {}
 const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
   const [checkIns, setCheckIns] = useState<iCheckIn[]>();
   const [user, setUser] = useState<User>();
-  const [avatar_url, setAvatarUrl] = useState<string | null>(null);
   const [totalNights, setTotalNights] = useState<number>(0);
   const [totalHaunts, setTotalHaunts] = useState<number>(0);
   const { data: hauntedHouseList } = useHauntedHouses();
-  const { isLoading, website, username } = useUserContext();
+  const { isLoading, website, username, avatarUrl } = useUserContext();
+
+  useEffect(() => {
+    console.log(avatarUrl);
+  }, [avatarUrl]);
 
   async function getCurrentUser() {
     const {
@@ -96,12 +99,10 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
       ) : (
         <>
           <div className="border-b-2 border-darkGray-100 pb-4 mb-4">
-            <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-gray-500">
-              <Avatar username={username} className="text-2xl" />
-            </span>
-            <span className="text-3xl text-white font-bold pl-4">
+            <Avatar url={avatarUrl} username={username} className="text-2xl" />
+            <p className="text-3xl inline-block text-white font-bold pl-4">
               {username}
-            </span>
+            </p>
           </div>
           <div className="grid grid-cols-4">
             <div className="text-white bg-darkGray-100 col-span-2 py-2 text-center items-center border-r-2 border-b-2 border-darkGray-300">

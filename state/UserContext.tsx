@@ -38,6 +38,21 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
   const [userId, setUserId] = useState<string | null>("");
   const [session, setSession] = useState<AuthSession | null>(null);
 
+  async function downloadImage(path: string) {
+    try {
+      const { data, error } = await supabase.storage
+        .from("avatars")
+        .download(path);
+      if (error) {
+        throw error;
+      }
+      const url = URL.createObjectURL(data);
+      setAvatarUrl(url);
+    } catch (error: any) {
+      console.log("Error downloading image: ", error.message);
+    }
+  }
+
   useEffect(() => {
     let mounted = true;
 
@@ -102,9 +117,11 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
       if (data) {
         setUsername(data.username);
         setWebsite(data.website);
-        setAvatarUrl(data.avatar_url);
         setUserId(data.user_id);
         setIsLoading(false);
+        if (data.avatar_url) {
+          downloadImage(data.avatar_url);
+        }
       }
     } catch (error) {
       if (error instanceof Error) {

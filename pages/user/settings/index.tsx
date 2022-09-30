@@ -249,6 +249,10 @@ const UploadAvatar: FunctionComponent<UploadAvatarProps> = ({
   const [changeAvatar, setChangeAvatar] = useState(false);
 
   useEffect(() => {
+    console.log(avatarUrl);
+  }, [avatarUrl]);
+
+  useEffect(() => {
     if (url) downloadImage(url);
   }, [url]);
 
