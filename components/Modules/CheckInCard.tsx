@@ -81,7 +81,7 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
                 !checkIn.estimated_wait_time && "hidden"
               } pr-4 text-center`}
             >
-              <span className="hidden md:inline-block">
+              <span className="hidden md:inline-block mr-2">
                 Estimated Wait Time:
               </span>
               <span className="md:hidden">Est. Wait </span>
@@ -92,7 +92,9 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
             <p
               className={`${!checkIn.actual_wait_time && "hidden"} text-center`}
             >
-              <span className="hidden md:inline-block">Actual Wait Time:</span>
+              <span className="hidden md:inline-block mr-2">
+                Actual Wait Time:
+              </span>
               <span className="md:hidden">Actual Wait </span>
               {checkIn.express ? (
                 <span className="inline-flex items-center rounded-full bg-emerald-500 px-2 py-0.5 text-md font-medium text-white mr-4">
