@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { FunctionComponent, ReactNode } from "react";
 import Header from "../Header/Header";
 interface LayoutProps {
@@ -8,6 +9,10 @@ interface LayoutProps {
 const Layout: FunctionComponent<LayoutProps> = ({ children, title }) => {
   return (
     <>
+      <Head>
+        <title>{title} - Haunt Tracker</title>
+        <meta property="og:title" content={title} key={title} />
+      </Head>
       <div className="min-h-full">
         <div className="bg-darkGray-500 pb-32">
           <Header />
