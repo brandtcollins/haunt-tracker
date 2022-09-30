@@ -24,10 +24,6 @@ export default function HouseSearchBox() {
   const [selectedHouse, setSelectedHouse] = useState();
   const { data: hauntedHouseList } = useHauntedHouses();
 
-  useEffect(() => {
-    console.log(selectedHouse);
-  }, [selectedHouse]);
-
   const filteredHauntedHouses =
     hauntedHouseList &&
     hauntedHouseList?.filter((hauntedHouse: iHauntedHouse) => {

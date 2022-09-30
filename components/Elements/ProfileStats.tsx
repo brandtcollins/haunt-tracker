@@ -15,12 +15,9 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
   const [user, setUser] = useState<User>();
   const [totalNights, setTotalNights] = useState<number>(0);
   const [totalHaunts, setTotalHaunts] = useState<number>(0);
+  const [ratingAvg, setRatingAvg] = useState<number>(0);
   const { data: hauntedHouseList } = useHauntedHouses();
   const { isLoading, website, username, avatarUrl } = useUserContext();
-
-  useEffect(() => {
-    console.log(avatarUrl);
-  }, [avatarUrl]);
 
   async function getCurrentUser() {
     const {
@@ -70,12 +67,15 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
   useEffect(() => {
     const nightCount: string[] = [];
     const hauntCount: string[] = [];
+    let tempRatingAvg = 0;
     if (checkInArray) {
       for (let index = 0; index < checkInArray.length; index++) {
         const element = checkInArray[index];
         const elementDate = new Date(element.created_at).toLocaleDateString(
           "en-US"
         );
+        tempRatingAvg = tempRatingAvg + element.rating;
+        setRatingAvg(tempRatingAvg);
         if (!nightCount.find((str) => str === elementDate)) {
           nightCount.push(elementDate);
           setTotalNights(nightCount.length);
@@ -98,15 +98,18 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
         <LoadingCircle />
       ) : (
         <>
-          <div className="border-b-2 border-darkGray-100 pb-4 mb-4">
+          <div className="border-b-2 border-darkGray-100 pb-4 mb-4 flex">
             <Avatar
               url={avatarUrl}
               username={username}
               className="text-2xl h-16 w-16"
             />
-            <p className="text-3xl inline-block text-white font-bold pl-4">
-              {username}
-            </p>
+            <div className="flex flex-col pl-4">
+              <p className="text-3xl inline-block text-white font-bold">
+                {username}
+              </p>
+              <p className="text-md inline-block text-gray-500 ">{website}</p>
+            </div>
           </div>
           <div className="grid grid-cols-4">
             <div className="text-white bg-darkGray-100 col-span-2 py-2 text-center items-center border-r-2 border-b-2 border-darkGray-300">
@@ -118,7 +121,11 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
               <h3 className="text-sm">TOTAL RUNS</h3>
             </div>
             <div className="text-white bg-darkGray-100 col-span-2 py-2 text-center items-center border-r-2 border-darkGray-300">
-              <h3 className="text-3xl text-darkGray-100 font-bold">X</h3>
+              <h3 className="text-3xl  font-bold">
+                {checkInArray
+                  ? (ratingAvg / checkInArray?.length).toFixed(2)
+                  : ""}
+              </h3>
               <h3 className="text-sm">AVG RATING</h3>
             </div>
             <div className="text-white bg-darkGray-100 col-span-2 py-2 text-center items-center">
