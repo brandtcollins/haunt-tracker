@@ -76,19 +76,24 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
             <StarRating rating={checkIn.rating} />
           </div>
           <div className="flex text-white py-2 items-center">
-            <p className="pr-4 text-center">
+            <p
+              className={`${
+                !checkIn.estimated_wait_time && "hidden"
+              } pr-4 text-center`}
+            >
               <span className="hidden md:inline-block">
                 Estimated Wait Time:
               </span>
               <span className="md:hidden">Est. Wait </span>
               <span className="font-bold text-emerald-500">
-                {" "}
                 {checkIn.estimated_wait_time}
               </span>
             </p>
-            <p className="text-center">
+            <p
+              className={`${!checkIn.actual_wait_time && "hidden"} text-center`}
+            >
               <span className="hidden md:inline-block">Actual Wait Time:</span>
-              <span className="md:hidden">Actual Wait </span>{" "}
+              <span className="md:hidden">Actual Wait </span>
               {checkIn.express ? (
                 <span className="inline-flex items-center rounded-full bg-emerald-500 px-2 py-0.5 text-md font-medium text-white mr-4">
                   <CgBolt className="text-white" />

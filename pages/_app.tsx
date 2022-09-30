@@ -7,13 +7,7 @@ import UserProvider from "../state/UserContext";
 import ModalProvider from "../state/ModalContext";
 import Modal from "../components/Elements/Modal/Modal";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-    },
-  },
-});
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
