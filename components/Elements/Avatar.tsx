@@ -15,15 +15,19 @@ const Avatar: FunctionComponent<AvatarProps> = ({
   if (url) {
     return (
       <>
-        <img className="inline-block h-16 w-16 rounded-full" src={url} alt="" />
+        <img
+          className={`inline-block rounded-full h-8 w-8 ${className}`}
+          src={url}
+          alt=""
+        />
       </>
     );
   }
   return (
-    <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-gray-500">
-      <span
-        className={`text-sm font-medium leading-none text-white ${className}`}
-      >
+    <span
+      className={`inline-flex h-16 w-16 items-center justify-center rounded-full bg-gray-500 ${className}`}
+    >
+      <span className={`text-sm font-medium leading-none text-white`}>
         {firstLetter ? firstLetter[0] : ":)"}
       </span>
     </span>

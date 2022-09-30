@@ -99,7 +99,11 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
       ) : (
         <>
           <div className="border-b-2 border-darkGray-100 pb-4 mb-4">
-            <Avatar url={avatarUrl} username={username} className="text-2xl" />
+            <Avatar
+              url={avatarUrl}
+              username={username}
+              className="text-2xl h-16 w-16"
+            />
             <p className="text-3xl inline-block text-white font-bold pl-4">
               {username}
             </p>
