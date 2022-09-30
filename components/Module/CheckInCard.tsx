@@ -6,6 +6,8 @@ import Link from "next/link";
 import { useModalContext } from "../../state/ModalContext";
 import { DeleteCheckinModal } from "../Elements/Modal/ModalContent";
 import StarRating from "../Elements/StarRating/StarRating";
+import { useUserContext } from "../../state/UserContext";
+import Avatar from "../Elements/Avatar";
 
 interface CheckInCardProps {
   checkIn: iCheckIn;
@@ -19,7 +21,7 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
   checkedInHouse,
 }) => {
   const { setOpen, setModalPanel } = useModalContext();
-
+  const { avatarUrl } = useUserContext();
   let checkInDate;
   let checkInRatingNum = 3.5;
 
@@ -48,24 +50,27 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
       <div className="p-4 z-10 w-fill bg-darkGray-300">
         <div className="border-b-2 border-darkGray-100 ">
           <div className="flex flex-col text-lg text-white">
-            <p className="">
-              <span className="font-bold text-emerald-500">{username}</span>{" "}
-              just ran
-              <span className="font-bold text-emerald-500">
-                {" "}
-                {checkedInHouse?.name}
-              </span>
-            </p>
-            <p className="text-sm text-slate-500">
-              {" "}
-              {checkInDate?.toLocaleString("en-us", {
-                weekday: "long",
-              })}{" "}
-              {checkInDate?.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-            </p>
+            <div className="flex items-center">
+              <Avatar url={avatarUrl} username={username} className="mr-2" />
+              <div>
+                <span className="font-bold text-emerald-500">{username}</span>{" "}
+                just ran
+                <span className="font-bold text-emerald-500">
+                  {" "}
+                  {checkedInHouse?.name}
+                </span>
+                <p className="text-sm text-slate-500">
+                  {" "}
+                  {checkInDate?.toLocaleString("en-us", {
+                    weekday: "long",
+                  })}{" "}
+                  {checkInDate?.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </p>
+              </div>
+            </div>
           </div>
           <div className="py-2">
             <StarRating rating={checkIn.rating} />
