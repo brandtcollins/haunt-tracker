@@ -165,7 +165,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
             <div className="border-t border-darkGray-100 pt-4 pb-3">
               <div className="flex items-center px-5">
                 <div className="flex-shrink-0">
-                  <Avatar username={username} />
+                  <Avatar url={avatarUrl} username={username} />
                 </div>
                 <div className="ml-3">
                   <div className="text-base font-medium leading-none text-white">
