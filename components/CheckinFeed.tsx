@@ -135,7 +135,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({}) => {
             type="button"
             className=" inline-flex w-full justify-center rounded-md border border-transparent bg-emerald-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-emerald-700 sm:text-sm"
           >
-            Check into a haunt
+            Add Haunted House Run
           </button>
         </Link>
       </div>

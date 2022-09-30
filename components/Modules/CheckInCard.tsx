@@ -51,7 +51,11 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
         <div className="border-b-2 border-darkGray-100 ">
           <div className="flex flex-col text-lg text-white">
             <div className="flex items-center">
-              <Avatar url={avatarUrl} username={username} className="mr-2" />
+              <Avatar
+                url={avatarUrl}
+                username={username}
+                className="mr-2 hidden sm:block"
+              />
               <div>
                 <span className="font-bold text-emerald-500">{username}</span>{" "}
                 just ran
