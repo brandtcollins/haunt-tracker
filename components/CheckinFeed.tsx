@@ -6,7 +6,7 @@ import { useHauntedHouses } from "../ts/hooks/useHauntedHouses";
 import { iCheckIn, iHauntedHouse } from "../ts/Interfaces";
 import { supabase } from "../utils/supabaseClient";
 import { VscAdd } from "react-icons/vsc";
-import CheckInCard from "./Module/CheckInCard";
+import CheckInCard from "./Modules/CheckInCard";
 import Link from "next/link";
 import { useModalContext } from "../state/ModalContext";
 
