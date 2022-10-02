@@ -6,11 +6,16 @@ import CheckinFeed from "../components/CheckinFeed";
 import Layout from "../components/Layout/Layout";
 import ProfileStats from "../components/Elements/ProfileStats";
 import { useUserContext } from "../state/UserContext";
+import { useQuery } from "@tanstack/react-query";
+import { getAllCheckins } from "../utils/HelperFunctions";
 
 interface HomeProps {}
 
 const Home: FunctionComponent<HomeProps> = () => {
   const { session, isLoading } = useUserContext();
+  const { data: checkInArray } = useQuery(["all-check-ins"], () =>
+    getAllCheckins()
+  );
 
   if (!session) {
     return <Auth />;
@@ -20,7 +25,7 @@ const Home: FunctionComponent<HomeProps> = () => {
     <Layout title="Haunt Activity">
       <div className="md:flex">
         <div className="md:max-w-3xl md:w-4/5">
-          <CheckinFeed />
+          <CheckinFeed checkInFeedData={checkInArray} dataLoading={isLoading} />
         </div>
         <div className="px-4 hidden md:block w-full max-w-md ">
           <ProfileStats />
