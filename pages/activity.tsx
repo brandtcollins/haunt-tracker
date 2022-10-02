@@ -8,14 +8,27 @@ import ProfileStats from "../components/Elements/ProfileStats";
 import { useUserContext } from "../state/UserContext";
 import { useQuery } from "@tanstack/react-query";
 import { getAllCheckins } from "../utils/HelperFunctions";
+import { iCheckIn } from "../ts/Interfaces";
 
-interface HomeProps {}
+export async function getServerSideProps() {
+  return {
+    props: {
+      initialCheckins: await getAllCheckins(),
+    },
+  };
+}
 
-const Home: FunctionComponent<HomeProps> = () => {
+interface HomeProps {
+  initialCheckins: iCheckIn[];
+}
+
+const Home: FunctionComponent<HomeProps> = ({ initialCheckins }) => {
   const { session, isLoading } = useUserContext();
-  const { data: checkInArray } = useQuery(["all-check-ins"], () =>
-    getAllCheckins()
-  );
+  const { data: checkInArray } = useQuery(["all-check-ins"], getAllCheckins, {
+    initialData: initialCheckins,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
 
   if (!session) {
     return <Auth />;
@@ -28,7 +41,7 @@ const Home: FunctionComponent<HomeProps> = () => {
           <CheckinFeed checkInFeedData={checkInArray} dataLoading={isLoading} />
         </div>
         <div className="px-4 hidden md:block w-full max-w-md ">
-          <ProfileStats />
+          {/* <ProfileStats /> */}
         </div>
       </div>
     </Layout>
