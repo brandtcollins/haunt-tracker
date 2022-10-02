@@ -15,3 +15,25 @@ export function classNames(...classes: string[]) {
 export const signOut = async () => {
   const { error } = await supabase.auth.signOut();
 };
+
+export const getCheckins = async (userId: string | null) => {
+  try {
+    let { data, error, status } = await supabase
+      .from("check-ins")
+      .select("*")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: true });
+
+    if (error && status !== 406) {
+      throw error;
+    }
+
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      alert(error.message);
+    }
+  }
+};
