@@ -31,7 +31,7 @@ const Home: FunctionComponent<HomeProps> = () => {
           <CheckinFeed checkInFeedData={checkInArray} dataLoading={isLoading} />
         </div>
         <div className="px-4 hidden md:block w-full max-w-md ">
-          {/* <ProfileStats /> */}
+          <ProfileStats />
         </div>
       </div>
     </Layout>
