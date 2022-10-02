@@ -7,6 +7,7 @@ import { User } from "@supabase/supabase-js";
 import Avatar from "./Avatar";
 import { useUserContext } from "../../state/UserContext";
 import LoadingCircle from "./LoadingCircle";
+import { getCheckins } from "../../utils/HelperFunctions";
 
 interface ProfileStatsProps {}
 
@@ -16,30 +17,9 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
   const [ratingAvg, setRatingAvg] = useState<number>(0);
   const { website, username, avatarUrl, userId } = useUserContext();
 
-  async function getCheckins() {
-    try {
-      let { data, error, status } = await supabase
-        .from("check-ins")
-        .select("*")
-        .eq("user_id", userId);
-
-      if (error && status !== 406) {
-        throw error;
-      }
-
-      if (data) {
-        return data;
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      }
-    }
-  }
-
   const { data: checkInArray, isLoading: checkInsLoading } = useQuery(
     ["check-ins"],
-    getCheckins
+    () => getCheckins(userId)
   );
 
   useEffect(() => {
@@ -68,7 +48,7 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
 
   useEffect(() => {
     if (userId) {
-      getCheckins();
+      getCheckins(userId);
     }
   }, [userId]);
 
