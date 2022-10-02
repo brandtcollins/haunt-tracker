@@ -37,3 +37,24 @@ export const getCheckins = async (userId: string | null) => {
     }
   }
 };
+
+export const getAllCheckins = async () => {
+  try {
+    let { data, error, status } = await supabase
+      .from("check-ins")
+      .select("*, user: profiles(username, avatar_url)")
+      .order("created_at", { ascending: true });
+
+    if (error && status !== 406) {
+      throw error;
+    }
+
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    if (error instanceof Error) {
+      alert(error.message);
+    }
+  }
+};
