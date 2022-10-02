@@ -9,91 +9,21 @@ import { VscAdd } from "react-icons/vsc";
 import CheckInCard from "./Modules/CheckInCard";
 import Link from "next/link";
 import { useModalContext } from "../state/ModalContext";
+import LoadingCircle from "./Elements/LoadingCircle";
+import { useUserContext } from "../state/UserContext";
 
-interface CheckinFeedProps {}
+interface CheckinFeedProps {
+  checkInFeedData?: iCheckIn[];
+  dataLoading?: boolean;
+}
 
-const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({}) => {
-  const [checkIns, setCheckIns] = useState<iCheckIn[]>();
-  const [user, setUser] = useState<User>();
-  const [username, setUsername] = useState<string | null>(null);
+const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
+  checkInFeedData,
+  dataLoading,
+}) => {
   const { open } = useModalContext();
   const { data: hauntedHouseList } = useHauntedHouses();
-
-  async function getCurrentUser() {
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.getSession();
-
-    if (error) {
-      throw error;
-    }
-
-    if (!session?.user) {
-      throw new Error("User not logged in");
-    }
-    setUser(session?.user);
-    return session.user;
-  }
-
-  async function getProfile() {
-    try {
-      const user = await getCurrentUser();
-
-      let { data, error, status } = await supabase
-        .from("profiles")
-        .select(`username, website, avatar_url`)
-        .eq("user_id", user.id)
-        .single();
-
-      if (error && status !== 406) {
-        throw error;
-      }
-
-      if (data) {
-        setUsername(data.username);
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      }
-    } finally {
-    }
-  }
-
-  async function getCheckins() {
-    try {
-      const user = await getCurrentUser();
-
-      let { data, error, status } = await supabase
-        .from("check-ins")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("created_at", { ascending: true });
-
-      if (error && status !== 406) {
-        throw error;
-      }
-
-      if (data) {
-        return data;
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        alert(error.message);
-      }
-    }
-  }
-  const { data: checkInArray } = useQuery(["check-ins"], getCheckins);
-
-  useEffect(() => {
-    setCheckIns(checkInArray);
-  }, [checkInArray]);
-
-  useEffect(() => {
-    getCheckins();
-    getProfile();
-  }, []);
+  const { username } = useUserContext();
 
   const emptyFeed = (
     <div className="border-2 py-24 border-darkGray-100 relative flex flex-col overflow-hidden rounded-md my-4 text-white items-center">
@@ -110,6 +40,10 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({}) => {
       </p>
     </div>
   );
+
+  if (dataLoading || !checkInFeedData) {
+    return <LoadingCircle />;
+  }
 
   return (
     <div>
@@ -139,7 +73,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({}) => {
           </button>
         </Link>
       </div>
-      {checkIns
+      {checkInFeedData
         ?.slice(0)
         .reverse()
         .map((checkIn, index) => {
@@ -156,7 +90,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({}) => {
             />
           );
         })}
-      {checkIns?.length === 0 && emptyFeed}
+      {checkInFeedData?.length === 0 && emptyFeed}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { CgBolt } from "react-icons/cg";
 import Image from "next/image";
-import { FunctionComponent, useRef } from "react";
+import { FunctionComponent, useRef, useState } from "react";
 import { iCheckIn, iHauntedHouse } from "../../ts/Interfaces";
 import Link from "next/link";
 import { useModalContext } from "../../state/ModalContext";
@@ -8,6 +8,8 @@ import { DeleteCheckinModal } from "../Elements/Modal/ModalContent";
 import StarRating from "../Elements/StarRating/StarRating";
 import { useUserContext } from "../../state/UserContext";
 import Avatar from "../Elements/Avatar";
+import { supabase } from "../../utils/supabaseClient";
+import { useQuery } from "@tanstack/react-query";
 
 interface CheckInCardProps {
   checkIn: iCheckIn;
@@ -21,9 +23,32 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
   checkedInHouse,
 }) => {
   const { setOpen, setModalPanel } = useModalContext();
-  const { avatarUrl } = useUserContext();
   let checkInDate;
   let checkInRatingNum = 3.5;
+
+  const { data: avatarUrl } = useQuery(
+    ["userAvatar", checkIn.user?.username],
+    () =>
+      downloadImage(checkIn.user?.avatar_url ? checkIn.user?.avatar_url : ""),
+    {
+      enabled: !!checkIn.user?.avatar_url,
+    }
+  );
+
+  async function downloadImage(path: string) {
+    try {
+      const { data, error } = await supabase.storage
+        .from("avatars")
+        .download(path);
+      if (error) {
+        throw error;
+      }
+      const url = URL.createObjectURL(data);
+      return url;
+    } catch (error: any) {
+      console.log("Error downloading image: ", error.message);
+    }
+  }
 
   if (checkIn.created_at) {
     checkInDate = new Date(checkIn.created_at);
@@ -53,11 +78,13 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
             <div className="flex items-center">
               <Avatar
                 url={avatarUrl}
-                username={username}
+                username={checkIn.user?.username}
                 className="mr-2 hidden sm:block"
               />
               <div>
-                <span className="font-bold text-emerald-500">{username}</span>{" "}
+                <span className="font-bold text-emerald-500">
+                  {checkIn.user?.username}
+                </span>{" "}
                 just ran
                 <span className="font-bold text-emerald-500">
                   {" "}
