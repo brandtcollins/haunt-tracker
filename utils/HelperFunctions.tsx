@@ -20,7 +20,7 @@ export const getCheckins = async (userId: string | null) => {
   try {
     let { data, error, status } = await supabase
       .from("check-ins")
-      .select("*")
+      .select("*, user: profiles(username, avatar_url)")
       .eq("user_id", userId)
       .order("created_at", { ascending: true });
 
