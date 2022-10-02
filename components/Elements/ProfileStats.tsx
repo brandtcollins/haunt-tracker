@@ -19,7 +19,10 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = () => {
 
   const { data: checkInArray, isLoading: checkInsLoading } = useQuery(
     ["check-ins"],
-    () => getCheckins(userId)
+    () => getCheckins(userId),
+    {
+      enabled: !!userId,
+    }
   );
 
   useEffect(() => {
