@@ -18,6 +18,7 @@ export interface iCheckIn {
   actual_wait_time?: number | undefined;
   express?: boolean;
   user?: iUserSettings;
+  haunted_houses?: iHauntedHouse;
 }
 
 export interface iMagicLinkSignin {

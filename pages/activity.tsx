@@ -19,7 +19,7 @@ export async function getServerSideProps() {
 }
 
 interface HomeProps {
-  initialCheckins: iCheckIn[];
+  initialCheckins: any[];
 }
 
 const Home: FunctionComponent<HomeProps> = ({ initialCheckins }) => {

@@ -22,7 +22,6 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
   dataLoading,
 }) => {
   const { open } = useModalContext();
-  const { data: hauntedHouseList } = useHauntedHouses();
   const { username } = useUserContext();
 
   const emptyFeed = (
@@ -76,20 +75,9 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
       {checkInFeedData
         ?.slice(0)
         .reverse()
-        .map((checkIn, index) => {
-          const checkedInHouse: iHauntedHouse | undefined =
-            hauntedHouseList?.find(
-              (house) => house.haunted_house_id === checkIn.haunted_house_id
-            );
-          return (
-            <CheckInCard
-              key={index}
-              checkIn={checkIn}
-              checkedInHouse={checkedInHouse}
-              username={username}
-            />
-          );
-        })}
+        .map((checkIn, index) => (
+          <CheckInCard key={index} checkIn={checkIn} username={username} />
+        ))}
       {checkInFeedData?.length === 0 && emptyFeed}
     </div>
   );

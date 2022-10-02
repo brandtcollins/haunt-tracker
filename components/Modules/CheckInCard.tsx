@@ -13,14 +13,12 @@ import { useQuery } from "@tanstack/react-query";
 
 interface CheckInCardProps {
   checkIn: iCheckIn;
-  checkedInHouse: iHauntedHouse | undefined;
   username: string | null;
 }
 
 const CheckInCard: FunctionComponent<CheckInCardProps> = ({
   checkIn,
   username,
-  checkedInHouse,
 }) => {
   const { setOpen, setModalPanel } = useModalContext();
   const { userId } = useUserContext();
@@ -67,7 +65,7 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
     >
       <div className="relative w-full h-64 max-h-64 bg-darkGray-100">
         <Image
-          src={`/images/${checkedInHouse?.image}`}
+          src={`/images/${checkIn.haunted_houses?.image}`}
           alt="Picture of the haunted house artwork"
           layout="fill"
           objectFit="cover"
@@ -92,7 +90,7 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
                   just ran
                   <span className="font-bold text-emerald-500">
                     {" "}
-                    {checkedInHouse?.name}
+                    {checkIn.haunted_houses?.name}
                   </span>
                 </p>
                 <p className="text-sm text-slate-500">
@@ -158,7 +156,6 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
             </Link>
             <p
               className="text-sm text-slate-500 hover:cursor-pointer"
-              // onClick={() => mutation.mutate(checkIn)}
               onClick={() => handleDeleteCheckin(checkIn)}
             >
               Delete Checkin
