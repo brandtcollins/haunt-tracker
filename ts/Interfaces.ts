@@ -17,6 +17,7 @@ export interface iCheckIn {
   estimated_wait_time?: number | undefined;
   actual_wait_time?: number | undefined;
   express?: boolean;
+  user?: iUserSettings;
 }
 
 export interface iMagicLinkSignin {
@@ -30,6 +31,6 @@ export interface iNewUserSignup {
 
 export interface iUserSettings {
   username: string | null;
-  website: string | null;
-  avatar_url: string | null;
+  website?: string | null;
+  avatar_url?: string | null;
 }
