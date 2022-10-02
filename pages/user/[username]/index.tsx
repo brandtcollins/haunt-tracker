@@ -1,28 +1,39 @@
-import { useState, useEffect, FunctionComponent } from "react";
-
-import { AuthSession } from "@supabase/supabase-js";
-import Auth from "../../../components/Auth";
+import { useEffect, FunctionComponent, useState } from "react";
 import CheckinFeed from "../../../components/CheckinFeed";
 import ProfileStats from "../../../components/Elements/ProfileStats";
 import Layout from "../../../components/Layout/Layout";
-import { supabase } from "../../../utils/supabaseClient";
 import { useUserContext } from "../../../state/UserContext";
 import { useQuery } from "@tanstack/react-query";
-import { getCheckins } from "../../../utils/HelperFunctions";
+import { getCheckins, getUserID } from "../../../utils/HelperFunctions";
+import { useRouter } from "next/router";
 
 interface MyActivityProps {}
 
 const MyActivity: FunctionComponent<MyActivityProps> = () => {
-  //   const [isLoading, setIsLoading] = useState(true);
-  //   const [session, setSession] = useState<AuthSession | null>(null);
-  const { session, userId } = useUserContext();
-  const { data: userCheckinArray, isLoading } = useQuery(
-    ["all-check-ins"],
-    () => getCheckins(userId),
+  const router = useRouter();
+  const { username } = router.query;
+  const [userID, setUserID] = useState<string | null>(null);
+  const { data: userIDQuery } = useQuery(
+    ["userID", username],
+    () => getUserID(username),
     {
-      enabled: !!userId,
+      enabled: !!username,
     }
   );
+
+  const { data: userCheckinArray, isLoading } = useQuery(
+    ["getCheckins", userID],
+    () => getCheckins(userID),
+    {
+      enabled: !!userID,
+    }
+  );
+
+  useEffect(() => {
+    if (userIDQuery) {
+      setUserID(userIDQuery[0].user_id);
+    }
+  }, [userIDQuery]);
 
   return (
     <Layout title="Haunt Activity">

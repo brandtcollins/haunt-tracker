@@ -23,6 +23,7 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
   checkedInHouse,
 }) => {
   const { setOpen, setModalPanel } = useModalContext();
+  const { userId } = useUserContext();
   let checkInDate;
   let checkInRatingNum = 3.5;
 
@@ -73,7 +74,7 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
         />
       </div>
       <div className="p-4 z-10 w-fill bg-darkGray-300">
-        <div className="border-b-2 border-darkGray-100 ">
+        <div className="">
           <div className="flex flex-col text-lg text-white">
             <div className="flex items-center">
               <Avatar
@@ -82,14 +83,18 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
                 className="mr-2 hidden sm:block"
               />
               <div>
-                <span className="font-bold text-emerald-500">
-                  {checkIn.user?.username}
-                </span>{" "}
-                just ran
-                <span className="font-bold text-emerald-500">
-                  {" "}
-                  {checkedInHouse?.name}
-                </span>
+                <p>
+                  <Link href={`/user/${checkIn.user?.username}/`} passHref>
+                    <a className="font-bold text-emerald-500">
+                      {checkIn.user?.username}
+                    </a>
+                  </Link>{" "}
+                  just ran
+                  <span className="font-bold text-emerald-500">
+                    {" "}
+                    {checkedInHouse?.name}
+                  </span>
+                </p>
                 <p className="text-sm text-slate-500">
                   {" "}
                   {checkInDate?.toLocaleString("en-us", {
@@ -143,21 +148,23 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
             <p>{checkIn.note}</p>
           </div>
         </div>
-        <div className="pt-4 flex justify-between">
-          <Link
-            href={`/user/${username}/checkin/${checkIn.checkin_id}/edit`}
-            passHref
-          >
-            <a className="text-sm text-slate-500">Edit Checkin</a>
-          </Link>
-          <p
-            className="text-sm text-slate-500 hover:cursor-pointer"
-            // onClick={() => mutation.mutate(checkIn)}
-            onClick={() => handleDeleteCheckin(checkIn)}
-          >
-            Delete Checkin
-          </p>
-        </div>
+        {userId === checkIn.user_id && (
+          <div className="pt-4 flex justify-between border-t-2  border-darkGray-100 ">
+            <Link
+              href={`/user/${username}/checkin/${checkIn.checkin_id}/edit`}
+              passHref
+            >
+              <a className="text-sm text-slate-500">Edit Checkin</a>
+            </Link>
+            <p
+              className="text-sm text-slate-500 hover:cursor-pointer"
+              // onClick={() => mutation.mutate(checkIn)}
+              onClick={() => handleDeleteCheckin(checkIn)}
+            >
+              Delete Checkin
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
