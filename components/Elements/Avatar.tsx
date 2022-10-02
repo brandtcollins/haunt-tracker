@@ -3,7 +3,7 @@ import { FunctionComponent } from "react";
 interface AvatarProps {
   username?: string | null;
   className?: string;
-  url: string | null;
+  url: string | null | undefined;
 }
 
 const Avatar: FunctionComponent<AvatarProps> = ({
@@ -25,7 +25,7 @@ const Avatar: FunctionComponent<AvatarProps> = ({
   }
   return (
     <span
-      className={`inline-flex h-16 w-16 items-center justify-center rounded-full bg-gray-500 ${className}`}
+      className={`inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-500 ${className}`}
     >
       <span className={`text-sm font-medium leading-none text-white`}>
         {firstLetter ? firstLetter[0] : ":)"}
