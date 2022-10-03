@@ -40,11 +40,13 @@ export const getCheckins = async (userId: string | null) => {
   }
 };
 
-export const getUserID = async (username: string | string[] | undefined) => {
+export const getUserProfile = async (
+  username: string | string[] | undefined
+) => {
   try {
     let { data, error, status } = await supabase
       .from("profiles")
-      .select("user_id")
+      .select("*")
       .eq("username", username);
 
     if (error && status !== 406) {

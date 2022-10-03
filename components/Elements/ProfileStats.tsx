@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useHauntedHouses } from "../../ts/hooks/useHauntedHouses";
-import { iCheckIn } from "../../ts/Interfaces";
+import { iCheckIn, iUserSettings } from "../../ts/Interfaces";
 import { supabase } from "../../utils/supabaseClient";
 import { User } from "@supabase/supabase-js";
 import Avatar from "./Avatar";
@@ -12,11 +12,13 @@ import { getCheckins } from "../../utils/HelperFunctions";
 interface ProfileStatsProps {
   checkIns: iCheckIn[] | any;
   checkInsLoading: boolean;
+  userProfile: iUserSettings | undefined;
 }
 
 const ProfileStats: FunctionComponent<ProfileStatsProps> = ({
   checkIns,
   checkInsLoading,
+  userProfile,
 }) => {
   const [totalNights, setTotalNights] = useState<number>(0);
   const [totalHaunts, setTotalHaunts] = useState<number>(0);
@@ -55,15 +57,17 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = ({
         <>
           <div className="border-b-2 border-darkGray-100 pb-4 mb-4 flex">
             <Avatar
-              url={avatarUrl}
-              username={username}
+              url={userProfile ? userProfile.avatar_url : avatarUrl}
+              username={userProfile ? userProfile.username : username}
               className="text-2xl h-16 w-16"
             />
             <div className="flex flex-col pl-4">
               <p className="text-3xl inline-block text-white font-bold">
-                {username}
+                {userProfile ? userProfile.username : username}
               </p>
-              <p className="text-md inline-block text-gray-500 ">{website}</p>
+              <p className="text-md inline-block text-gray-500 ">
+                {userProfile ? userProfile.website : website}
+              </p>
             </div>
           </div>
           <div className="grid grid-cols-4">

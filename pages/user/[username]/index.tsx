@@ -3,7 +3,7 @@ import CheckinFeed from "../../../components/CheckinFeed";
 import ProfileStats from "../../../components/Elements/ProfileStats";
 import Layout from "../../../components/Layout/Layout";
 import { useQuery } from "@tanstack/react-query";
-import { getCheckins, getUserID } from "../../../utils/HelperFunctions";
+import { getCheckins, getUserProfile } from "../../../utils/HelperFunctions";
 import { useRouter } from "next/router";
 
 interface MyActivityProps {}
@@ -12,9 +12,9 @@ const MyActivity: FunctionComponent<MyActivityProps> = () => {
   const router = useRouter();
   const { username } = router.query;
   const [userId, setUserID] = useState<string | null>(null);
-  const { data: userIDQuery } = useQuery(
-    ["userID", username],
-    () => getUserID(username),
+  const { data: userProfile } = useQuery(
+    ["UserProfile", username],
+    () => getUserProfile(username),
     {
       enabled: !!username,
     }
@@ -39,10 +39,10 @@ const MyActivity: FunctionComponent<MyActivityProps> = () => {
   );
 
   useEffect(() => {
-    if (userIDQuery) {
-      setUserID(userIDQuery[0].user_id);
+    if (userProfile) {
+      setUserID(userProfile[0].user_id);
     }
-  }, [userIDQuery]);
+  }, [userProfile]);
 
   return (
     <Layout title="Haunt Activity">
@@ -55,6 +55,7 @@ const MyActivity: FunctionComponent<MyActivityProps> = () => {
         </div>
         <div className="px-4 hidden md:block w-full max-w-md ">
           <ProfileStats
+            userProfile={userProfile && userProfile[0]}
             checkIns={userCheckIns}
             checkInsLoading={userCheckInsLoading}
           />
