@@ -1,13 +1,10 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useHauntedHouses } from "../../ts/hooks/useHauntedHouses";
 import { iCheckIn, iUserSettings } from "../../ts/Interfaces";
 import { supabase } from "../../utils/supabaseClient";
-import { User } from "@supabase/supabase-js";
 import Avatar from "./Avatar";
 import { useUserContext } from "../../state/UserContext";
 import LoadingCircle from "./LoadingCircle";
-import { getCheckins } from "../../utils/HelperFunctions";
 
 interface ProfileStatsProps {
   checkIns: iCheckIn[] | any;
@@ -23,7 +20,7 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = ({
   const [totalNights, setTotalNights] = useState<number>(0);
   const [totalHaunts, setTotalHaunts] = useState<number>(0);
   const [ratingAvg, setRatingAvg] = useState<number>(0);
-  const { website, username, avatarUrl, userId } = useUserContext();
+  const { website, username, avatarUrl } = useUserContext();
   const [avatarImage, setAvatarImage] = useState<string | undefined>("");
 
   const { data } = useQuery(

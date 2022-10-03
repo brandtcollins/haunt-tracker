@@ -1,11 +1,10 @@
-import { Fragment, FunctionComponent, useEffect, useState } from "react";
+import { Fragment, FunctionComponent } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { classNames, signOut } from "../../utils/HelperFunctions";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Avatar from "../Elements/Avatar";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { supabase } from "../../utils/supabaseClient";
 import { useUserContext } from "../../state/UserContext";
 
 interface HeaderProps {}

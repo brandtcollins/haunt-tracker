@@ -1,11 +1,11 @@
 import { CgBolt } from "react-icons/cg";
 import Image from "next/image";
-import { FunctionComponent, useRef, useState } from "react";
-import { iCheckIn, iHauntedHouse } from "../../ts/Interfaces";
+import { FunctionComponent } from "react";
+import { iCheckIn } from "../../ts/Interfaces";
 import Link from "next/link";
 import { useModalContext } from "../../state/ModalContext";
 import { DeleteCheckinModal } from "../Elements/Modal/ModalContent";
-import StarRating from "../Elements/StarRating/StarRating";
+import StarRating from "../Elements/StarRating";
 import { useUserContext } from "../../state/UserContext";
 import Avatar from "../Elements/Avatar";
 import { supabase } from "../../utils/supabaseClient";
@@ -23,7 +23,6 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
   const { setOpen, setModalPanel } = useModalContext();
   const { userId } = useUserContext();
   let checkInDate;
-  let checkInRatingNum = 3.5;
 
   const { data: avatarUrl } = useQuery(
     ["userAvatar", checkIn.user?.username],
