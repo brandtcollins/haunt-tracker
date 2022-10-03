@@ -7,7 +7,7 @@ import Layout from "../components/Layout/Layout";
 import ProfileStats from "../components/Elements/ProfileStats";
 import { useUserContext } from "../state/UserContext";
 import { useQuery } from "@tanstack/react-query";
-import { getAllCheckins } from "../utils/HelperFunctions";
+import { getAllCheckins, getCheckins } from "../utils/HelperFunctions";
 import { iCheckIn } from "../ts/Interfaces";
 
 export async function getServerSideProps() {
@@ -19,16 +19,27 @@ export async function getServerSideProps() {
 }
 
 interface HomeProps {
-  initialCheckins: any[];
+  initialAllUserCheckins: any[];
 }
 
-const Home: FunctionComponent<HomeProps> = ({ initialCheckins }) => {
+const Home: FunctionComponent<HomeProps> = ({ initialAllUserCheckins }) => {
   const { session, isLoading } = useUserContext();
-  const { data: checkInArray } = useQuery(["all-check-ins"], getAllCheckins, {
-    initialData: initialCheckins,
+  const { website, username, avatarUrl, userId } = useUserContext();
+  const { data: allCheckIns } = useQuery(["all-check-ins"], getAllCheckins, {
+    initialData: initialAllUserCheckins,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
+
+  const { data: userCheckIns, isLoading: userCheckInsLoading } = useQuery(
+    ["user-check-ins", userId],
+    () => getCheckins(userId),
+    {
+      enabled: !!userId,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+    }
+  );
 
   if (!session) {
     return <Auth />;
@@ -38,10 +49,13 @@ const Home: FunctionComponent<HomeProps> = ({ initialCheckins }) => {
     <Layout title="Haunt Activity">
       <div className="md:flex">
         <div className="md:max-w-3xl md:w-4/5">
-          <CheckinFeed checkInFeedData={checkInArray} dataLoading={isLoading} />
+          <CheckinFeed checkInFeedData={allCheckIns} dataLoading={isLoading} />
         </div>
         <div className="px-4 hidden md:block w-full max-w-md ">
-          <ProfileStats />
+          <ProfileStats
+            checkIns={userCheckIns}
+            checkInsLoading={userCheckInsLoading}
+          />
         </div>
       </div>
     </Layout>

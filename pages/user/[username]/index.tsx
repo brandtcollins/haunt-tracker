@@ -2,7 +2,6 @@ import { useEffect, FunctionComponent, useState } from "react";
 import CheckinFeed from "../../../components/CheckinFeed";
 import ProfileStats from "../../../components/Elements/ProfileStats";
 import Layout from "../../../components/Layout/Layout";
-import { useUserContext } from "../../../state/UserContext";
 import { useQuery } from "@tanstack/react-query";
 import { getCheckins, getUserID } from "../../../utils/HelperFunctions";
 import { useRouter } from "next/router";
@@ -12,7 +11,7 @@ interface MyActivityProps {}
 const MyActivity: FunctionComponent<MyActivityProps> = () => {
   const router = useRouter();
   const { username } = router.query;
-  const [userID, setUserID] = useState<string | null>(null);
+  const [userId, setUserID] = useState<string | null>(null);
   const { data: userIDQuery } = useQuery(
     ["userID", username],
     () => getUserID(username),
@@ -22,10 +21,20 @@ const MyActivity: FunctionComponent<MyActivityProps> = () => {
   );
 
   const { data: userCheckinArray, isLoading } = useQuery(
-    ["getCheckins", userID],
-    () => getCheckins(userID),
+    ["getCheckins", userId],
+    () => getCheckins(userId),
     {
-      enabled: !!userID,
+      enabled: !!userId,
+    }
+  );
+
+  const { data: userCheckIns, isLoading: userCheckInsLoading } = useQuery(
+    ["user-check-ins", userId],
+    () => getCheckins(userId),
+    {
+      enabled: !!userId,
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
     }
   );
 
@@ -45,7 +54,10 @@ const MyActivity: FunctionComponent<MyActivityProps> = () => {
           />
         </div>
         <div className="px-4 hidden md:block w-full max-w-md ">
-          <ProfileStats />
+          <ProfileStats
+            checkIns={userCheckIns}
+            checkInsLoading={userCheckInsLoading}
+          />
         </div>
       </div>
     </Layout>
