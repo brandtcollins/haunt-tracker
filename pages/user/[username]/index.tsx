@@ -5,6 +5,7 @@ import Layout from "../../../components/Layout/Layout";
 import { useQuery } from "@tanstack/react-query";
 import { getCheckins, getUserProfile } from "../../../utils/HelperFunctions";
 import { useRouter } from "next/router";
+import CheckInButton from "../../../components/Elements/CheckInButton";
 
 interface MyActivityProps {}
 
@@ -54,6 +55,7 @@ const MyActivity: FunctionComponent<MyActivityProps> = () => {
           />
         </div>
         <div className="px-4 hidden md:block w-full max-w-md ">
+          <CheckInButton />
           <ProfileStats
             userProfile={userProfile && userProfile[0]}
             checkIns={userCheckIns}

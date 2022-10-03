@@ -60,7 +60,7 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
   return (
     <div
       key={checkIn.checkin_id}
-      className="border-2 border-darkGray-100 relative flex flex-col overflow-hidden rounded-md my-4"
+      className="border-2 border-darkGray-100 relative flex flex-col overflow-hidden rounded-md mb-4"
     >
       <div className="relative w-full h-64 max-h-64 bg-darkGray-100">
         <Image
