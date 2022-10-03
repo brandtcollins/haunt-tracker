@@ -12,7 +12,7 @@ import { getCheckins } from "../../utils/HelperFunctions";
 interface ProfileStatsProps {
   checkIns: iCheckIn[] | any;
   checkInsLoading: boolean;
-  userProfile: iUserSettings | undefined;
+  userProfile?: iUserSettings | undefined;
 }
 
 const ProfileStats: FunctionComponent<ProfileStatsProps> = ({
@@ -24,6 +24,39 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = ({
   const [totalHaunts, setTotalHaunts] = useState<number>(0);
   const [ratingAvg, setRatingAvg] = useState<number>(0);
   const { website, username, avatarUrl, userId } = useUserContext();
+  const [avatarImage, setAvatarImage] = useState<string | undefined>("");
+
+  const { data } = useQuery(
+    ["userAvatar", userProfile?.username ? userProfile.username : username],
+    () =>
+      downloadImage(
+        userProfile?.avatar_url ? userProfile.avatar_url : avatarUrl
+      ),
+    {
+      onSuccess: (data) => {
+        setAvatarImage(data);
+      },
+      enabled: !!userProfile?.avatar_url,
+    }
+  );
+
+  async function downloadImage(path: string | null) {
+    if (!path) {
+      return;
+    }
+    try {
+      const { data, error } = await supabase.storage
+        .from("avatars")
+        .download(path);
+      if (error) {
+        throw error;
+      }
+      const url = URL.createObjectURL(data);
+      return url;
+    } catch (error: any) {
+      console.log("Error downloading image: ", error.message);
+    }
+  }
 
   useEffect(() => {
     const nightCount: string[] = [];
@@ -57,7 +90,7 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = ({
         <>
           <div className="border-b-2 border-darkGray-100 pb-4 mb-4 flex">
             <Avatar
-              url={userProfile ? userProfile.avatar_url : avatarUrl}
+              url={avatarImage}
               username={userProfile ? userProfile.username : username}
               className="text-2xl h-16 w-16"
             />
