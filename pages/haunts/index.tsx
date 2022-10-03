@@ -2,7 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { FunctionComponent } from "react";
 import LoadingCircle from "../../components/Elements/LoadingCircle";
 import Layout from "../../components/Layout/Layout";
+import HauntCard from "../../components/Modules/HauntCard";
 import { getHaunts } from "../../utils/HelperFunctions";
+import { supabase } from "../../utils/supabaseClient";
 
 const people = [
   {
@@ -65,24 +67,7 @@ const Haunts: FunctionComponent<HauntsProps> = () => {
         className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
       >
         {haunts?.map((haunt, index) => (
-          <li
-            key={index}
-            className="text-white col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-darkGray-300 border-2 border-darkGray-100 text-center shadow"
-          >
-            <div className="flex flex-1 flex-col p-8">
-              {/* <img
-                className="mx-auto h-32 w-32 flex-shrink-0 rounded-full"
-                src={person.imageUrl}
-                alt=""
-              /> */}
-              <h3 className="mt-6 font-medium text-xl">{haunt.haunt_name}</h3>
-              <dl className="mt-1 flex flex-grow flex-col justify-between">
-                <dt className="sr-only">Title</dt>
-                {/* <dd className="text-sm text-gray-500">{person.title}</dd> */}
-                <dt className="sr-only">Role</dt>
-              </dl>
-            </div>
-          </li>
+          <HauntCard haunt={haunt} key={index} />
         ))}
       </ul>
     </Layout>

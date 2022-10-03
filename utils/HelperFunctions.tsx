@@ -42,7 +42,9 @@ export const getCheckins = async (userId: string | null) => {
 
 export const getHaunts = async () => {
   try {
-    let { data, error, status } = await supabase.from("haunts").select("*");
+    let { data, error, status } = await supabase
+      .from("haunts")
+      .select("*, themepark_location: themepark_location(*)");
 
     if (error && status !== 406) {
       throw error;
