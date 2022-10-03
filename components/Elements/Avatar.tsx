@@ -27,7 +27,7 @@ const Avatar: FunctionComponent<AvatarProps> = ({
     <span
       className={`inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-500 ${className}`}
     >
-      <span className={`text-sm font-medium leading-none text-white`}>
+      <span className={`font-medium leading-none text-white`}>
         {firstLetter ? firstLetter[0] : ":)"}
       </span>
     </span>

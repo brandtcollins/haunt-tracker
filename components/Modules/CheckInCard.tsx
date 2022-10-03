@@ -78,7 +78,7 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
               <Avatar
                 url={avatarUrl}
                 username={checkIn.user?.username}
-                className="mr-2 hidden sm:block"
+                className="mr-2 hidden sm:flex text-sm"
               />
               <div>
                 <p>
