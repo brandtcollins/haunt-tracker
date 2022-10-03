@@ -6,12 +6,15 @@ import { useQuery } from "@tanstack/react-query";
 import { getCheckins, getUserProfile } from "../../../utils/HelperFunctions";
 import { useRouter } from "next/router";
 import CheckInButton from "../../../components/Elements/CheckInButton";
+import { useUserContext } from "../../../state/UserContext";
 
 interface MyActivityProps {}
 
 const MyActivity: FunctionComponent<MyActivityProps> = () => {
   const router = useRouter();
   const { username } = router.query;
+  const { username: loggedInUsername } = useUserContext();
+
   const [userId, setUserID] = useState<string | null>(null);
   const { data: userProfile } = useQuery(
     ["UserProfile", username],
@@ -55,7 +58,7 @@ const MyActivity: FunctionComponent<MyActivityProps> = () => {
           />
         </div>
         <div className="px-4 hidden md:block w-full max-w-md ">
-          <CheckInButton />
+          {loggedInUsername === username && <CheckInButton />}
           <ProfileStats
             userProfile={userProfile && userProfile[0]}
             checkIns={userCheckIns}
