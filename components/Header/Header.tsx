@@ -33,7 +33,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
     },
     {
       name: "Haunts",
-      href: "#",
+      href: "/haunts",
       current: router.pathname === "/haunts",
     },
   ];
