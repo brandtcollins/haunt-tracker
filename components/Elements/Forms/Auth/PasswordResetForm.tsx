@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 export default function SignInForm() {
   const [passwordRecovery, setPasswordRecovery] = useState<boolean>(false);
+  const router = useRouter();
 
   const emailValidationSchema = Yup.object().shape({
     email: Yup.string().email().required("Email is a required field"),
@@ -56,7 +57,9 @@ export default function SignInForm() {
       password: values.password,
     });
 
-    if (data) alert("Password updated successfully!");
+    if (data) {
+      router.push("/");
+    }
     if (error) alert("There was an error updating your password.");
   };
 
@@ -83,10 +86,11 @@ export default function SignInForm() {
                   <Field
                     name="password"
                     id="password"
+                    type="password"
                     placeholder=""
                     className="mt-1 h-12 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     aria-invalid="true"
-                    aria-describedby="email-error"
+                    aria-describedby="email"
                   />
                   {errors.password && touched.password ? (
                     <p
@@ -107,9 +111,10 @@ export default function SignInForm() {
                     name="confirmPassword"
                     id="confirmPassword"
                     placeholder=""
+                    type="password"
                     className="mt-1 h-12 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                     aria-invalid="true"
-                    aria-describedby="email-error"
+                    aria-describedby="email"
                   />
                   {errors.confirmPassword && touched.confirmPassword ? (
                     <p
