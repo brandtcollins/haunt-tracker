@@ -3,6 +3,7 @@ import { Formik, Field, Form, FormikState } from "formik";
 import { useRouter } from "next/router";
 import { iUserSignIn } from "../../../../ts/Interfaces";
 import { supabase } from "../../../../utils/supabaseClient";
+import Link from "next/link";
 
 export default function SignInForm() {
   const initialValues: iUserSignIn = {
@@ -74,6 +75,11 @@ export default function SignInForm() {
                   </p>
                 ) : null}
               </div>
+            </div>
+            <div className="mt-4 flex flex-row-reverse">
+              <Link href="/user/reset-password" passHref>
+                <a className="font-bold text-emerald-500">Forgot Password?</a>
+              </Link>
             </div>
             <div>
               <button
