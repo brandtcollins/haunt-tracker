@@ -25,7 +25,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
   const { username } = useUserContext();
 
   const emptyFeed = (
-    <div className="border-2 py-24 border-darkGray-100 relative flex flex-col overflow-hidden rounded-md my-4 text-white items-center">
+    <div className="border-2 py-24 border-darkGray-100 relative flex flex-col overflow-hidden rounded-md mb-4 text-white items-center">
       <p className="font-bold text-3xl text-center px-24 mb-8">
         Hey! It looks like you haven&apos;t ran a house, yet.
       </p>

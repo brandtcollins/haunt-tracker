@@ -1,8 +1,5 @@
 import { useState } from "react";
 import { supabase } from "../utils/supabaseClient";
-import { Button, Input } from "@chakra-ui/react";
-import SignIn from "./Elements/SignIn";
-import SignUp from "./Elements/SignUp";
 import * as Yup from "yup";
 import { Formik, Field, Form, FormikState } from "formik";
 import { iMagicLinkSignin } from "../ts/Interfaces";

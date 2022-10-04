@@ -36,10 +36,13 @@ const Home: FunctionComponent<HomeProps> = ({ initialAllUserCheckins }) => {
     () => getCheckins(userId),
     {
       enabled: !!userId,
-      refetchOnMount: false,
       refetchOnWindowFocus: false,
     }
   );
+
+  useEffect(() => {
+    console.log(userId);
+  }, [userId]);
 
   if (!session) {
     return <Auth />;

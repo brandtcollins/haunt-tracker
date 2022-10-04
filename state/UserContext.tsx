@@ -96,7 +96,8 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
     }
 
     if (!session?.user) {
-      throw new Error("User not logged in");
+      return;
+      // throw new Error("User not logged in");
     }
     setUser(session?.user);
     return session.user;

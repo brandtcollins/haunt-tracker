@@ -26,6 +26,13 @@ export interface iMagicLinkSignin {
 }
 
 export interface iNewUserSignup {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface iUserSignIn {
   email: string;
   password: string;
 }
