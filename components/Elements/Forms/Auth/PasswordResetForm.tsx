@@ -72,7 +72,7 @@ export default function SignInForm() {
             errors,
             touched,
             isSubmitting,
-          }: FormikState<{ password: string }>) => (
+          }: FormikState<{ password: string; confirmPassword: string }>) => (
             <Form className="text-white">
               {isSubmitting && <p>Submitting</p>}
               <div>
@@ -94,6 +94,29 @@ export default function SignInForm() {
                       id="email-error"
                     >
                       {errors.password}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+              <div>
+                <label htmlFor="confirmPassword" className="block font-medium">
+                  Confirm Password
+                </label>
+                <div className="mt-1">
+                  <Field
+                    name="confirmPassword"
+                    id="confirmPassword"
+                    placeholder=""
+                    className="mt-1 h-12 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                    aria-invalid="true"
+                    aria-describedby="email-error"
+                  />
+                  {errors.confirmPassword && touched.confirmPassword ? (
+                    <p
+                      className="mt-2 text-sm text-emerald-500"
+                      id="email-error"
+                    >
+                      {errors.confirmPassword}
                     </p>
                   ) : null}
                 </div>
