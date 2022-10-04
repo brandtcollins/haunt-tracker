@@ -39,7 +39,7 @@ export default function SignInForm() {
     const { data, error } = await supabase.auth.resetPasswordForEmail(
       values.email,
       {
-        redirectTo: "https://www.haunt-tracker.com/user/reset-password",
+        redirectTo: "https://haunt-tracker.com/user/reset-password",
       }
     );
   };
