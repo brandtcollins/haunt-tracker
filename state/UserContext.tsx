@@ -17,6 +17,8 @@ interface UserContextProps {
   isLoading: boolean;
   user?: User;
   session: Session | null;
+  setRefreshSession?: any;
+  sessionLoaded?: boolean;
 }
 
 interface UserProviderProps {
@@ -29,6 +31,7 @@ export const UserContext = createContext<UserContextProps>(
 export const useUserContext = () => useContext(UserContext);
 
 const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
+  const [refreshSession, setRefreshSession] = useState<boolean>(false);
   const [sessionLoaded, setSessionLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [user, setUser] = useState<User>();
@@ -69,7 +72,6 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
         }
       }
     }
-
     getInitialSession();
 
     const supabaseAuth: any = supabase.auth.onAuthStateChange(
@@ -80,10 +82,9 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
 
     return () => {
       mounted = false;
-
       supabaseAuth.subscription?.unsubscribe();
     };
-  }, []);
+  }, [refreshSession]);
 
   async function getCurrentUser() {
     const {
@@ -145,7 +146,17 @@ const UserProvider: FunctionComponent<UserProviderProps> = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ username, website, avatarUrl, userId, isLoading, user, session }}
+      value={{
+        username,
+        website,
+        avatarUrl,
+        userId,
+        isLoading,
+        user,
+        session,
+        setRefreshSession,
+        sessionLoaded,
+      }}
     >
       {children}
     </UserContext.Provider>

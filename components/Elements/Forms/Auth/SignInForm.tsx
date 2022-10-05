@@ -4,8 +4,10 @@ import { useRouter } from "next/router";
 import { iUserSignIn } from "../../../../ts/Interfaces";
 import { supabase } from "../../../../utils/supabaseClient";
 import Link from "next/link";
+import { useUserContext } from "../../../../state/UserContext";
 
 export default function SignInForm() {
+  const { setRefreshSession } = useUserContext();
   const initialValues: iUserSignIn = {
     email: "",
     password: "",
@@ -22,7 +24,8 @@ export default function SignInForm() {
       alert(JSON.stringify(error));
     } else {
       console.log(`submitted`);
-      router.push("/");
+      setRefreshSession(true);
+      router.push("/activity");
     }
   };
 

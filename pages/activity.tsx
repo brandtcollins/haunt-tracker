@@ -9,6 +9,7 @@ import { useUserContext } from "../state/UserContext";
 import { useQuery } from "@tanstack/react-query";
 import { getAllCheckins, getCheckins } from "../utils/HelperFunctions";
 import { iCheckIn } from "../ts/Interfaces";
+import LoadingCircle from "../components/Elements/LoadingCircle";
 
 export async function getServerSideProps() {
   return {
@@ -24,10 +25,10 @@ interface HomeProps {
 
 const Home: FunctionComponent<HomeProps> = ({ initialAllUserCheckins }) => {
   const { session, isLoading } = useUserContext();
-  const { website, username, avatarUrl, userId } = useUserContext();
+  const { website, username, avatarUrl, userId, sessionLoaded } =
+    useUserContext();
   const { data: allCheckIns } = useQuery(["all-check-ins"], getAllCheckins, {
     initialData: initialAllUserCheckins,
-    refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
 
@@ -41,8 +42,12 @@ const Home: FunctionComponent<HomeProps> = ({ initialAllUserCheckins }) => {
     }
   );
 
-  if (!session) {
+  if (sessionLoaded && !session) {
     return <Auth />;
+  }
+
+  if (!sessionLoaded) {
+    return <LoadingCircle />;
   }
 
   return (

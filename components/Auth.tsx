@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../utils/supabaseClient";
 import * as Yup from "yup";
 import { Formik, Field, Form, FormikState } from "formik";
 import { iMagicLinkSignin } from "../ts/Interfaces";
 import Image from "next/image";
 import SignInForm from "./Elements/Forms/Auth/SignInForm";
+import { useRouter } from "next/router";
 
 export default function Auth() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   //prettier-ignore
   const [loginMessage, setLoginMessage] = useState<string | undefined>(undefined);
@@ -19,6 +21,10 @@ export default function Auth() {
 
   const iMagicLinkSigninSchema = Yup.object().shape({
     email: Yup.string().email().required("Please enter your email."),
+  });
+
+  useEffect(() => {
+    router.push("/signin");
   });
 
   const handleLogin = async (values: any) => {
@@ -36,30 +42,30 @@ export default function Auth() {
     }
   };
 
-  return (
-    <>
-      <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8 bg-darkGray-500 h-screen">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-          <Image
-            className="mx-auto h-12 w-auto"
-            src="/images/haunt-tracker.png"
-            alt="Your Company"
-            width="60"
-            height="60"
-          />
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-white">
-            Haunt Tracker
-          </h2>
-        </div>
+  // return (
+  //   <>
+  //     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8 bg-darkGray-500 h-screen">
+  //       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
+  //         <Image
+  //           className="mx-auto h-12 w-auto"
+  //           src="/images/haunt-tracker.png"
+  //           alt="Your Company"
+  //           width="60"
+  //           height="60"
+  //         />
+  //         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-white">
+  //           Haunt Tracker
+  //         </h2>
+  //       </div>
 
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-darkGray-300 py-8 px-4 shadow sm:rounded-lg sm:px-10 text-white">
-            <SignInForm />
-          </div>
-        </div>
-      </div>
-    </>
-  );
+  //       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+  //         <div className="bg-darkGray-300 py-8 px-4 shadow sm:rounded-lg sm:px-10 text-white">
+  //           <SignInForm />
+  //         </div>
+  //       </div>
+  //     </div>
+  //   </>
+  // );
 
   return (
     <>

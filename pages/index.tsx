@@ -41,8 +41,8 @@ const Home: FunctionComponent<HomeProps> = ({ initialAllUserCheckins }) => {
   );
 
   useEffect(() => {
-    console.log(userId);
-  }, [userId]);
+    console.log(session);
+  }, [session]);
 
   if (!session) {
     return <Auth />;
