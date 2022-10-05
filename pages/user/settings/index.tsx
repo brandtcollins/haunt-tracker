@@ -9,6 +9,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { iUserSettings } from "../../../ts/Interfaces";
 import { spawn } from "child_process";
 import { Avatar } from "@chakra-ui/react";
+import WithAuth from "../../../components/HOC/WithAuth";
 
 interface UserSettingsProps {
   session: any;
@@ -301,39 +302,41 @@ const UploadAvatar: FunctionComponent<UploadAvatarProps> = ({
   }
 
   return (
-    <div className="flex">
-      {avatarUrl ? (
-        <img
-          src={avatarUrl}
-          alt="Avatar"
-          className="avatar image"
-          style={{ height: size, width: size }}
-        />
-      ) : (
-        <div
-          className="avatar no-image"
-          style={{ height: size, width: size }}
-        />
-      )}
-      <div className="pl-6">
-        <h1
-          onClick={() => setChangeAvatar(true)}
-          className={`font-bold text-emerald-500 hover:cursor-pointer pl-4 ${
-            (formDisabled || changeAvatar) && "hidden"
-          }`}
-        >
-          Change Avatar
-        </h1>
-        <input
-          className={`${(formDisabled || !changeAvatar) && "hidden"}`}
-          type="file"
-          id="single"
-          accept="image/*"
-          onChange={uploadAvatar}
-          disabled={uploading}
-        />
+    <WithAuth>
+      <div className="flex">
+        {avatarUrl ? (
+          <img
+            src={avatarUrl}
+            alt="Avatar"
+            className="avatar image"
+            style={{ height: size, width: size }}
+          />
+        ) : (
+          <div
+            className="avatar no-image"
+            style={{ height: size, width: size }}
+          />
+        )}
+        <div className="pl-6">
+          <h1
+            onClick={() => setChangeAvatar(true)}
+            className={`font-bold text-emerald-500 hover:cursor-pointer pl-4 ${
+              (formDisabled || changeAvatar) && "hidden"
+            }`}
+          >
+            Change Avatar
+          </h1>
+          <input
+            className={`${(formDisabled || !changeAvatar) && "hidden"}`}
+            type="file"
+            id="single"
+            accept="image/*"
+            onChange={uploadAvatar}
+            disabled={uploading}
+          />
+        </div>
       </div>
-    </div>
+    </WithAuth>
   );
 };
 
