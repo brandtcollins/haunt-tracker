@@ -9,6 +9,7 @@ import { useUserContext } from "../state/UserContext";
 import { useQuery } from "@tanstack/react-query";
 import { getAllCheckins, getCheckins } from "../utils/HelperFunctions";
 import { iCheckIn } from "../ts/Interfaces";
+import WithAuth from "../components/HOC/WithAuth";
 
 export async function getServerSideProps() {
   return {
@@ -23,8 +24,8 @@ interface HomeProps {
 }
 
 const Home: FunctionComponent<HomeProps> = ({ initialAllUserCheckins }) => {
-  const { session, isLoading } = useUserContext();
-  const { website, username, avatarUrl, userId } = useUserContext();
+  const { isLoading } = useUserContext();
+  const { userId } = useUserContext();
   const { data: allCheckIns } = useQuery(["all-check-ins"], getAllCheckins, {
     initialData: initialAllUserCheckins,
     refetchOnMount: false,
@@ -40,28 +41,25 @@ const Home: FunctionComponent<HomeProps> = ({ initialAllUserCheckins }) => {
     }
   );
 
-  useEffect(() => {
-    console.log(session);
-  }, [session]);
-
-  if (!session) {
-    return <Auth />;
-  }
-
   return (
-    <Layout title="Haunt Activity">
-      <div className="md:flex">
-        <div className="md:max-w-3xl md:w-4/5">
-          <CheckinFeed checkInFeedData={allCheckIns} dataLoading={isLoading} />
+    <WithAuth>
+      <Layout title="Haunt Activity">
+        <div className="md:flex">
+          <div className="md:max-w-3xl md:w-4/5">
+            <CheckinFeed
+              checkInFeedData={allCheckIns}
+              dataLoading={isLoading}
+            />
+          </div>
+          <div className="px-4 hidden md:block w-full max-w-md ">
+            <ProfileStats
+              checkIns={userCheckIns}
+              checkInsLoading={userCheckInsLoading}
+            />
+          </div>
         </div>
-        <div className="px-4 hidden md:block w-full max-w-md ">
-          <ProfileStats
-            checkIns={userCheckIns}
-            checkInsLoading={userCheckInsLoading}
-          />
-        </div>
-      </div>
-    </Layout>
+      </Layout>
+    </WithAuth>
   );
 };
 
