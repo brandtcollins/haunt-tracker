@@ -1,3 +1,4 @@
+import { Head } from "next/document";
 import Image from "next/image";
 import { useState } from "react";
 import SignInForm from "./Elements/Forms/Auth/SignInForm";
@@ -7,6 +8,13 @@ export default function Auth() {
 
   return (
     <>
+      <Head>
+        <title>Sign in to your Haunt Tracker account</title>
+        <meta
+          property="og:title"
+          content="Sign in to your Haunt Tracker account"
+        />
+      </Head>
       <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8 bg-darkGray-500 h-screen">
         <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
           <Image
