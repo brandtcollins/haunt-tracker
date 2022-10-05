@@ -80,11 +80,18 @@ const Header: FunctionComponent<HeaderProps> = () => {
                     {session ? (
                       <ProfileDropdown userNavigation={userNavigation} />
                     ) : (
-                      <Link href={"/signin"}>
-                        <a className="flex w-full justify-center rounded-md border border-transparent bg-emerald-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-emerald-600">
-                          Sign In
-                        </a>
-                      </Link>
+                      <>
+                        <Link href={"/signin"}>
+                          <a className="flex justify-center rounded-md border border-transparent bg-emerald-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-emerald-600 mx-2">
+                            Sign In
+                          </a>
+                        </Link>
+                        <Link href={"/signup"}>
+                          <a className="flex justify-center rounded-md border-emerald-500 border-2 py-2 px-4 text-sm text-emerald-500 font-bold shadow-sm hover:bg-emerald-500 mx-2 hover:text-white">
+                            Create an account
+                          </a>
+                        </Link>
+                      </>
                     )}
                   </div>
                 </div>
