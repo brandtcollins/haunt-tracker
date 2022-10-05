@@ -25,6 +25,12 @@ export interface iMagicLinkSignin {
   email: string;
 }
 
+export interface iUserNavigationProps {
+  name: string;
+  href: string;
+  onClick?: any;
+}
+
 export interface iNewUserSignup {
   username: string;
   email: string;

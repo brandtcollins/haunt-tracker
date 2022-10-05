@@ -1,10 +1,10 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { iCheckIn, iUserSettings } from "../../ts/Interfaces";
-import { supabase } from "../../utils/supabaseClient";
-import Avatar from "./Avatar";
-import { useUserContext } from "../../state/UserContext";
-import LoadingCircle from "./LoadingCircle";
+import { iCheckIn, iUserSettings } from "../../../ts/Interfaces";
+import { supabase } from "../../../utils/supabaseClient";
+import Avatar from "../Avatar";
+import { useUserContext } from "../../../state/UserContext";
+import LoadingCircle from "../LoadingCircle";
 
 interface ProfileStatsProps {
   checkIns: iCheckIn[] | any;

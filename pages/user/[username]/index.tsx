@@ -1,6 +1,6 @@
 import { useEffect, FunctionComponent, useState } from "react";
 import CheckinFeed from "../../../components/CheckinFeed";
-import ProfileStats from "../../../components/Elements/ProfileStats";
+import ProfileStats from "../../../components/Elements/Profile/ProfileStats";
 import Layout from "../../../components/Layout/Layout";
 import { useQuery } from "@tanstack/react-query";
 import { getCheckins, getUserProfile } from "../../../utils/HelperFunctions";

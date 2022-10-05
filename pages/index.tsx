@@ -4,7 +4,7 @@ import Auth from "../components/Auth";
 import { AuthSession } from "@supabase/supabase-js";
 import CheckinFeed from "../components/CheckinFeed";
 import Layout from "../components/Layout/Layout";
-import ProfileStats from "../components/Elements/ProfileStats";
+import ProfileStats from "../components/Elements/Profile/ProfileStats";
 import { useUserContext } from "../state/UserContext";
 import { useQuery } from "@tanstack/react-query";
 import { getAllCheckins, getCheckins } from "../utils/HelperFunctions";
