@@ -11,10 +11,6 @@ interface WithAuthProps {
 const WithAuth: FunctionComponent<WithAuthProps> = ({ children }) => {
   const { session, sessionLoaded } = useUserContext();
 
-  useEffect(() => {
-    console.log(`Fired`);
-  }, []);
-
   if (!session) {
     return <Auth />;
   }
