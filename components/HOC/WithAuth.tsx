@@ -1,5 +1,5 @@
 import { ReactJSXElement } from "@emotion/react/types/jsx-namespace";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect } from "react";
 import { useUserContext } from "../../state/UserContext";
 import Auth from "../Auth";
 import LoadingCircle from "../Elements/LoadingCircle";
@@ -11,7 +11,11 @@ interface WithAuthProps {
 const WithAuth: FunctionComponent<WithAuthProps> = ({ children }) => {
   const { session, sessionLoaded } = useUserContext();
 
-  if (!session && sessionLoaded) {
+  useEffect(() => {
+    console.log(`Fired`);
+  }, []);
+
+  if (!session) {
     return <Auth />;
   }
 
