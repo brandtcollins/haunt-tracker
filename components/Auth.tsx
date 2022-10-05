@@ -1,4 +1,5 @@
-import { Head } from "next/document";
+import Head from "next/head";
+
 import Image from "next/image";
 import { useState } from "react";
 import SignInForm from "./Elements/Forms/Auth/SignInForm";
@@ -8,6 +9,7 @@ export default function Auth() {
 
   return (
     <>
+      {" "}
       <Head>
         <title>Sign in to your Haunt Tracker account</title>
         <meta

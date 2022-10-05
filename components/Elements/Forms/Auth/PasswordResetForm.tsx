@@ -1,11 +1,20 @@
 import * as Yup from "yup";
 import { Formik, Field, Form, FormikState } from "formik";
 import { useRouter } from "next/router";
-import { iUserSignIn } from "../../../../ts/Interfaces";
 import { supabase } from "../../../../utils/supabaseClient";
-import { useEffect, useState } from "react";
+import {
+  Dispatch,
+  FunctionComponent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 
-export default function SignInForm() {
+interface ResetPasswordFormProps {
+  setErrorMessage: Dispatch<SetStateAction<string>>;
+}
+
+const ResetPasswordForm: FunctionComponent<ResetPasswordFormProps> = () => {
   const [passwordRecovery, setPasswordRecovery] = useState<boolean>(false);
   const router = useRouter();
 
@@ -188,4 +197,6 @@ export default function SignInForm() {
       </Formik>
     </>
   );
-}
+};
+
+export default ResetPasswordForm;
