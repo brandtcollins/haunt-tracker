@@ -135,100 +135,106 @@ const UserSettings: FunctionComponent<UserSettingsProps> = ({ session }) => {
   };
 
   return (
-    <Layout title="User Settings">
-      {!loading && (
-        <Formik
-          initialValues={initialValues}
-          onSubmit={(values) => mutation.mutate(values)}
-          validationSchema={HouseCheckinSchema}
-        >
-          {({ errors, touched, isSubmitting }: FormikState<iUserSettings>) => (
-            <Form className="text-white">
-              {isSubmitting && <p>Submitting</p>}
-              <div className="overflow-hidden bg-white shadow sm:rounded-lg ">
-                <div className="px-4 py-5 sm:px-6 flex justify-between">
-                  <h3 className="text-lg font-medium leading-6 text-gray-900">
-                    User Settings
-                  </h3>
-                  <h3
-                    onClick={() => handleFormCancel()}
-                    className="text-lg font-medium leading-6 text-emerald-500 hover:text-emerald-600 cursor-pointer"
+    <WithAuth>
+      <Layout title="User Settings">
+        {!loading && (
+          <Formik
+            initialValues={initialValues}
+            onSubmit={(values) => mutation.mutate(values)}
+            validationSchema={HouseCheckinSchema}
+          >
+            {({
+              errors,
+              touched,
+              isSubmitting,
+            }: FormikState<iUserSettings>) => (
+              <Form className="text-white">
+                {isSubmitting && <p>Submitting</p>}
+                <div className="overflow-hidden bg-white shadow sm:rounded-lg ">
+                  <div className="px-4 py-5 sm:px-6 flex justify-between">
+                    <h3 className="text-lg font-medium leading-6 text-gray-900">
+                      User Settings
+                    </h3>
+                    <h3
+                      onClick={() => handleFormCancel()}
+                      className="text-lg font-medium leading-6 text-emerald-500 hover:text-emerald-600 cursor-pointer"
+                    >
+                      {formDisabled ? "Edit" : "Cancel"}
+                    </h3>
+                  </div>
+                  <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
+                    <dl className="sm:divide-y sm:divide-gray-200">
+                      <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                        <dt className="text-sm font-medium text-gray-500">
+                          Username
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                          <Field
+                            disabled={formDisabled}
+                            name="username"
+                            id="username"
+                            placeholder="Username"
+                            aria-invalid="true"
+                            aria-describedby="username-error"
+                            className="w-full"
+                          />
+                        </dd>
+                      </div>
+                      <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                        <dt className="text-sm font-medium text-gray-500">
+                          Email address
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                          <Field
+                            name="website"
+                            disabled={formDisabled}
+                            id="website"
+                            placeholder="Website"
+                            aria-invalid="true"
+                            className="w-full"
+                            aria-describedby="website-error"
+                          />
+                        </dd>
+                      </div>
+                      <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                        <dt className="text-sm font-medium text-gray-500">
+                          Avatar
+                        </dt>
+                        <dd
+                          className={`mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0`}
+                        >
+                          <UploadAvatar
+                            url={avatar_url}
+                            size={75}
+                            formDisabled={formDisabled}
+                            onUpload={(url: string) => {
+                              setAvatarUrl(url);
+                              updateProfile({
+                                username,
+                                website,
+                                avatar_url: url,
+                              });
+                            }}
+                          />
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+                {!formDisabled && (
+                  <button
+                    type="submit"
+                    className="inline-flex w-full justify-center rounded-md border border-transparent bg-emerald-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-emerald-600 sm:text-sm my-4"
                   >
-                    {formDisabled ? "Edit" : "Cancel"}
-                  </h3>
-                </div>
-                <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
-                  <dl className="sm:divide-y sm:divide-gray-200">
-                    <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                      <dt className="text-sm font-medium text-gray-500">
-                        Username
-                      </dt>
-                      <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                        <Field
-                          disabled={formDisabled}
-                          name="username"
-                          id="username"
-                          placeholder="Username"
-                          aria-invalid="true"
-                          aria-describedby="username-error"
-                          className="w-full"
-                        />
-                      </dd>
-                    </div>
-                    <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                      <dt className="text-sm font-medium text-gray-500">
-                        Email address
-                      </dt>
-                      <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                        <Field
-                          name="website"
-                          disabled={formDisabled}
-                          id="website"
-                          placeholder="Website"
-                          aria-invalid="true"
-                          className="w-full"
-                          aria-describedby="website-error"
-                        />
-                      </dd>
-                    </div>
-                    <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                      <dt className="text-sm font-medium text-gray-500">
-                        Avatar
-                      </dt>
-                      <dd
-                        className={`mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0`}
-                      >
-                        <UploadAvatar
-                          url={avatar_url}
-                          size={75}
-                          formDisabled={formDisabled}
-                          onUpload={(url: string) => {
-                            setAvatarUrl(url);
-                            updateProfile({
-                              username,
-                              website,
-                              avatar_url: url,
-                            });
-                          }}
-                        />
-                      </dd>
-                    </div>
-                  </dl>
-                </div>
-              </div>
-              {!formDisabled && (
-                <button
-                  type="submit"
-                  className="inline-flex w-full justify-center rounded-md border border-transparent bg-emerald-500 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-emerald-600 sm:text-sm my-4"
-                >
-                  Update Savings
-                </button>
-              )}
-            </Form>
-          )}
-        </Formik>
-      )}
-    </Layout>
+                    Update Savings
+                  </button>
+                )}
+              </Form>
+            )}
+          </Formik>
+        )}
+      </Layout>
+    </WithAuth>
   );
 };
 
@@ -302,41 +308,39 @@ const UploadAvatar: FunctionComponent<UploadAvatarProps> = ({
   }
 
   return (
-    <WithAuth>
-      <div className="flex">
-        {avatarUrl ? (
-          <img
-            src={avatarUrl}
-            alt="Avatar"
-            className="avatar image"
-            style={{ height: size, width: size }}
-          />
-        ) : (
-          <div
-            className="avatar no-image"
-            style={{ height: size, width: size }}
-          />
-        )}
-        <div className="pl-6">
-          <h1
-            onClick={() => setChangeAvatar(true)}
-            className={`font-bold text-emerald-500 hover:cursor-pointer pl-4 ${
-              (formDisabled || changeAvatar) && "hidden"
-            }`}
-          >
-            Change Avatar
-          </h1>
-          <input
-            className={`${(formDisabled || !changeAvatar) && "hidden"}`}
-            type="file"
-            id="single"
-            accept="image/*"
-            onChange={uploadAvatar}
-            disabled={uploading}
-          />
-        </div>
+    <div className="flex">
+      {avatarUrl ? (
+        <img
+          src={avatarUrl}
+          alt="Avatar"
+          className="avatar image"
+          style={{ height: size, width: size }}
+        />
+      ) : (
+        <div
+          className="avatar no-image"
+          style={{ height: size, width: size }}
+        />
+      )}
+      <div className="pl-6">
+        <h1
+          onClick={() => setChangeAvatar(true)}
+          className={`font-bold text-emerald-500 hover:cursor-pointer pl-4 ${
+            (formDisabled || changeAvatar) && "hidden"
+          }`}
+        >
+          Change Avatar
+        </h1>
+        <input
+          className={`${(formDisabled || !changeAvatar) && "hidden"}`}
+          type="file"
+          id="single"
+          accept="image/*"
+          onChange={uploadAvatar}
+          disabled={uploading}
+        />
       </div>
-    </WithAuth>
+    </div>
   );
 };
 
