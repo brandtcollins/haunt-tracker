@@ -129,33 +129,50 @@ const Header: FunctionComponent<HeaderProps> = () => {
                 </Disclosure.Button>
               ))}
             </div>
-            <div className="border-t border-darkGray-100 pt-4 pb-3">
-              <div className="flex items-center px-5">
-                <div className="flex-shrink-0">
-                  <Avatar url={avatarUrl} username={username} />
-                </div>
-                <div className="ml-3">
-                  <div className="text-base font-medium leading-none text-white">
-                    {username}
+            {session ? (
+              <>
+                <div className="border-t border-darkGray-100 pt-4 pb-3">
+                  <div className="flex items-center px-5">
+                    <div className="flex-shrink-0">
+                      <Avatar url={avatarUrl} username={username} />
+                    </div>
+                    <div className="ml-3">
+                      <div className="text-base font-medium leading-none text-white">
+                        {username}
+                      </div>
+                      <div className="text-sm font-medium leading-none text-gray-400">
+                        {website}
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-sm font-medium leading-none text-gray-400">
-                    {website}
+                  <div className="mt-3 space-y-1 px-2">
+                    {userNavigation.map((item) => (
+                      <Disclosure.Button
+                        key={item.name}
+                        as="a"
+                        href={item.href}
+                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                      >
+                        {item.name}
+                      </Disclosure.Button>
+                    ))}
                   </div>
                 </div>
-              </div>
-              <div className="mt-3 space-y-1 px-2">
-                {userNavigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                  >
-                    {item.name}
-                  </Disclosure.Button>
-                ))}
-              </div>
-            </div>
+              </>
+            ) : (
+              <>
+                <Link href={"/signin"}>
+                  <a className="flex mb-4 justify-center rounded-md border border-transparent bg-emerald-500 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-emerald-600 mx-2">
+                    Sign In
+                  </a>
+                </Link>
+                <Link href={"/signup"}>
+                  <a className="flex justify-center rounded-md border-emerald-500 border-2 py-2 px-4 text-sm text-emerald-500 font-bold shadow-sm hover:bg-emerald-500 mx-2 hover:text-white">
+                    Create an account
+                  </a>
+                </Link>
+              </>
+            )}
           </Disclosure.Panel>
         </>
       )}
