@@ -59,6 +59,7 @@ const Haunts: FunctionComponent<HauntsProps> = () => {
           <div className="md:flex">
             <div className="md:max-w-3xl md:w-4/5">
               <CheckinFeed
+                houseCheckin
                 checkInFeedData={houseCheckInData}
                 dataLoading={houseCheckInDataIsLoading}
               />
