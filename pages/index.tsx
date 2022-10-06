@@ -1,15 +1,10 @@
-import { useState, useEffect, FunctionComponent } from "react";
-import { supabase } from "../utils/supabaseClient";
-import Auth from "../components/Auth";
-import { AuthSession } from "@supabase/supabase-js";
-import CheckinFeed from "../components/CheckinFeed";
+import { useEffect, FunctionComponent } from "react";
 import Layout from "../components/Layout/Layout";
-import ProfileStats from "../components/Elements/Profile/ProfileStats";
 import { useUserContext } from "../state/UserContext";
 import { useQuery } from "@tanstack/react-query";
-import { getAllCheckins, getCheckins } from "../utils/HelperFunctions";
-import { iCheckIn } from "../ts/Interfaces";
-import WithAuth from "../components/HOC/WithAuth";
+import { getAllCheckins, getCheckinsByUser } from "../utils/HelperFunctions";
+import { useRouter } from "next/router";
+import LoadingCircle from "../components/Elements/LoadingCircle";
 
 export async function getServerSideProps() {
   return {
@@ -24,8 +19,9 @@ interface HomeProps {
 }
 
 const Home: FunctionComponent<HomeProps> = ({ initialAllUserCheckins }) => {
-  const { isLoading } = useUserContext();
+  const { isLoading, session, sessionLoaded } = useUserContext();
   const { userId } = useUserContext();
+  const router = useRouter();
   const { data: allCheckIns } = useQuery(["all-check-ins"], getAllCheckins, {
     initialData: initialAllUserCheckins,
     refetchOnMount: false,
@@ -34,32 +30,23 @@ const Home: FunctionComponent<HomeProps> = ({ initialAllUserCheckins }) => {
 
   const { data: userCheckIns, isLoading: userCheckInsLoading } = useQuery(
     ["user-check-ins", userId],
-    () => getCheckins(userId),
+    () => getCheckinsByUser(userId),
     {
       enabled: !!userId,
       refetchOnWindowFocus: false,
     }
   );
 
+  useEffect(() => {
+    if (session) {
+      router.push("/activity");
+    }
+  }, [sessionLoaded]);
+
   return (
-    <WithAuth>
-      <Layout title="Haunt Activity">
-        <div className="md:flex">
-          <div className="md:max-w-3xl md:w-4/5">
-            <CheckinFeed
-              checkInFeedData={allCheckIns}
-              dataLoading={isLoading}
-            />
-          </div>
-          <div className="px-4 hidden md:block w-full max-w-md ">
-            <ProfileStats
-              checkIns={userCheckIns}
-              checkInsLoading={userCheckInsLoading}
-            />
-          </div>
-        </div>
-      </Layout>
-    </WithAuth>
+    <Layout title="Haunt Activity">
+      {sessionLoaded ? <LoadingCircle /> : <div>Content</div>}
+    </Layout>
   );
 };
 

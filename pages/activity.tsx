@@ -7,10 +7,11 @@ import Layout from "../components/Layout/Layout";
 import ProfileStats from "../components/Elements/Profile/ProfileStats";
 import { useUserContext } from "../state/UserContext";
 import { useQuery } from "@tanstack/react-query";
-import { getAllCheckins, getCheckins } from "../utils/HelperFunctions";
+import { getAllCheckins, getCheckinsByUser } from "../utils/HelperFunctions";
 import { iCheckIn } from "../ts/Interfaces";
 import LoadingCircle from "../components/Elements/LoadingCircle";
 import WithAuth from "../components/HOC/WithAuth";
+import HouseSearchBox from "../components/Modules/HouseSearchBox/HouseSearchBox";
 
 export async function getServerSideProps() {
   return {
@@ -33,7 +34,7 @@ const Home: FunctionComponent<HomeProps> = ({ initialAllUserCheckins }) => {
 
   const { data: userCheckIns, isLoading: userCheckInsLoading } = useQuery(
     ["user-check-ins", userId],
-    () => getCheckins(userId),
+    () => getCheckinsByUser(userId),
     {
       enabled: !!userId,
       refetchOnMount: false,
@@ -56,6 +57,7 @@ const Home: FunctionComponent<HomeProps> = ({ initialAllUserCheckins }) => {
               checkIns={userCheckIns}
               checkInsLoading={userCheckInsLoading}
             />
+            <HouseSearchBox />
           </div>
         </div>
       </Layout>

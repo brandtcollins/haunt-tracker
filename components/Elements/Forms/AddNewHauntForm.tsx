@@ -39,11 +39,11 @@ const AddNewHauntForm: FunctionComponent<AddNewHauntFormProps> = ({
   const [user, setUser] = useState<User>();
   const { data: singleCheckInArray, isLoading } = useQuery(
     ["singleCheckin"],
-    getCheckins,
+    getCheckinsByUser,
     { enabled: Boolean(checkinID) }
   );
 
-  async function getCheckins() {
+  async function getCheckinsByUser() {
     try {
       let { data, error, status } = await supabase
         .from("check-ins")

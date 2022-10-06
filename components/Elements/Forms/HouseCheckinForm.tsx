@@ -39,11 +39,11 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
   const [user, setUser] = useState<User>();
   const { data: singleCheckInArray, isLoading } = useQuery(
     ["singleCheckin"],
-    getCheckins,
+    getCheckinsByUser,
     { enabled: Boolean(checkinID) }
   );
 
-  async function getCheckins() {
+  async function getCheckinsByUser() {
     try {
       let { data, error, status } = await supabase
         .from("check-ins")
@@ -175,7 +175,7 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
                 as="select"
                 id="haunted_house_id"
                 name="haunted_house_id"
-                className="mt-1 h-12 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 h-12 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
               >
                 <option disabled value="">
                   Select a house
@@ -208,7 +208,7 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
                   step="0.25"
                   id="rating"
                   placeholder="Give your run a rating between 1 and 5"
-                  className="mt-1 h-12 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 h-12 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
                   aria-invalid="true"
                   aria-describedby="email-error"
                 />
@@ -240,7 +240,7 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
                   type="number"
                   id="estimated_wait_time"
                   placeholder="What was your estimated wait time?"
-                  className="mt-1 h-12 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 h-12 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
                   aria-invalid="true"
                   aria-describedby="email-error"
                 />
@@ -256,7 +256,7 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
                   type="number"
                   id="actual_wait_time"
                   placeholder="How long did you actually wait?"
-                  className="mt-1 h-12 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 h-12 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
                   aria-invalid="true"
                   aria-describedby="email-error"
                 />
@@ -286,7 +286,7 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
                   name="note"
                   id="note"
                   placeholder="Have something specific to note about this run? Let's hear it!"
-                  className="mt-1 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm h-24"
+                  className="mt-1 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm h-24"
                   aria-invalid="true"
                   aria-describedby="email-error"
                 />

@@ -3,7 +3,10 @@ import CheckinFeed from "../../../components/CheckinFeed";
 import ProfileStats from "../../../components/Elements/Profile/ProfileStats";
 import Layout from "../../../components/Layout/Layout";
 import { useQuery } from "@tanstack/react-query";
-import { getCheckins, getUserProfile } from "../../../utils/HelperFunctions";
+import {
+  getCheckinsByUser,
+  getUserProfile,
+} from "../../../utils/HelperFunctions";
 import { useRouter } from "next/router";
 import CheckInButton from "../../../components/Elements/CheckInButton";
 import { useUserContext } from "../../../state/UserContext";
@@ -25,8 +28,8 @@ const MyActivity: FunctionComponent<MyActivityProps> = () => {
   );
 
   const { data: userCheckinArray, isLoading } = useQuery(
-    ["getCheckins", userId],
-    () => getCheckins(userId),
+    ["getCheckinsByUser", userId],
+    () => getCheckinsByUser(userId),
     {
       enabled: !!userId,
     }
@@ -34,7 +37,7 @@ const MyActivity: FunctionComponent<MyActivityProps> = () => {
 
   const { data: userCheckIns, isLoading: userCheckInsLoading } = useQuery(
     ["user-check-ins", userId],
-    () => getCheckins(userId),
+    () => getCheckinsByUser(userId),
     {
       enabled: !!userId,
       refetchOnMount: false,

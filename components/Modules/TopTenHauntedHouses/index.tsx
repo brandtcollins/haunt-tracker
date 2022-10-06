@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from "react";
 import { useUserContext } from "../../../state/UserContext";
-import { getCheckins } from "../../../utils/HelperFunctions";
+import { getCheckinsByUser } from "../../../utils/HelperFunctions";
 
 interface TopTenHauntedHousesProps {}
 
@@ -8,7 +8,7 @@ const TopTenHauntedHouses: FunctionComponent<TopTenHauntedHousesProps> = () => {
   const { website, username, avatarUrl, userId } = useUserContext();
   useEffect(() => {
     if (userId) {
-      getCheckins(userId);
+      getCheckinsByUser(userId);
     }
   }, [userId]);
 

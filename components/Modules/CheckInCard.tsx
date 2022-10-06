@@ -87,10 +87,12 @@ const CheckInCard: FunctionComponent<CheckInCardProps> = ({
                     </a>
                   </Link>{" "}
                   just ran
-                  <span className="font-bold text-emerald-500">
-                    {" "}
-                    {checkIn.haunted_houses?.name}
-                  </span>
+                  <Link href={`/haunts/house/${checkIn.haunted_house_id}`}>
+                    <a className="font-bold text-emerald-500">
+                      {" "}
+                      {checkIn.haunted_houses?.name}
+                    </a>
+                  </Link>
                 </p>
                 <p className="text-sm text-slate-500">
                   {" "}

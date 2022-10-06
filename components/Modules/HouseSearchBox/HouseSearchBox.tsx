@@ -3,17 +3,9 @@ import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 import { Combobox } from "@headlessui/react";
 import { useHauntedHouses } from "../../../ts/hooks/useHauntedHouses";
 import { iHauntedHouse } from "../../../ts/Interfaces";
-interface iPeople {
-  id: number;
-  name: string;
-}
-
-const people = [
-  { id: 1, name: "Leslie Alexander" },
-  { id: 2, name: "Eslie Alexander" },
-  { id: 3, name: "Slie Alexander" },
-  { id: 4, name: "Lie Alexander" },
-];
+import { useHaunts } from "../../../ts/hooks/useHaunts";
+import { CgSearch } from "react-icons/cg";
+import { useRouter } from "next/router";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -21,8 +13,11 @@ function classNames(...classes: any) {
 
 export default function HouseSearchBox() {
   const [query, setQuery] = useState("");
-  const [selectedHouse, setSelectedHouse] = useState();
-  const { data: hauntedHouseList } = useHauntedHouses();
+  const router = useRouter();
+  const [selectedHouse, setSelectedHouse] = useState<iHauntedHouse>();
+  const { data: hauntedHouseList, isLoading: hauntedHousesAreLoading } =
+    useHauntedHouses();
+  const { data: hauntList, isLoading: hauntsAreLoading } = useHaunts();
 
   const filteredHauntedHouses =
     hauntedHouseList &&
@@ -30,24 +25,28 @@ export default function HouseSearchBox() {
       return hauntedHouse.name.toLowerCase().includes(query.toLowerCase());
     });
 
+  useEffect(() => {
+    if (selectedHouse) {
+      router.push(`/haunts/house/${selectedHouse.haunted_house_id}`);
+    }
+  }, [selectedHouse]);
+
   return (
     <Combobox as="div" value={selectedHouse} onChange={setSelectedHouse}>
-      <Combobox.Label className="block text-sm font-medium text-gray-700">
+      {/* <Combobox.Label className="block text-sm font-medium text-gray-700">
         Select Haunted House
-      </Combobox.Label>
-      <div className="relative mt-1">
+      </Combobox.Label> */}
+      <div className="relative">
         <Combobox.Input
-          className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 sm:text-sm"
+          className="mt-1 h-12 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
           onChange={(event) => setQuery(event.target.value)}
+          placeholder="Search for a house or haunted attraction"
           displayValue={(hauntedHouse: iHauntedHouse) => {
-            return hauntedHouse ? hauntedHouse.name : "Search for a house";
+            return hauntedHouse && hauntedHouse.name;
           }}
         />
         <Combobox.Button className="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
-          <ChevronUpDownIcon
-            className="h-5 w-5 text-gray-400"
-            aria-hidden="true"
-          />
+          <CgSearch className="h-5 w-5 text-gray-500 mr-1" aria-hidden="true" />
         </Combobox.Button>
 
         {filteredHauntedHouses && filteredHauntedHouses.length > 0 && (
