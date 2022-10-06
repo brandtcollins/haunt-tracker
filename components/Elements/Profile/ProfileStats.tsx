@@ -85,7 +85,7 @@ const ProfileStats: FunctionComponent<ProfileStatsProps> = ({
         <LoadingCircle />
       ) : (
         <>
-          <div className="border-b-2 border-darkGray-100 pb-4 mb-4 flex">
+          <div className="border-b-2 border-darkGray-100 mb-4 flex">
             <Avatar
               url={avatarImage}
               username={userProfile ? userProfile.username : username}

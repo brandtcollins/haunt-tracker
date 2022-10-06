@@ -1,12 +1,13 @@
 import { Fragment, FunctionComponent, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { classNames, signOut } from "../../utils/HelperFunctions";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Avatar from "../Elements/Avatar";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useUserContext } from "../../state/UserContext";
 import ProfileDropdown from "../Elements/Profile/ProfileDropdown";
+import HouseSearchBox from "../Modules/HouseSearchBox/HouseSearchBox";
 
 interface HeaderProps {}
 
@@ -79,8 +80,19 @@ const Header: FunctionComponent<HeaderProps> = () => {
                     </div>
                   </div>
                 </div>
+                <div className="w-2/3">
+                  <HouseSearchBox />
+                </div>
+
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
+                    <button
+                      type="button"
+                      className="rounded-full bg-darkGray-300 p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    >
+                      <span className="sr-only">View notifications</span>
+                      <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    </button>
                     {session ? (
                       <ProfileDropdown userNavigation={userNavigation} />
                     ) : (
@@ -99,7 +111,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
                     )}
                   </div>
                 </div>
-                <div className="-mr-2 flex md:hidden">
+                <div className="-mr-2 flex md:hidden gap-2">
                   {/* Mobile menu button */}
                   <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-darkGray-300 p-2 text-emerald-500 hover:bg-darkGray-100">
                     <span className="sr-only">Open main menu</span>

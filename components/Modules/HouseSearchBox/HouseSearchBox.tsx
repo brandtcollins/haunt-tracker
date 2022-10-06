@@ -38,7 +38,7 @@ export default function HouseSearchBox() {
       </Combobox.Label> */}
       <div className="relative">
         <Combobox.Input
-          className="mt-1 h-12 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
+          className="h-12 block w-full rounded-md bg-darkGray-100 text-white border-darkGray-100 py-2 pl-3 pr-10 text-base focus:border-emerald-500 focus:outline-none focus:ring-emerald-500 sm:text-sm"
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Search for a house or haunted attraction"
           displayValue={(hauntedHouse: iHauntedHouse) => {
