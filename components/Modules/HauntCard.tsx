@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 import { FunctionComponent } from "react";
 import { supabase } from "../../utils/supabaseClient";
 
@@ -8,7 +9,7 @@ interface HauntCardProps {
 
 const HauntCard: FunctionComponent<HauntCardProps> = ({ haunt }) => {
   const { data: hauntImage } = useQuery(
-    ["hauntImage", haunt.haunt_name],
+    ["hauntImage", haunt.haunt_id],
     () => downloadImage(haunt.image ? haunt.image : ""),
     {
       enabled: !!haunt.image,
@@ -31,18 +32,27 @@ const HauntCard: FunctionComponent<HauntCardProps> = ({ haunt }) => {
 
   return (
     <li className="text-white col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-darkGray-300 border-2 border-darkGray-100 text-center shadow">
-      <div className="flex flex-1 flex-col p-8">
-        <img
-          className="mx-auto h-32 w-32 flex-shrink-0 rounded-full"
-          src={hauntImage?.publicUrl}
-          alt=""
-        />
+      <div className="flex flex-1 flex-col pb-4">
+        <div className="relative w-full h-28 max-h-64 bg-darkGray-100">
+          <Image
+            src={
+              hauntImage?.publicUrl
+                ? hauntImage?.publicUrl
+                : "/images/haunt-tracker.png"
+            }
+            alt=""
+            layout="fill"
+            objectFit="cover"
+          />
+        </div>
         <h3 className="mt-6 font-medium text-xl">{haunt.haunt_name}</h3>
         <dl className="mt-1 flex flex-grow flex-col justify-between">
           <dt className="sr-only">Title</dt>
-          <dd className="text-sm text-gray-500">
-            {haunt.themepark_location.name}
-          </dd>
+          {haunt.themepark_location && (
+            <dd className="text-sm text-gray-500">
+              {haunt.themepark_location.name}
+            </dd>
+          )}
           <dt className="sr-only">Role</dt>
         </dl>
       </div>
