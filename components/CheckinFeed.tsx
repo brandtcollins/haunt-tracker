@@ -34,7 +34,7 @@ const CheckinFeed: FunctionComponent<CheckinFeedProps> = ({
             Hmmm...it doesn&apos;t look like anyone has ran this house yet.
           </p>
           <p className="text-center px-10 hidden md:block">
-            Click the green button to and be the first!
+            Go check it out and log your run to be the first!
           </p>
         </>
       ) : (
