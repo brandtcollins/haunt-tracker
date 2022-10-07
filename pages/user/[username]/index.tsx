@@ -55,6 +55,7 @@ const MyActivity: FunctionComponent<MyActivityProps> = () => {
     <Layout title="Haunt Activity">
       <div className="md:flex">
         <div className="md:max-w-3xl md:w-4/5">
+          <CheckInButton mobileOnly />
           <CheckinFeed
             checkInFeedData={userCheckinArray}
             dataLoading={isLoading}

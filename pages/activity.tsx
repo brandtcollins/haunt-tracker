@@ -6,7 +6,7 @@ import { useUserContext } from "../state/UserContext";
 import { useQuery } from "@tanstack/react-query";
 import { getAllCheckins, getCheckinsByUser } from "../utils/HelperFunctions";
 import WithAuth from "../components/HOC/WithAuth";
-import HouseSearchBox from "../components/Modules/HouseSearchBox/HouseSearchBox";
+import CheckInButton from "../components/Elements/CheckInButton";
 
 export async function getServerSideProps() {
   return {
@@ -42,6 +42,7 @@ const Home: FunctionComponent<HomeProps> = ({ initialAllUserCheckins }) => {
       <Layout title="Haunt Activity">
         <div className="md:flex">
           <div className="md:max-w-3xl md:w-4/5">
+            <CheckInButton mobileOnly />
             <CheckinFeed
               checkInFeedData={allCheckIns}
               dataLoading={isLoading}

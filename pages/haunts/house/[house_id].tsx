@@ -65,7 +65,7 @@ const Haunts: FunctionComponent<HauntsProps> = () => {
               />
             </div>
             <div className="px-4 hidden md:block w-full max-w-md ">
-              <HouseSearchBox />
+              {/* Add house stats card here */}
             </div>
           </div>
         </>
