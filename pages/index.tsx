@@ -68,8 +68,8 @@ const Home: FunctionComponent<HomeProps> = ({ initialAllUserCheckins }) => {
                 <div className="flex flex-col my-12 items-center text-center md:w-1/2 md:mt-32 gap-2">
                   <h1 className="font-bold text-5xl ">Haunt Tracker</h1>
                   <h2 className="text-emerald-500 md:w-1/2">
-                    Find haunts around you and keep track of the haunts you've
-                    visited.
+                    Find haunts around you and keep track of the haunts
+                    you&apos;ve visited.
                   </h2>
                 </div>
                 <div className="md:w-1/2">
