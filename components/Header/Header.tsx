@@ -50,7 +50,7 @@ const Header: FunctionComponent<HeaderProps> = () => {
                   <div className="flex-shrink-0">
                     <Link href="/" passHref>
                       <img
-                        className="ml-8 h-8 w-8 hover:cursor-pointer"
+                        className=" h-8 w-8 hover:cursor-pointer"
                         src="/images/haunt-tracker.png"
                         alt="Your Company"
                       />
@@ -80,21 +80,23 @@ const Header: FunctionComponent<HeaderProps> = () => {
                     </div>
                   </div>
                 </div>
-                <div className="w-2/3">
+                <div className="w-2/3 ml-4">
                   <HouseSearchBox />
                 </div>
 
                 <div className="hidden md:block">
                   <div className="ml-4 flex items-center md:ml-6">
-                    <button
-                      type="button"
-                      className="rounded-full bg-darkGray-300 p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                    >
-                      <span className="sr-only">View notifications</span>
-                      <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
                     {session ? (
-                      <ProfileDropdown userNavigation={userNavigation} />
+                      <>
+                        <button
+                          type="button"
+                          className="rounded-full bg-darkGray-300 p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        >
+                          <span className="sr-only">View notifications</span>
+                          <BellIcon className="h-6 w-6" aria-hidden="true" />
+                        </button>
+                        <ProfileDropdown userNavigation={userNavigation} />
+                      </>
                     ) : (
                       <>
                         <Link href={"/signin"}>
