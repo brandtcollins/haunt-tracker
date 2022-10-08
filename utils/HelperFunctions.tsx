@@ -136,9 +136,7 @@ export const getAllCheckins = async () => {
   try {
     let { data, error, status } = await supabase
       .from("check-ins")
-      .select(
-        "*, user: profiles(username, avatar_url), haunted_houses: haunted-houses(*)"
-      )
+      .select("*, user: profiles(*), haunted_houses: haunted-houses(*)")
       .order("created_at", { ascending: true });
 
     if (error && status !== 406) {

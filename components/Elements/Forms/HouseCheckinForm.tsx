@@ -124,6 +124,7 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
   const initialValues: iCheckIn = {
     haunted_house_id: "",
     rating: 2.5,
+    user: currentUser,
     user_id: currentUser,
     note: "",
     estimated_wait_time: undefined,
@@ -136,6 +137,7 @@ const HouseCheckinForm: FunctionComponent<HouseCheckinFormProps> = ({
       singleCheckInArray && singleCheckInArray[0].haunted_house_id,
     rating: singleCheckInArray && singleCheckInArray[0].rating,
     user_id: currentUser,
+    user: currentUser,
     note: singleCheckInArray && singleCheckInArray[0].note,
     estimated_wait_time:
       singleCheckInArray && singleCheckInArray[0].estimated_wait_time,
