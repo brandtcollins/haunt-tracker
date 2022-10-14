@@ -104,7 +104,7 @@ const HouseStats: FunctionComponent<HouseStatsProps> = ({ checkIns }) => {
       </div>
       <div className="text-white bg-darkGray-100 col-span-2 py-2 text-center items-center border-b-2 border-darkGray-300">
         <h3 className="text-3xl font-bold">{checkIns?.length}</h3>
-        <h3 className="text-sm">TOTAL RUNS</h3>
+        <h3 className="text-sm">TOTAL CHECKINS</h3>
       </div>
     </div>
   );
