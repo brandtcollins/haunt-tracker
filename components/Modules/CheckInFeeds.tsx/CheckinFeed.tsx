@@ -1,16 +1,10 @@
 //prettier-ignore
-import {Dispatch,FunctionComponent,SetStateAction,useEffect,useState,} from "react";
-import { User } from "@supabase/supabase-js";
-import { useQuery } from "@tanstack/react-query";
-import { useHauntedHouses } from "../ts/hooks/useHauntedHouses";
-import { iCheckIn, iHauntedHouse } from "../ts/Interfaces";
-import { supabase } from "../utils/supabaseClient";
-import { VscAdd } from "react-icons/vsc";
-import CheckInCard from "./Modules/CheckInCard";
-import Link from "next/link";
-import { useModalContext } from "../state/ModalContext";
-import LoadingCircle from "./Elements/LoadingCircle";
-import { useUserContext } from "../state/UserContext";
+import {FunctionComponent} from "react";
+import { iCheckIn } from "../../../ts/Interfaces";
+import CheckInCard from "./CheckInCard";
+import { useModalContext } from "../../../state/ModalContext";
+import LoadingCircle from "../../Elements/LoadingCircle";
+import { useUserContext } from "../../../state/UserContext";
 
 interface CheckinFeedProps {
   checkInFeedData?: iCheckIn[] | any[];

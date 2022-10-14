@@ -3,15 +3,13 @@ import { useRouter } from "next/router";
 import { FunctionComponent } from "react";
 import LoadingCircle from "../../../components/Elements/LoadingCircle";
 import Layout from "../../../components/Layout/Layout";
-import HauntCard from "../../../components/Modules/HauntCard";
 import {
   getCheckinsByHouse,
   getHauntedHouse,
-  getHaunts,
 } from "../../../utils/HelperFunctions";
 import Image from "next/image";
-import CheckinFeed from "../../../components/CheckinFeed";
-import HouseSearchBox from "../../../components/Modules/HouseSearchBox/HouseSearchBox";
+import CheckinFeed from "../../../components/Modules/CheckInFeeds.tsx/CheckinFeed";
+import TruncatedCheckinFeed from "../../../components/Modules/CheckInFeeds.tsx/TruncatedCheckinFeed";
 
 interface HauntsProps {}
 
@@ -58,7 +56,12 @@ const Haunts: FunctionComponent<HauntsProps> = () => {
           </div>
           <div className="md:flex">
             <div className="md:max-w-3xl md:w-4/5">
-              <CheckinFeed
+              {/* <CheckinFeed
+                houseCheckin
+                checkInFeedData={houseCheckInData}
+                dataLoading={houseCheckInDataIsLoading}
+              /> */}
+              <TruncatedCheckinFeed
                 houseCheckin
                 checkInFeedData={houseCheckInData}
                 dataLoading={houseCheckInDataIsLoading}

@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import CheckinFeed from "../components/CheckinFeed";
+import CheckinFeed from "../components/Modules/CheckInFeeds.tsx/CheckinFeed";
 import Layout from "../components/Layout/Layout";
 import ProfileStats from "../components/Elements/Profile/ProfileStats";
 import { useUserContext } from "../state/UserContext";

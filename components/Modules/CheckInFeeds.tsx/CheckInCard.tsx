@@ -1,14 +1,14 @@
 import { CgBolt } from "react-icons/cg";
 import Image from "next/image";
 import { FunctionComponent } from "react";
-import { iCheckIn } from "../../ts/Interfaces";
+import { iCheckIn } from "../../../ts/Interfaces";
 import Link from "next/link";
-import { useModalContext } from "../../state/ModalContext";
-import { DeleteCheckinModal } from "../Elements/Modal/ModalContent";
-import StarRating from "../Elements/StarRating";
-import { useUserContext } from "../../state/UserContext";
-import Avatar from "../Elements/Avatar";
-import { supabase } from "../../utils/supabaseClient";
+import { useModalContext } from "../../../state/ModalContext";
+import { DeleteCheckinModal } from "../../Elements/Modal/ModalContent";
+import StarRating from "../../Elements/StarRating";
+import { useUserContext } from "../../../state/UserContext";
+import Avatar from "../../Elements/Avatar";
+import { supabase } from "../../../utils/supabaseClient";
 import { useQuery } from "@tanstack/react-query";
 
 interface CheckInCardProps {

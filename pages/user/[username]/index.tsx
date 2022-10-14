@@ -1,5 +1,5 @@
 import { useEffect, FunctionComponent, useState } from "react";
-import CheckinFeed from "../../../components/CheckinFeed";
+import CheckinFeed from "../../../components/Modules/CheckInFeeds.tsx/CheckinFeed";
 import ProfileStats from "../../../components/Elements/Profile/ProfileStats";
 import Layout from "../../../components/Layout/Layout";
 import { useQuery } from "@tanstack/react-query";

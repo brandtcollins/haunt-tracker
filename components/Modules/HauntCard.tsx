@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
+import Link from "next/link";
 import { FunctionComponent } from "react";
 import { supabase } from "../../utils/supabaseClient";
 
@@ -45,7 +46,9 @@ const HauntCard: FunctionComponent<HauntCardProps> = ({ haunt }) => {
             objectFit="cover"
           />
         </div>
-        <h3 className="mt-6 font-medium text-xl">{haunt.haunt_name}</h3>
+        <Link href={`/haunts/${haunt.id}`}>
+          <h3 className="mt-6 font-medium text-xl">{haunt.haunt_name}</h3>
+        </Link>
         <dl className="mt-1 flex flex-grow flex-col justify-between">
           <dt className="sr-only">Title</dt>
           {haunt.themepark_location && (
