@@ -16,8 +16,7 @@ const TruncatedCheckinFeed: FunctionComponent<iTruncatedCheckinFeedProps> = ({
   const [checkinNumber, setCheckinNumber] = useState<number>(-2);
   const [disableViewMore, setDisableViewMore] = useState<boolean>(false);
 
-  const handleViewMore = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const handleViewMore = () => {
     if (checkInFeedData) {
       if (checkInFeedData.length > checkinNumber * -1) {
         setCheckinNumber(checkinNumber - 3);
@@ -28,7 +27,7 @@ const TruncatedCheckinFeed: FunctionComponent<iTruncatedCheckinFeedProps> = ({
   return (
     <div>
       <div className="mt-6 flow-root">
-        <ul role="list" className="-my-5 divide-y divide-gray-200">
+        <ul role="list" className="-my-5 divide-y divide-darkGray-100">
           {checkInFeedData
             ?.slice(checkinNumber)
             .reverse()
@@ -42,15 +41,14 @@ const TruncatedCheckinFeed: FunctionComponent<iTruncatedCheckinFeedProps> = ({
             })}
         </ul>
       </div>
-      <div className="mt-6">
+      <div className="mt-6 flex justify-center">
         {checkInFeedData?.length! > checkinNumber * -1 && (
-          <a
-            onClick={(e) => handleViewMore(e)}
-            href="#"
-            className="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+          <button
+            onClick={() => handleViewMore()}
+            className="inline-flex w-1/4 justify-center rounded-xl border border-transparent bg-emerald-500 p-2 font-medium text-white shadow-sm hover:bg-emerald-700"
           >
             View More
-          </a>
+          </button>
         )}
       </div>
     </div>
