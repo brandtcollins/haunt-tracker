@@ -1,3 +1,4 @@
+import { iCheckIn } from "../ts/Interfaces";
 import { supabase } from "./supabaseClient";
 
 export const getHauntedHouses = async () => {
@@ -80,7 +81,7 @@ export const getCheckinsByHouse = async (
     }
 
     if (data) {
-      return data;
+      return data as unknown as iCheckIn[];
     }
   } catch (error) {
     if (error instanceof Error) {

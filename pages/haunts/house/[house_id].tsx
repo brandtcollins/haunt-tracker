@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import LoadingCircle from "../../../components/Elements/LoadingCircle";
 import Layout from "../../../components/Layout/Layout";
 import {
@@ -10,6 +10,7 @@ import {
 import Image from "next/image";
 import CheckinFeed from "../../../components/Modules/CheckInFeeds.tsx/CheckinFeed";
 import TruncatedCheckinFeed from "../../../components/Modules/CheckInFeeds.tsx/TruncatedCheckinFeed";
+import { iCheckIn } from "../../../ts/Interfaces";
 
 interface HauntsProps {}
 
@@ -32,6 +33,31 @@ const Haunts: FunctionComponent<HauntsProps> = () => {
         enabled: !!house_id,
       }
     );
+
+  useEffect(() => {
+    const nightCount: string[] = [];
+    const hauntCount: string[] = [];
+    let tempRatingAvg = 0;
+    if (houseCheckInData) {
+      for (let index = 0; index < houseCheckInData.length; index++) {
+        const element = houseCheckInData[index];
+        console.log(element);
+        // const elementDate = new Date(element.created_at!).toLocaleDateString(
+        //   "en-US"
+        // );
+        // tempRatingAvg = tempRatingAvg + element.rating!;
+        // setRatingAvg(tempRatingAvg);
+        // if (!nightCount.find((str) => str === elementDate)) {
+        //   nightCount.push(elementDate);
+        //   setTotalNights(nightCount.length);
+        // }
+        // if (!hauntCount.find((str) => str === element.haunted_house_id)) {
+        //   hauntCount.push(element.haunted_house_id);
+        //   setTotalHaunts(hauntCount.length);
+        // }
+      }
+    }
+  }, [houseCheckInData]);
 
   return (
     <Layout title="Haunts">
@@ -56,11 +82,6 @@ const Haunts: FunctionComponent<HauntsProps> = () => {
           </div>
           <div className="md:flex">
             <div className="md:max-w-3xl md:w-4/5">
-              {/* <CheckinFeed
-                houseCheckin
-                checkInFeedData={houseCheckInData}
-                dataLoading={houseCheckInDataIsLoading}
-              /> */}
               <TruncatedCheckinFeed
                 houseCheckin
                 checkInFeedData={houseCheckInData}
@@ -68,12 +89,50 @@ const Haunts: FunctionComponent<HauntsProps> = () => {
               />
             </div>
             <div className="px-4 hidden md:block w-full max-w-md ">
-              {/* Add house stats card here */}
+              <HouseStats checkIns={houseCheckInData} />
             </div>
           </div>
         </>
       )}
     </Layout>
+  );
+};
+
+interface HouseStatsProps {
+  checkIns: iCheckIn[] | undefined;
+}
+
+const HouseStats: FunctionComponent<HouseStatsProps> = ({ checkIns }) => {
+  const [ratingAvg, setRatingAvg] = useState<number>(0);
+
+  useEffect(() => {
+    const nightCount: string[] = [];
+    const hauntCount: string[] = [];
+    let tempRatingAvg = 0;
+    if (checkIns) {
+      for (let index = 0; index < checkIns.length; index++) {
+        const element = checkIns[index];
+        const elementDate = new Date(element.created_at!).toLocaleDateString(
+          "en-US"
+        );
+        tempRatingAvg = tempRatingAvg + element.rating!;
+        setRatingAvg(tempRatingAvg);
+      }
+    }
+  }, [checkIns]);
+  return (
+    <div className="grid grid-cols-4">
+      <div className="text-white bg-darkGray-100 col-span-2 py-2 text-center items-center border-r-2 border-b-2 border-darkGray-300">
+        <h3 className="text-3xl font-bold">
+          {checkIns ? (ratingAvg / checkIns?.length).toFixed(2) : ""}
+        </h3>
+        <h3 className="text-sm">AVG RATING</h3>
+      </div>
+      <div className="text-white bg-darkGray-100 col-span-2 py-2 text-center items-center border-b-2 border-darkGray-300">
+        <h3 className="text-3xl font-bold">{checkIns?.length}</h3>
+        <h3 className="text-sm">TOTAL RUNS</h3>
+      </div>
+    </div>
   );
 };
 
