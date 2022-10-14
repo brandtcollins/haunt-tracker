@@ -25,11 +25,6 @@ const TruncatedCheckinFeed: FunctionComponent<iTruncatedCheckinFeedProps> = ({
     }
   };
 
-  useEffect(() => {
-    console.log(checkInFeedData?.length);
-    console.log(checkinNumber * -1);
-  }, [checkinNumber]);
-
   return (
     <div>
       <div className="mt-6 flow-root">
