@@ -13,7 +13,7 @@ const TruncatedCheckinFeed: FunctionComponent<iTruncatedCheckinFeedProps> = ({
   dataLoading,
   houseCheckin,
 }) => {
-  const [checkinNumber, setCheckinNumber] = useState<number>(-2);
+  const [checkinNumber, setCheckinNumber] = useState<number>(-3);
   const [disableViewMore, setDisableViewMore] = useState<boolean>(false);
 
   const handleViewMore = () => {

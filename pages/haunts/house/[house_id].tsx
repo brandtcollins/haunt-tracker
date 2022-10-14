@@ -8,7 +8,6 @@ import {
   getHauntedHouse,
 } from "../../../utils/HelperFunctions";
 import Image from "next/image";
-import CheckinFeed from "../../../components/Modules/CheckInFeeds.tsx/CheckinFeed";
 import TruncatedCheckinFeed from "../../../components/Modules/CheckInFeeds.tsx/TruncatedCheckinFeed";
 import { iCheckIn } from "../../../ts/Interfaces";
 
@@ -33,31 +32,6 @@ const Haunts: FunctionComponent<HauntsProps> = () => {
         enabled: !!house_id,
       }
     );
-
-  useEffect(() => {
-    const nightCount: string[] = [];
-    const hauntCount: string[] = [];
-    let tempRatingAvg = 0;
-    if (houseCheckInData) {
-      for (let index = 0; index < houseCheckInData.length; index++) {
-        const element = houseCheckInData[index];
-        console.log(element);
-        // const elementDate = new Date(element.created_at!).toLocaleDateString(
-        //   "en-US"
-        // );
-        // tempRatingAvg = tempRatingAvg + element.rating!;
-        // setRatingAvg(tempRatingAvg);
-        // if (!nightCount.find((str) => str === elementDate)) {
-        //   nightCount.push(elementDate);
-        //   setTotalNights(nightCount.length);
-        // }
-        // if (!hauntCount.find((str) => str === element.haunted_house_id)) {
-        //   hauntCount.push(element.haunted_house_id);
-        //   setTotalHaunts(hauntCount.length);
-        // }
-      }
-    }
-  }, [houseCheckInData]);
 
   return (
     <Layout title="Haunts">
