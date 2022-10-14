@@ -33,7 +33,12 @@ const TruncatedCheckinFeed: FunctionComponent<iTruncatedCheckinFeedProps> = ({
             ?.slice(checkinNumber)
             .reverse()
             .map((checkIn: iCheckIn) => {
-              return <TruncatedCheckinCard checkIn={checkIn} />;
+              return (
+                <TruncatedCheckinCard
+                  checkIn={checkIn}
+                  key={checkIn.checkin_id}
+                />
+              );
             })}
         </ul>
       </div>
