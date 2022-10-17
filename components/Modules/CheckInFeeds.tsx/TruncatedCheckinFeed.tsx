@@ -3,9 +3,9 @@ import { iCheckIn } from "../../../ts/Interfaces";
 import TruncatedCheckinCard from "./TruncatedCheckinCard";
 
 interface iTruncatedCheckinFeedProps {
-  checkInFeedData?: iCheckIn[] | any[];
-  dataLoading?: boolean;
-  houseCheckin?: boolean;
+  checkInFeedData: iCheckIn[] | any[];
+  dataLoading: boolean;
+  houseCheckin: boolean;
 }
 
 const TruncatedCheckinFeed: FunctionComponent<iTruncatedCheckinFeedProps> = ({

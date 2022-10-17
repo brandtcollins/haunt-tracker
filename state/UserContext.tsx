@@ -1,8 +1,10 @@
 import { AuthSession, Session, User } from "@supabase/supabase-js";
 import {
   createContext,
+  Dispatch,
   FunctionComponent,
   ReactNode,
+  SetStateAction,
   useContext,
   useEffect,
   useState,
@@ -15,10 +17,10 @@ interface UserContextProps {
   avatarUrl: string | null;
   userId: string | null;
   isLoading: boolean;
-  user?: User;
+  user: User | undefined;
   session: Session | null;
-  setRefreshSession?: any;
-  sessionLoaded?: boolean;
+  setRefreshSession: Dispatch<SetStateAction<boolean>>;
+  sessionLoaded: boolean;
 }
 
 interface UserProviderProps {
