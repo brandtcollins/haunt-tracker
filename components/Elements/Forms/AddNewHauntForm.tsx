@@ -18,13 +18,9 @@ import { useRouter } from "next/router";
 import { User } from "@supabase/supabase-js";
 import LoadingCircle from "../LoadingCircle";
 
-interface AddNewHauntFormProps {
-  setOpen: Dispatch<SetStateAction<boolean>>;
-}
+interface AddNewHauntFormProps {}
 
-const AddNewHauntForm: FunctionComponent<AddNewHauntFormProps> = ({
-  setOpen,
-}) => {
+const AddNewHauntForm: FunctionComponent<AddNewHauntFormProps> = () => {
   //prettier-ignore
   const { data: hauntedHouseList } = useQuery<iHauntedHouse[]>(["haunted-houses"],getHauntedHouses);
   //prettier-ignore
