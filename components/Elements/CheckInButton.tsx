@@ -5,7 +5,7 @@ import { useModalContext } from "../../state/ModalContext";
 import { useUserContext } from "../../state/UserContext";
 
 interface CheckInButtonProps {
-  mobileOnly: boolean;
+  mobileOnly?: boolean;
 }
 
 const CheckInButton: FunctionComponent<CheckInButtonProps> = ({

@@ -56,10 +56,12 @@ const MyActivity: FunctionComponent<MyActivityProps> = () => {
       <div className="md:flex">
         <div className="md:max-w-3xl md:w-4/5">
           <CheckInButton mobileOnly />
-          <CheckinFeed
-            checkInFeedData={userCheckinArray}
-            dataLoading={isLoading}
-          />
+          {userCheckinArray && (
+            <CheckinFeed
+              checkInFeedData={userCheckinArray}
+              dataLoading={isLoading}
+            />
+          )}
         </div>
         <div className="px-4 hidden md:block w-full max-w-md ">
           {loggedInUsername === username && <CheckInButton />}
