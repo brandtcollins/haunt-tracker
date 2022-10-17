@@ -9,7 +9,7 @@ import LoadingCircle from "../LoadingCircle";
 interface ProfileStatsProps {
   checkIns: iCheckIn[] | any;
   checkInsLoading: boolean;
-  userProfile?: iUserSettings | undefined;
+  userProfile: iUserSettings | undefined;
 }
 
 const ProfileStats: FunctionComponent<ProfileStatsProps> = ({
