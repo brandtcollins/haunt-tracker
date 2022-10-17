@@ -7,8 +7,8 @@ import LoadingCircle from "../../Elements/LoadingCircle";
 import { useUserContext } from "../../../state/UserContext";
 
 interface CheckinFeedProps {
-  checkInFeedData?: iCheckIn[] | any[];
-  dataLoading?: boolean;
+  checkInFeedData: iCheckIn[] | any[];
+  dataLoading: boolean;
   houseCheckin?: boolean;
 }
 

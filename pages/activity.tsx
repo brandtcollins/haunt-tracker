@@ -43,13 +43,14 @@ const Home: FunctionComponent<HomeProps> = ({ initialAllUserCheckins }) => {
         <div className="md:flex">
           <div className="md:max-w-3xl md:w-4/5">
             <CheckInButton mobileOnly />
-            <CheckinFeed
-              checkInFeedData={allCheckIns}
-              dataLoading={isLoading}
-            />
+            {allCheckIns && (
+              <CheckinFeed
+                checkInFeedData={allCheckIns}
+                dataLoading={isLoading}
+              />
+            )}
           </div>
           <div className="px-4 hidden md:flex w-full max-w-md flex-col gap-4">
-            {/* <HouseSearchBox /> */}
             <ProfileStats
               checkIns={userCheckIns}
               checkInsLoading={userCheckInsLoading}

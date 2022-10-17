@@ -19,7 +19,7 @@ import { User } from "@supabase/supabase-js";
 import LoadingCircle from "../LoadingCircle";
 
 interface AddNewHauntFormProps {
-  setOpen?: Dispatch<SetStateAction<boolean>>;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const AddNewHauntForm: FunctionComponent<AddNewHauntFormProps> = ({
